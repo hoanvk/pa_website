@@ -6,71 +6,57 @@
 <link rel="stylesheet" href="https://code.jquery.com/ui/1.12.1/themes/blitzer/jquery-ui.css">
 <link rel="stylesheet" href="https://ajax.googleapis.com/ajax/libs/jqueryui/1.12.1/themes/blitzer/jquery-ui.css">
 
-{{-- <link rel="stylesheet" href="/css/themes/smoothness/jquery-ui.theme.css"> --}}
 @endsection
+@section('left-menu')
+    @include('travel._help')
+@endsection
+
 @section('content')
-<div class="container" style="margin-top:60px">
-    
-    {{-- <div class="row">
-        <div class="col-sm-6 col-sm-offset-3">
-            <h2>Quotation</h2>
+<div class="row">
+        <div class="col-lg-12">
+            <div class="pull-left"><h2>Create</h2></div>
+        <div class="pull-right"><a href="{{ route('travel.index')}} " class="btn btn-link"><i class="fa fa-chevron-left"></i>
+            Back to Index</a></div>
         </div>
-    </div> --}}
-        <div class="row">
-            <div class="col-sm-3">
-                <h2>Product</h2>
-                <div class="col-sm-1-12">
-                        <div class="card">
-                                <div class="card-header">Header</div>
-                                <div class="card-body">Content</div> 
-                                <div class="card-footer">Footer</div>
-                                </div>
-                </div>
-                  
-            </div>
-            <div class="col-sm-6">
-                    <h2>Quotation</h2>
-                @if (session('status'))
-                    <div class="alert alert-info">{{session('status')}}</div>
-                @endif
-                @if ($errors->any())
-                    <div class="alert alert-danger">
-                        <ul>
-                            @foreach ($errors->all() as $error)
-                                <li>{{ $error }}</li>
-                            @endforeach
-                        </ul>
-                    </div>
-                @endif
-                {!! Form::open([
-                    'route' => ['pa.store'],
-                    'method' => 'POST'
+    </div>
 
-                ]) !!}
 
-                 
-                <!-- TODO: This is for server side, there is another version for browser defaults -->
-                {{-- <form action="{{ route('article.store') }}" method="POST">
-                        {{ csrf_field() }} --}}
-                    @include('pa._form',[ 'button_name' => 'Create'])
-                {{-- </form> --}}
-                {!! Form::close() !!}   
-            </div>
+{!! Form::open([
+'route' => ['travel.store'],
+'method' => 'POST'
 
-        </div>
+]) !!}
+
+
+@include('travel._form',[ 'button_name' => 'Create'])
+
+{!! Form::close() !!}   
+
 @endsection
 @section('js')
     <script src="/js/jquery-ui.js"></script>    
     <script>
-        $(".datepicker").datepicker({
+        $("#start_date").datepicker({
                 dateFormat: "dd/mm/yy",
                 firstDay: 1,
                 isRTL: false,
                 showMonthAfterYear: false,
                 yearSuffix: ""
             });
-            $('.picker').click(function(){
-            $('.datepicker').datepicker('show');
+            $('#start_picker').click(function(){
+            $('#start_date').datepicker('show');
+            });
+       
+
+        $("#end_date").datepicker({
+                dateFormat: "dd/mm/yy",
+                firstDay: 1,
+                isRTL: false,
+                showMonthAfterYear: false,
+                yearSuffix: ""
+            });
+            $('#end_picker').click(function(){
+            $('#end_date').datepicker('show');
             });
         jQuery.validator.methods["date"] = function (value, element) { return true; }
     </script>

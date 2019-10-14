@@ -22,16 +22,15 @@ Route::get('/', function () {
 //     'as'=>'pa.quotation',
 //     'uses'=>'PAController@quotation']
 //  );
-Route::group(['prefix' => 'agent','middleware' => 'auth'], function () {
-    //PA
+Route::group(['prefix' => 'pa'], function () {
     Route::get('pa/create',[
         'as'=>'pa.create',
         'uses'=>'PAController@create']
      );
     
-     Route::get('/pa/details', [
-        'as'=>'pa.details',
-        'uses'=>'PAController@Details'
+     Route::get('pa/show', [
+        'as'=>'pa.show',
+        'uses'=>'PAController@show'
     ]);
     
      Route::post('pa', [
@@ -39,15 +38,24 @@ Route::group(['prefix' => 'agent','middleware' => 'auth'], function () {
         'uses' => 'PAController@store'
     ]);
     
-    Route::get('/pa/edit', [
+    Route::put('pa/{id}', [
+        'as' => 'pa.update',
+        'uses' => 'PAController@update'
+    ]);
+
+    Route::get('pa/{id}edit', [
         'as'=>'pa.edit',
-        'uses'=>'PAController@Edit'
+        'uses'=>'PAController@edit'
     ]);
     
-    Route::get('/pa/confirm', [
+    Route::get('pa/confirm', [
         'as'=>'pa.confirm',
         'uses'=>'PAController@confirm'
     ]);
+});
+Route::group(['prefix' => 'agent','middleware' => 'auth'], function () {
+    //PA
+    
 
     //Travel online
     Route::get('travel', [
@@ -213,7 +221,7 @@ Route::group(['prefix' => 'admin','middleware' => 'auth'], function () {
     ]); 
     //Product
     Route::resource('products','ProductController');
-    
+    Route::resource('promotions','PromoController');
     Route::resource('destinations','DestinationController');
     Route::resource('dayranges','DayRangeController');
     Route::resource('prices','PriceController');
@@ -252,4 +260,9 @@ Route::get('/home', function ()
 {
     # code...
     return redirect()->route('travel.create');
+});
+Route::get('/admin', function ()
+{
+    # code...
+    return redirect()->route('cashes.index');
 });
