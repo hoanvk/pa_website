@@ -10,45 +10,46 @@ use App\Http\Requests\RoleFormRequest;
 class RoleController extends Controller
 {
     //
-    public function Index()
+    public function index()
     {
         //$this->authorize('view-role');
         # code...
         $model = Role::all();
         return view('roles.index')->with(['model'=>$model]);
     }
-    public function Create()
+    public function create()
     {
         # code...
         return view('roles.create');
     }
-    public function Store(RoleFormRequest $request)
+    public function store(RoleFormRequest $request)
     {
         # code...
         // dd(Input::get('content'));
         $title = Input::get('title');        
-        Role::create([
+        $role = Role::create([
             'title'=> $title
         ]);
-        $request->session()->flash('status', 'Create '.$title.' successful!');
-        return redirect(route('roles.index'));
+        
+        return redirect(route('roles.show', $role->id))
+        ->with('success','Created '.$title.' successful!');
     }
     
-    public function Details($id)
+    public function show($id)
     {
-        $this->authorize('view-role');
+        
         # code...
         $model = Role::find($id);
-        return view('roles.details')->with('model',$model);
+        return view('roles.show')->with('model',$model);
     }
-    public function Edit($id)
+    public function edit($id)
     {
         //$this->authorize('edit-role');
         # code...
         $model = Role::find($id);
         return view('roles.edit')->with('model',$model);
     }
-    public function Update($id, RoleFormRequest $request)
+    public function update($id, RoleFormRequest $request)
     {
         # code...
         $model = Role::find($id);
@@ -58,7 +59,17 @@ class RoleController extends Controller
             'title'=> $title
             
         ]);
-        $request->session()->flash('status', 'Update '.$title.' successful!');
-        return redirect(route('roles.index'));
+       
+        return redirect(route('roles.show', $id))
+            ->with('success','Updated '.$title.' successful!');
+    }
+    public function destroy($id)
+    {
+        //
+        $role = Role::find($id);
+        $role->delete();
+  
+        return redirect()->route('roles.index')
+                        ->with('success','Role deleted successfully');
     }
 }

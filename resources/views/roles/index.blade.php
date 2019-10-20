@@ -4,10 +4,12 @@
 @endsection
 @section('content')
 <div class="container">
-    
-    @if (session('status'))
-        <div class="alert alert-info">{{session('status')}}</div>
+    @if ($message = Session::get('success'))
+        <div class="alert alert-success">
+            <p>{{ $message }}</p>
+        </div>
     @endif
+    
     <div class="pull-left"><h2>Index</h2></div>
     <div class="pull-right"><a class="btn btn-primary" href="{{route('roles.create')}} ">Create New</a></div>
     
@@ -16,13 +18,15 @@
             <tr>
                 <th>Title</th>
                 <th>Id</th>
+                <th></th>
             </tr>
         </thead>
         <tbody>
             @foreach($model as $item)
             <tr>
-                <td scope="row"><a href="{{  route('roles.details', $item->id) }} ">{{ $item->title }}</a></td>
+                <td scope="row">{{ $item->title }}</td>
                 <td>{{ $item->id}} </td>
+                <td><a href="{{  route('roles.show', $item->id) }} "><i class="fa fa-pencil-square-o" aria-hidden="true"></i></a></td>
             </tr>
             @endforeach
         </tbody>

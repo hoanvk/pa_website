@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Product;
+use App\SelectList;
 use Illuminate\Http\Request;
 
 class ProductController extends Controller
@@ -15,8 +16,8 @@ class ProductController extends Controller
     public function index()
     {
         //
-        $products = Product::latest()->paginate(5);
-        return view('products.index', compact('products'))->with('i', (request()->input('page', 1) - 1) * 5);
+        $products = Product::latest()->paginate(10);
+        return view('products.index', compact('products'))->with('i', (request()->input('page', 1) - 1) * 10);
     }
 
     /**
@@ -27,7 +28,8 @@ class ProductController extends Controller
     public function create()
     {
         //
-        return view('products.create');
+        $product_type = SelectList::productType()->pluck('long_desc','item_item');
+        return view('products.create')->with(['product_type'=>$product_type]);
     }
 
     /**
@@ -43,7 +45,7 @@ class ProductController extends Controller
             'name' => 'required',
             'title' => 'required',
         ]);
-  
+            
         Product::create($request->all());
    
         return redirect()->route('products.index')
@@ -71,7 +73,8 @@ class ProductController extends Controller
     public function edit(Product $product)
     {
         //
-        return view('products.edit',compact('product'));
+        $product_type = SelectList::productType()->pluck('long_desc','item_item');
+        return view('products.edit')->with(['product'=>$product, 'product_type'=>$product_type]);
     }
 
     /**

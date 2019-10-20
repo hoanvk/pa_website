@@ -8,7 +8,7 @@
 
 @endsection
 @section('left-menu')
-    @include('travel._help')
+    @include('pa._help')
 @endsection
 
 @section('content')
@@ -22,13 +22,13 @@
 
 
 {!! Form::open([
-'route' => ['travel.store'],
+'route' => ['pa.store'],
 'method' => 'POST'
 
 ]) !!}
 
 
-@include('travel._form',[ 'button_name' => 'Create'])
+@include('pa._form',[ 'button_name' => 'Create'])
 
 {!! Form::close() !!}   
 

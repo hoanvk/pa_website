@@ -17,8 +17,8 @@
 <body>
     <div class="page">
             @include('shared._header')
-            @include('shared._banner')
-            
+            {{-- @include('shared._banner') --}}
+            @include('shared._jumbotron')
     
                   {{-- @include('shared.navbar') --}}
     
@@ -39,13 +39,8 @@
                 @hasSection ('content-fluid')
                 <div class="row">
                     <div class="col-lg-12">
-                            <div class="card">
-                                    <div class="card-header bg-primary header-title">@yield('title') </div>
-                                    <div class="card-body">
-                                        @section('content-fluid')
-                                        @show
-                                    </div>
-                                </div>  
+                            @section('content-fluid')
+                                        @show 
                             
                     </div>
                     

@@ -4,12 +4,15 @@
 @endsection
 @section('content')
 <div class="container">
-    <a href="{{ route('permissions.index')}} " class="btn btn-link"><i class="fa fa-chevron-left"></i>
-        Back to Index</a>
-    <h2>Details</h2>
+    @include('dashboard._breadcrumb',['nodes' =>[['action'=>'permissions.index', 'title'=>'Index'], 
     
+        ['title'=>'Details']]])
     
-    
+    @if ($message = Session::get('success'))
+        <div class="alert alert-success">
+            <p>{{ $message }}</p>
+        </div>
+    @endif
     <table class="table">
         <tbody>
         
@@ -31,6 +34,11 @@
         </tbody>
     </table>   
     <p>
-        <a class="btn btn-primary" href="{{route('permissions.edit',['id'=>$model->id])}} ">Edit Role</a>
+        
+        {!! Form::model($model, array('route' => array('permissions.destroy', $model->id), 'method'=>'DELETE')) !!}
+        
+        <a class="btn btn-outline-primary" href="{{route('permissions.edit',['id'=>$model->id])}} ">Edit Permission</a>
+        <button type="submit" class="btn btn-danger">Delete</button>
+        {!! Form::close() !!} 
     </p>
 @endsection

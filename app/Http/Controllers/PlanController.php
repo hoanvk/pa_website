@@ -5,7 +5,8 @@ namespace App\Http\Controllers;
 use App\Plan;
 use App\Product;
 use Illuminate\Http\Request;
-
+use Illuminate\Support\Facades\Input;
+use App\Http\Requests\PlanRequest;
 class PlanController extends Controller
 {
     /**
@@ -16,8 +17,8 @@ class PlanController extends Controller
     public function index()
     {
         //
-        $model = Plan::latest()->paginate(5);
-        return view('plans.index')->with(['i'=> (request()->input('page', 1) - 1) * 5,
+        $model = Plan::orderBy('product_id')->paginate(15);
+        return view('plans.index')->with(['i'=> (request()->input('page', 1) - 1) * 15,
             'model'=>$model]);
     }
 
@@ -39,10 +40,15 @@ class PlanController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(Request $request)
+    public function store(PlanRequest $request)
     {
         //
-        Plan::create($request->all());
+        $name = Input::get('name');
+        $title = Input::get('title');
+        $product_id = Input::get('product_id');
+        Plan::create(['name'=>$name,
+        'title'=>$title,
+        'product_id'=>$product_id]);
    
         return redirect()->route('plans.index')
                         ->with('success','Plan created successfully.');
@@ -82,11 +88,16 @@ class PlanController extends Controller
      * @param  \App\Plan  $plan
      * @return \Illuminate\Http\Response
      */
-    public function update(PlanRequest $request, $id)
+    public function update($id, PlanRequest $request)
     {
         //
         $model =Plan::find($id);
-        $model->update($request->all());
+        $name = Input::get('name');
+        $title = Input::get('title');
+        $product_id = Input::get('product_id');
+        $model->update(['name'=>$name,
+            'title'=>$title,
+            'product_id'=>$product_id]);
   
         return redirect()->route('plans.index')
                         ->with('success','Plan updated successfully');

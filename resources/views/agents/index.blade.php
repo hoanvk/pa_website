@@ -1,15 +1,16 @@
 @extends('dashboard.master')
 @section('title')
-    Table Setup
+    Agent
 @endsection
 @section('content')
-<div class="container">
-    
-    @if (session('status'))
-        <div class="alert alert-info">{{session('status')}}</div>
+
+        @include('dashboard._formheader',['title'=>'Index','action'=>'agents.create', 'button'=>'Create New'])
+        @if ($message = Session::get('success'))
+        <div class="alert alert-success">
+            <strong>Success!</strong>
+            <p>{{ $message }}</p>
+        </div>
     @endif
-    <div class="pull-left"><h2>Index</h2></div>
-    <div class="pull-right"><a class="btn btn-primary" href="{{route('agents.create')}} ">Create New</a></div>
     
     <table class="table">
         <thead>
@@ -32,7 +33,7 @@
                 <td>{{ $item->taxnum}} </td>
                 <td>{{ $item->email}} </td>
                 <td>{{ $item->id}} </td>
-                <td><a href="{{  route('agents.details', $item->id) }} "><i class="fa fa-pencil-square-o" aria-hidden="true"></i></a></td>
+                <td><a href="{{  route('agents.show', $item->id) }} "><i class="fa fa-pencil-square-o" aria-hidden="true"></i></a></td>
             </tr>
             @endforeach
         </tbody>

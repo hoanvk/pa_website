@@ -1,7 +1,7 @@
 body {
     /* padding-top: 80px; */
     padding-bottom: 20px;
-    background-color: #f7f6f3;
+    /* background-color: #f7f6f3; */
     
 }
 
@@ -93,3 +93,14 @@ a.btn-msig-blue:hover{
 /*
 
 */
+.text-danger
+{
+    color: #dd252f!important;
+    font-family: "Trebuchet MS",Helvetica,sans-serif;
+}
+.text-primary
+{
+color: #26245f!important;
+line-height: 24px;
+    font-family: "Trebuchet MS",Helvetica,sans-serif;
+}

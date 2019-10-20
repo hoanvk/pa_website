@@ -22,13 +22,13 @@
                 
             </tr>
             <tr>
-                <td scope="row">Name</td>
+                <td>Name</td>
                 <td>{{ $product->name }}</td>
                 
             </tr>
             <tr>
-                <td scope="row">Id</td>
-                <td>{{ $product->id }}</td>
+                <td>Product Type</td>
+                <td>{{ $product->product_type }}</td>
                 
             </tr>
         </tbody>

@@ -3,13 +3,14 @@
     Table Setup
 @endsection
 @section('content')
-<div class="container">
-    
-    
-    <div class="pull-left"><h2>Details</h2></div>
-    
-    <div class="pull-right"><a href="{{ route('agents.index')}} " class="btn btn-link"><i class="fa fa-chevron-left"></i>
-        Back to Index</a></div>
+@include('dashboard._breadcrumb',['nodes' =>[['action'=>'agents.index', 'title'=>'Index'], 
+        ['title'=>'Details']]])
+    @if ($message = Session::get('success'))
+    <div class="alert alert-success">
+        <strong>Success!</strong>
+        <p>{{ $message }}</p>
+    </div>
+@endif
     <table class="table">
         <tbody>
                 <tr>
@@ -50,6 +51,13 @@
         </tbody>
     </table>   
     <p>
-        <a class="btn btn-primary" href="{{route('agents.edit',['id'=>$model->id])}} ">Edit</a>
+        
+        {!! Form::model($model, array('route' => array('agents.destroy', $model->id), 'method'=>'DELETE')) !!}
+        
+        <a class="btn btn-outline-primary" href="{{route('agents.edit',['id'=>$model->id])}} ">Edit Agent</a>
+        <button type="submit" class="btn btn-danger">Delete</button>
+        {!! Form::close() !!} 
     </p>
+    
+    
 @endsection

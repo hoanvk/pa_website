@@ -25,6 +25,8 @@ class PlanRequest extends FormRequest
     {
         return [
             //
+            'title'=>'required',
+            'name'=>'required'
         ];
     }
 }

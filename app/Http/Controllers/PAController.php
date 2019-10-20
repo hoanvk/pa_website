@@ -5,28 +5,31 @@ use Illuminate\Support\ServiceProvider;
 use Illuminate\Http\Request;
 use App\Services\MicrositeSelector;
 use App\Policy;
+use App\PASeqNo;
 use Illuminate\Support\Facades\Input;
 use DateTime;
 use App\Http\Requests\PolicyFormRequest;
 use Carbon\Carbon;
-class PAController extends Controller
+use App\Destination;
+use App\Plan;
+use App\Product;
+class PAController extends B2CPageController
 {
-    //
-    // public function quotation($id, MicrositeSelector $selector)
-    // {
-    //     # code...
-    //     // return 'It is quotation '.$id;   
-        
-    //     return view($selector->ViewName(),['id'=>$id]); 
-        
-    // }
+    public function index()
+    {
+        # code...
+        $model = Product::where('product_type','=','PA')->orderBy('name')->get();
+        return view('pa.index')->with(['model'=>$model]);
+    }
     
     public function create()
     {
         # code...
-        
-        $quotation_no =Policy::quotation();
-        return view('pa.create',['quotation_no'=>$quotation_no]);
+        $plans = Plan::pluck('title', 'id');
+        $destinations = Destination::pluck('title', 'id');
+        $quotation_no =PASeqNo::quotation_no();
+        return view('pa.create',['quotation_no'=>$quotation_no,'plans'=>$plans,
+        'destinations'=>$destinations]);
     }
     public function Store(PolicyFormRequest $request)
     {

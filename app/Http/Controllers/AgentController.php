@@ -31,7 +31,7 @@ class AgentController extends Controller
         $email = Input::get('email'); 
         $address = Input::get('address'); 
         $client_no = Input::get('client_no');
-        Agent::create([
+        $agent=Agent::create([
             'title'=> $title,
             'name'=> $name,
             'taxnum'=> $taxnum,
@@ -39,15 +39,16 @@ class AgentController extends Controller
             'address'=> $address,
             'client_no'=>$client_no
         ]);
-        $request->session()->flash('status', 'Create '.$title.' successful!');
-        return redirect(route('agents.index'));
+        
+        return redirect(route('agents.show',$agent->id))
+            ->with('success','Created agent '.$title.' successful!');
     }
     
-    public function Details($id)
+    public function show($id)
     {
         # code...
         $model = Agent::find($id);
-        return view('agents.details')->with('model',$model);
+        return view('agents.show')->with('model',$model);
     }
     public function Edit($id)
     {
@@ -73,7 +74,18 @@ class AgentController extends Controller
             'address'=> $address,
             'client_no'=>$client_no
         ]);
-        $request->session()->flash('status', 'Update '.$title.' successful!');
-        return redirect(route('agents.index'));
+        
+        return redirect(route('agents.show',$id))
+            ->with('success','Updated agent '.$title.' successful!');
+        
+    }
+    public function destroy($id)
+    {
+        //
+        $product = Agent::find($id); 
+        $product->delete();
+  
+        return redirect()->route('agents.index')
+                        ->with('success','Agent deleted successfully');
     }
 }

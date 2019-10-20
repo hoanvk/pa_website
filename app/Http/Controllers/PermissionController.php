@@ -27,19 +27,20 @@ class PermissionController extends Controller
         // dd(Input::get('content'));
         $title = Input::get('title');        
         $name = Input::get('name');  
-        Permission::create([
+        $permission = Permission::create([
             'title'=> $title,
             'name'=> $name
         ]);
-        $request->session()->flash('status', 'Create '.$title.' successful!');
-        return redirect(route('permissions.index'));
+        
+        return redirect(route('permissions.show', $permission->id))
+        ->with('success','Created '.$title.' successful!');
     }
     
-    public function Details($id)
+    public function show($id)
     {
         # code...
         $model = Permission::find($id);
-        return view('permissions.details')->with('model',$model);
+        return view('permissions.show')->with('model',$model);
     }
     public function Edit($id)
     {
@@ -47,7 +48,7 @@ class PermissionController extends Controller
         $model = Permission::find($id);
         return view('permissions.edit')->with('model',$model);
     }
-    public function Update($id, RoleFormRequest $request)
+    public function Update($id, PermissionFormRequest $request)
     {
         # code...
         $model = Permission::find($id);
@@ -57,7 +58,17 @@ class PermissionController extends Controller
             'title'=> $title,
             'name'=> $name
         ]);
-        $request->session()->flash('status', 'Update '.$title.' successful!');
-        return redirect(route('permissions.index'));
+        
+        return redirect(route('permissions.show', $id))
+        ->with('success','Updated '.$title.' successful!');
+    }
+    public function destroy($id)
+    {
+        //
+        $product = Permission::find($id); 
+        $product->delete();
+  
+        return redirect()->route('permissions.index')
+                        ->with('success','Product deleted successfully');
     }
 }

@@ -1,3 +1,15 @@
+@include('dashboard._breadcrumb',['nodes' =>[['action'=>'agents.index', 'title'=>'Index'], 
+        ['title'=>'Details']]])
+
+@if ($errors->any())
+    <div class="alert alert-danger">
+        <ul>
+            @foreach ($errors->all() as $error)
+                <li>{{ $error }}</li>
+            @endforeach
+        </ul>
+    </div>
+@endif
 <div class="form-group row">
                 <div class="col-sm-6">
                         <label for="name">Agent Number</label>    

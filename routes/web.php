@@ -12,17 +12,15 @@
 */
 
 Route::get('/', function () {
-    return redirect()->route('travel.create');
+    return redirect()->route('pa.index');
 });
-// Route::get('home', [
-//     'as'=>'home.index',
-//     'uses'=>'HomeController@index']);
-    
-// Route::get('pa/{id}/quotation',[
-//     'as'=>'pa.quotation',
-//     'uses'=>'PAController@quotation']
-//  );
-Route::group(['prefix' => 'pa'], function () {
+
+Route::group(['prefix' => 'online','middleware' => 'web'], function () {
+    Route::get('pa', [
+        'as'=>'pa.index',
+        'uses'=>'PAController@index'
+        ]);
+
     Route::get('pa/create',[
         'as'=>'pa.create',
         'uses'=>'PAController@create']
@@ -140,85 +138,14 @@ Route::group(['prefix' => 'admin','middleware' => 'auth'], function () {
     Route::resource('items','ItemController');
 
     //Roles
-    Route::get('roles',[
-        'as'=>'roles.index',
-        'uses'=>'RoleController@index']
-    ); 
-
-    Route::get('/roles/create', [
-        'as'=>'roles.create',
-        'uses'=>'RoleController@Create'
-    ]);
-    Route::get('/roles/{id}', [
-        'as'=>'roles.details',
-        'uses'=>'RoleController@Details'
-    ]);
-    Route::post('/roles', [
-        'as' => 'roles.store',
-        'uses' => 'RoleController@Store'
-    ]);
-    Route::put('/roles/{id}', [
-        'as' => 'roles.update',
-        'uses' => 'RoleController@Update'
-    ]);
-    Route::get('/roles/{id}/edit', [
-        'as'=>'roles.edit',
-        'uses'=>'RoleController@Edit'
-    ]); 
-
+    
+    Route::resource('roles','RoleController');
     //Permission
-    Route::get('permissions',[
-        'as'=>'permissions.index',
-        'uses'=>'PermissionController@index']
-    ); 
-
-    Route::get('/permissions/create', [
-        'as'=>'permissions.create',
-        'uses'=>'PermissionController@Create'
-    ]);
-    Route::get('/permissions/{id}', [
-        'as'=>'permissions.details',
-        'uses'=>'PermissionController@Details'
-    ]);
-    Route::post('/permissions', [
-        'as' => 'permissions.store',
-        'uses' => 'PermissionController@Store'
-    ]);
-    Route::put('/permissions/{id}', [
-        'as' => 'permissions.update',
-        'uses' => 'PermissionController@Update'
-    ]);
-    Route::get('/permissions/{id}/edit', [
-        'as'=>'permissions.edit',
-        'uses'=>'PermissionController@Edit'
-    ]); 
-
+     
+    Route::resource('permissions','PermissionController');
     //Agent
-    Route::get('agents',[
-        'as'=>'agents.index',
-        'uses'=>'AgentController@index']
-    ); 
-
-    Route::get('/agents/create', [
-        'as'=>'agents.create',
-        'uses'=>'AgentController@Create'
-    ]);
-    Route::get('/agents/{id}', [
-        'as'=>'agents.details',
-        'uses'=>'AgentController@Details'
-    ]);
-    Route::post('/agents', [
-        'as' => 'agents.store',
-        'uses' => 'AgentController@Store'
-    ]);
-    Route::put('/agents/{id}', [
-        'as' => 'agents.update',
-        'uses' => 'AgentController@Update'
-    ]);
-    Route::get('/agents/{id}/edit', [
-        'as'=>'agents.edit',
-        'uses'=>'AgentController@Edit'
-    ]); 
+    
+    Route::resource('agents','AgentController');
     //Product
     Route::resource('products','ProductController');
     Route::resource('promotions','PromoController');
@@ -232,7 +159,8 @@ Route::group(['prefix' => 'admin','middleware' => 'auth'], function () {
     Route::resource('autonumbers','AutoNumberController');
     Route::resource('plans','PlanController');
     Route::resource('agentplans','AgentPlanController');
-    
+    Route::resource('benefits','BenefitController');
+    Route::resource('periods','PeriodController');
 });
 Route::group(['prefix' => 'export','middleware' => ['auth']], function () {
     Route::get('prices', [

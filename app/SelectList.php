@@ -41,4 +41,15 @@ class SelectList{
     {
         return Item::where('item_tabl','=','TV406')->get();
     }
+
+    //Product Type
+    public static function productType()
+    {
+        return Item::where('item_tabl','=','TV407')->get();
+    }
+    //Period unit
+    public static function periodUnit()
+    {
+        return Item::where('item_tabl','=','TV408')->get();
+    }
 }
