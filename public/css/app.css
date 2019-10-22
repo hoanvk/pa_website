@@ -1,7 +1,7 @@
 body {
     /* padding-top: 80px; */
     padding-bottom: 20px;
-    /* background-color: #f7f6f3; */
+    background-color: #f7f7f7;
     
 }
 
@@ -15,9 +15,10 @@ body {
 .headerMSIG {
     width: 100%;
     background: #fff;
-    border-bottom: 6px solid #26245f;
+    border-bottom: 5px solid #26245f;
     
     z-index: 9;
+    
 }
 .mw-75 {
     max-width: 75%!important;
@@ -33,7 +34,7 @@ body {
     
 }
 .header-logo {
-    max-height: 50px;
+    max-height: 60px;
 }
 .btn-outline-msig-white {
     background-color: transparent;
@@ -103,4 +104,18 @@ a.btn-msig-blue:hover{
 color: #26245f!important;
 line-height: 24px;
     font-family: "Trebuchet MS",Helvetica,sans-serif;
+}
+
+.navbar-light .navbar-nav .nav-link {
+    color: #26245f!important;
+    line-height: 24px;
+    font-family: "Trebuchet MS",Helvetica,sans-serif;
+    
+}
+.navbar
+{
+    padding: 0 15px 0 15px !important;
+}
+.navbar-nav .nav-link.active{
+    text-decoration-line: underline;
 }

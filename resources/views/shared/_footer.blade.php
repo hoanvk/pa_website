@@ -1,5 +1,6 @@
  
 <div class="footer">
+                <img src="{{ asset('images/banner/footer_bg.png') }}" alt="MSIG Vietnam" class="img-fluid">
         <div class="clearfix">
                 <span class="float-left"><div class="l-footer">
                         <h2 class="title">Cần sự trợ giúp?</h2>

@@ -1,33 +1,36 @@
 
-
-<nav class="navbar navbar-expand-lg headerMSIG ">
-        <a class="navbar-brand mw-75" href="{{route('travel.create')}}">
+<nav class="navbar navbar-expand-md navbar-light headerMSIG ">
+        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target=".dual-nav">
+                <span class="navbar-toggler-icon"></span>
+              </button>
             
-            <img src="{{ asset('images/banner/logo-horizontal-with-tagline.png') }}" alt="MSIG Vietnam" class="header-logo img-fluid">
-        </a>
-        <div class="collapse navbar-collapse" id="navb">
-                <ul class="navbar-nav mr-auto">
+              <div class="navbar-collapse collapse dual-nav order-1 order-md-0">
+                <ul class="navbar-nav">
+                  <li class="nav-item">
+                    <a class="nav-link" href="{{ route('travel.create') }}">Travel Easy</a>
+                  </li>
+                  <li class="nav-item">
+                    <a class="nav-link active" href="{{ route('pa.create') }}">Personal Accident</a>
+                  </li>
                 </ul>
-        
-                <div class="btn-group px-1 mr-1 mt-lg-0 mt-2">
-                        <a href="https://www.facebook.com/msigvietnam/" target="_blank" class="btn btn-msig-blue pill">
-                            <i class="fa fa-facebook mr-1"></i>
-                            Theo dõi trang Facebook</a>
-                        
-                </div>
-                <form id="logout-form" action="{{ route('logout') }}" method="POST" style="display: none;">
-                        @csrf
-                    </form>
-                <div class="btn-group px-1 mt-lg-0 mt-2 mb-lg-0 mb-2">
-                        <div class="btn-group">
-                            <a href="#" class="btn pill btn-outline-msig-white">EN</a>
-                            <a href="#" class="btn pill btn-msig-red">VN</a>
-                                
-                                </div>
-                        </div>
-                                    
-            </div>
+              </div>
             
-</nav>
+              <a href="{{route('travel.create')}}" class="navbar-brand mx-auto order-0 order-md-2 p-2">
+                    <img src="{{ asset('images/banner/msig_logo.png') }}" alt="MSIG Vietnam" class="header-logo img-fluid">
+                </a>
+            
+              <div class="navbar-collapse collapse dual-nav order-4 order-md-4 justify-content-end">
+                <ul class="navbar-nav">
+                  <li class="nav-item">
+                    <a class="nav-link" href="#">Contact Us</a>
+                  </li>
+                  <li class="nav-item">
+                    <a class="nav-link active" href="#">Vietnamese</a>
+                  </li>
+                </ul>
+              </div>
+        
+      </nav>
+
 
           

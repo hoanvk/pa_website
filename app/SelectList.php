@@ -52,4 +52,8 @@ class SelectList{
     {
         return Item::where('item_tabl','=','TV408')->get();
     }
+    public static function jumbotron($item_item)
+    {
+        return Item::where([['item_tabl','=','TV409'],['item_item','=',$item_item]])->first();
+    }
 }

@@ -5,10 +5,13 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use Session;
 use App\Customer;
+use App\SelectList;
+use Illuminate\Support\Facades\Route;
 use Illuminate\Support\Facades\View;
 class B2CPageController extends Controller
 {
     public $customer;
+    public $jumbotron;
     //
     public function __construct(Request $request)
     {
@@ -20,7 +23,16 @@ class B2CPageController extends Controller
             $this->customer = Customer::create(['status'=>'P']);
             Session::put('customer', $this->customer);
           }
-          View::share('customer', $this->customer);
+          $action = 'TVL';
+          if ($request->is('online/pa*') || $request->is('agent/pa*')) {
+            //
+            $action ='PA';
+          }
+          
+          $this->jumbotron = SelectList::jumbotron($action);
+          
+         
+          View::share(['customer'=> $this->customer,'jumbotron'=>$this->jumbotron]);
           
     }
 }
