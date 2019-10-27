@@ -12,6 +12,8 @@ class B2CPageController extends Controller
 {
     public $customer;
     public $jumbotron;
+    public $links;
+    public $languages;
     //
     public function __construct(Request $request)
     {
@@ -31,8 +33,10 @@ class B2CPageController extends Controller
           
           $this->jumbotron = SelectList::jumbotron($action);
           
-         
-          View::share(['customer'=> $this->customer,'jumbotron'=>$this->jumbotron]);
+          $this->languages = SelectList::languages();
+          
+          View::share(['customer'=> $this->customer,'jumbotron'=>$this->jumbotron,
+            'languages'=> $this->languages]);
           
     }
 }

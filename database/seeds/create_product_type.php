@@ -15,14 +15,20 @@ class create_product_type extends Seeder
         DB::table('tb_item')->insert([
             'item_item' => 'PA',
             'item_tabl' => 'TV407',
-            'short_desc' => 'PA',
-            'long_desc'=>'Personal Accident'
+            'short_desc' => 'Personal Accident Insurance',
+            'long_desc'=>'Personal Accident Insurance'
         ]);
         DB::table('tb_item')->insert([
-            'item_item' => '2',
+            'item_item' => 'MTT',
             'item_tabl' => 'TV407',
-            'short_desc' => 'TVL',
-            'long_desc'=>'Travel'
+            'short_desc' => 'Motor Insurance',
+            'long_desc'=>'Motor Insurance'
+        ]);
+        DB::table('tb_item')->insert([
+            'item_item' => 'TVL',
+            'item_tabl' => 'TV407',
+            'short_desc' => 'Travel Insurance',
+            'long_desc'=>'Travel Insurance'
         ]);
     }
 }

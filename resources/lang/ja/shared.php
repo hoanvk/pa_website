@@ -12,8 +12,8 @@ return [
     'payment'=>'Payment',
 
     'tb_items' =>'Table and Codes',
-    'users' => 'Users',
+    'users' => 'ユーザー',
 
-    'products'=>'Products',
-    'agents'=>'Agents',
+    'products'=>'製品',
+    'agents'=>'エージェント',
 ];

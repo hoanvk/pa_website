@@ -4,7 +4,8 @@ namespace App\Http\Controllers;
 use App\Benefit;
 use App\Product;
 use Illuminate\Http\Request;
-
+use Illuminate\Support\Facades\Input;
+use App;
 class BenefitController extends Controller
 {
     /**
@@ -41,8 +42,13 @@ class BenefitController extends Controller
     public function store(Request $request)
     {
         //
-        Benefit::create($request->all());
-   
+        $model = Benefit::create($request->all());
+        $title = Input::get('title');
+        $locale = App::getLocale();
+        $model
+            ->setTranslation('title', $locale, $title)
+            
+            ->save();
         return redirect()->route('benefits.index')
                         ->with('success','Benefit created successfully.');
     }
@@ -85,8 +91,15 @@ class BenefitController extends Controller
     {
         //
         $model =Benefit::find($id);
-        $model->update($request->all());
-  
+        $description = Input::get('description');
+        $title = Input::get('title');
+        $name = Input::get('name');
+        $model->update(['name'=>$name]);
+        
+        $locale = App::getLocale();
+        $model->setTranslation('title', $locale, $title)
+            ->setTranslation('description', $locale, $description)
+            ->save();
         return redirect()->route('benefits.index')
                         ->with('success','Benefit updated successfully');
     }

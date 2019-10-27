@@ -14,7 +14,11 @@
 Route::get('/', function () {
     return redirect()->route('pa.index');
 });
-
+Route::get('locale/{locale}', function ($locale) {
+    session::put('locale',$locale);
+    return redirect()->back();
+    
+});
 Route::group(['prefix' => 'online','middleware' => 'web'], function () {
     Route::get('pa', [
         'as'=>'pa.index',

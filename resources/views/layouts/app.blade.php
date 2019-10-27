@@ -67,6 +67,14 @@
                                 </div>
                             </li>
                         @endguest
+                        @if (isset($languages))
+                        @foreach ($languages as $language)
+                            <li class="nav-item {{\Session::get('locale')==$language->item_item?'active':''}} ">
+                                <a class="nav-link" href="{{ '/locale/'.$language->item_item}}">{{$language->short_desc}}</a>
+                            </li>
+                            
+                        @endforeach
+                    @endif
                     </ul>
                 </div>
             </div>

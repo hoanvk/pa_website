@@ -7,14 +7,7 @@
         </ul>
     </div>
 @endif
-<div class="form-group row">
-     
-    <div class="col-md-6">
-            <label for="title">Title</label>   
-            {!! Form::textarea('title', null, ['class' => 'form-control']) !!}
-    </div>
-    
-</div>
+
 <div class="form-group row">
     
     <div class="col-md-6">
@@ -23,6 +16,22 @@
     </div> 
     
 </div>
+<div class="form-group row">
+     
+        <div class="col-md-6">
+                <label for="title">Title</label>   
+                {!! Form::text('title', null, ['class' => 'form-control']) !!}
+        </div>
+        
+    </div>
+<div class="form-group row">
+     
+        <div class="col-md-6">
+                <label for="description">Description</label>   
+                {!! Form::textarea('description', null, ['class' => 'form-control']) !!}
+        </div>
+        
+    </div>
 <div class="form-group row">
         <div class="col-md-6">
             <label for="product_id">Product</label>

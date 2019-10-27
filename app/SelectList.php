@@ -56,4 +56,9 @@ class SelectList{
     {
         return Item::where([['item_tabl','=','TV409'],['item_item','=',$item_item]])->first();
     }
+    public static function languages()
+    {
+        return Item::where('item_tabl','=','TV410')->get();
+    }
+    
 }

@@ -18,7 +18,7 @@ class CreateItemsTable extends Migration
             $table->string('item_item',5);
             $table->string('item_tabl',5);
             $table->string('short_desc',50);
-            $table->string('long_desc',250);
+            $table->text('long_desc');
             $table->timestamps();
         });
     }

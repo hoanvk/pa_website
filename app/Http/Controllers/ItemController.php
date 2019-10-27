@@ -4,8 +4,9 @@ namespace App\Http\Controllers;
 
 use App\Item;
 use Illuminate\Http\Request;
-
-class ItemController extends Controller
+use Illuminate\Support\Facades\Input;
+use App;
+class ItemController extends AdminPageController
 {
     //
     /**
@@ -47,8 +48,20 @@ class ItemController extends Controller
             'long_desc' => 'required|max:250'
         ]);
   
-        Item::create($request->all());
-   
+        $item_tabl = Input::get('item_tabl');
+        $item_item = Input::get('item_item');
+        $short_desc = Input::get('short_desc');
+        $long_desc = Input::get('long_desc');
+
+        $model = Item::create(['item_tabl'=>$item_tabl,
+        'item_item'=>$item_item,
+        'short_desc'=>$short_desc,
+        'long_desc'=>$long_desc]);
+        $locale = App::getLocale();
+        $model
+            ->setTranslation('long_desc', $locale, $long_desc)
+            
+            ->save();
         return redirect()->route('items.index')
                         ->with('success','Item created successfully.');
     }
@@ -84,17 +97,24 @@ class ItemController extends Controller
      * @param  \App\Destination  $destination
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, Item $item)
+    public function update(Request $request, $id)
     {
         //
-        $request->validate([
-            'item_item' => 'required|max:5',
-            'item_tabl' => 'required|max:5',
-            'short_desc' => 'required|max:50', 
-            'long_desc' => 'required|max:250'
-        ]);
-  
-        $item->update($request->all());
+        
+        $model =Item::find($id);
+        $item_item = Input::get('item_item');
+        $short_desc = Input::get('short_desc');
+        $long_desc = Input::get('long_desc');
+
+        $model->update(['item_item'=>$item_item,
+        'short_desc'=>$short_desc]);
+        
+        $locale = App::getLocale();
+        $model
+            ->setTranslation('long_desc', $locale, $long_desc)
+            
+            ->save();
+        
   
         return redirect()->route('items.index')
                         ->with('success','Item updated successfully');

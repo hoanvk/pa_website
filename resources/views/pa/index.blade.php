@@ -15,7 +15,7 @@
                 <p class="card-text">
                         <ul class="list-group list-group-flush">
                             @foreach ($item->benefits as $benefit)
-                            <li class="list-group-item">{{ $benefit->title}} </li>
+                            <li class="list-group-item">{{ $benefit->description}} </li>
                             @endforeach
                                 
                                 
