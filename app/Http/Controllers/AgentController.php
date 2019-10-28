@@ -7,7 +7,7 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Input;
 use App\Http\Requests\AgentFormRequest;
 
-class AgentController extends Controller
+class AgentController extends AdminPageController
 {
     //
     public function Index()

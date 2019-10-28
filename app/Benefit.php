@@ -9,12 +9,12 @@ class Benefit extends Model
     use HasTranslations;
     //
     protected $table = 'benefits';
-    protected $fillable = ['id','title','name','product_id','description'];
+    protected $fillable = ['id','title','name','product_id'];
     public function product()
     {
         # code...
         return $this->belongsTo('App\Product');
     }
-    protected $translatable = ['title','description'];
+    protected $translatable = ['title'];
     
 }

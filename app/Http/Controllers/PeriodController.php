@@ -8,7 +8,7 @@ use App\Product;
 use App\SelectList;
 use App\Http\Requests\PeriodRequest;
 use Illuminate\Support\Facades\Input;
-class PeriodController extends Controller
+class PeriodController extends AdminPageController
 {
     /**
      * Display a listing of the resource.

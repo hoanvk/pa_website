@@ -6,7 +6,7 @@ use App\Product;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Input;
 use App;
-class BenefitController extends Controller
+class BenefitController extends AdminPageController
 {
     /**
      * Display a listing of the resource.
@@ -42,8 +42,10 @@ class BenefitController extends Controller
     public function store(Request $request)
     {
         //
-        $model = Benefit::create($request->all());
+        $name = Input::get('name');
         $title = Input::get('title');
+        $product_id = Input::get('product_id'); 
+        $model = Benefit::create(['name'=>$name,'title'=>$title, 'product_id'=>$product_id]);
         $locale = App::getLocale();
         $model
             ->setTranslation('title', $locale, $title)
@@ -77,7 +79,7 @@ class BenefitController extends Controller
         //
         $model =Benefit::find($id);
         $products = Product::pluck('title', 'id');
-        return view('benefits.edit',compact('model'))->with(['model'=>$model, 'products'=>$products]);
+        return view('benefits.edit',compact('model'))->with(['model'=>$model,'products'=>$products]);
     }
 
     /**
@@ -91,14 +93,13 @@ class BenefitController extends Controller
     {
         //
         $model =Benefit::find($id);
-        $description = Input::get('description');
+        
         $title = Input::get('title');
         $name = Input::get('name');
-        $model->update(['name'=>$name]);
+        $model->update(['name'=>$name,'product_id'=>$product_id]);
         
         $locale = App::getLocale();
-        $model->setTranslation('title', $locale, $title)
-            ->setTranslation('description', $locale, $description)
+        $model->setTranslation('title', $locale, $title)            
             ->save();
         return redirect()->route('benefits.index')
                         ->with('success','Benefit updated successfully');

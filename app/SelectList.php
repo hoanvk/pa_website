@@ -3,9 +3,11 @@ namespace App;
 
 use DateTime;
 use App\Price;
-
+use App;
 use App\Item;
-
+use App\Nationality;
+use App\Jumbotron;
+use App\Link;
 class SelectList{
     //Trang thai don 1: Pending/2: Issued
     public static function policyStatus()
@@ -39,7 +41,7 @@ class SelectList{
     //Country
     public static function country()
     {
-        return Item::where('item_tabl','=','TV406')->get();
+        return Nationality::all();
     }
 
     //Product Type
@@ -47,6 +49,7 @@ class SelectList{
     {
         return Item::where('item_tabl','=','TV407')->get();
     }
+    
     //Period unit
     public static function periodUnit()
     {
@@ -54,7 +57,29 @@ class SelectList{
     }
     public static function jumbotron($item_item)
     {
-        return Item::where([['item_tabl','=','TV409'],['item_item','=',$item_item]])->first();
+        $jumbotron = new Jumbotron;
+        $title = Item::where([['item_tabl','=','TV406'],['item_item','=',$item_item]])->first();
+        echo \App::getLocale();
+        $name = Item::where([['item_tabl','=','TV409'],['item_item','=',$item_item]])->first();
+        $jumbotron->name = $name->long_desc;
+        $jumbotron->title = $title->long_desc;
+        return $jumbotron;
+    }
+    public static function links()
+    {
+        
+        $model = Item::where('item_tabl','=','TV411')->get();
+        $links = collect();
+        foreach ($model as $item) {
+            # code...
+            $link = new Link;
+            $link->name = $item->item_item;
+            $link->title = $item->long_desc;
+            $link->route = $item->short_desc;
+            $links->add($link);
+        }
+        return $links;
+        
     }
     public static function languages()
     {

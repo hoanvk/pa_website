@@ -5,7 +5,7 @@ namespace App\Http\Controllers;
 use App\Cash;
 use Illuminate\Http\Request;
 use App\Agent;
-class CashController extends Controller
+class CashController extends AdminPageController
 {
     /**
      * Display a listing of the resource.

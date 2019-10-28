@@ -10,7 +10,7 @@ use App\Agent;
 use Illuminate\Support\Facades\Input;
 use App\Http\Requests\UserFormRequest;
 use Illuminate\Support\Facades\Hash;
-class UserController extends Controller
+class UserController extends AdminPageController
 {
     /**
      * Display a listing of the resource.

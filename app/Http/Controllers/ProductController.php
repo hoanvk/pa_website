@@ -6,7 +6,7 @@ use App\Product;
 use App\SelectList;
 use Illuminate\Http\Request;
 
-class ProductController extends Controller
+class ProductController extends AdminPageController
 {
     /**
      * Display a listing of the resource.

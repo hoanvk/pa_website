@@ -17,8 +17,8 @@ class CreateBenefitsTable extends Migration
             $table->increments('id');
             $table->unsignedInteger('product_id');
             $table->foreign('product_id')->references('id')->on('products')->onDelete('CASCADE');
-            $table->string('title',500)->nullable();
-            $table->text('description')->nullable();
+            $table->text('title',1000)->nullable();
+            
             $table->string('name',50)->nullable();
             $table->timestamps();
         });

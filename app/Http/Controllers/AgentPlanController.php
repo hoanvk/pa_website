@@ -6,7 +6,7 @@ use App\Agent;
 use App\AgentPlan;
 use Illuminate\Http\Request;
 use App\Http\Requests\AgentPlanRequest;
-class AgentPlanController extends Controller
+class AgentPlanController extends AdminPageController
 {
     /**
      * Display a listing of the resource.

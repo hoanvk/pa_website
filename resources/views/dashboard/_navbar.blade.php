@@ -7,10 +7,10 @@
         <div class="collapse navbar-collapse" id="collapsibleNavId">
             <ul class="navbar-nav mr-auto mt-2 mt-lg-0">
                 <li class="nav-item active">
-                    <a class="nav-link" href="{{ route('travel.index') }}">Travel Insurance </a>
+                    <a class="nav-link" href="{{ route('travel.index') }}">Dash Board</a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link" href="{{ route('items.index') }}">Dash Board <span class="sr-only">(current)</span></a>
+                    <a class="nav-link" href="{{ route('pa.index') }}">Online<span class="sr-only">(current)</span></a>
                 </li>
                 
             </ul>
@@ -49,9 +49,9 @@
                     @if (isset($languages))
                   
                   <li class="nav-item dropdown">  
-                      <a class="nav-link dropdown-toggle" href="#" data-toggle="dropdown">{{$languages->where('item_item','==',\Session::get('locale'))->first()->short_desc}} </a>
+                      <a class="nav-link dropdown-toggle" href="#" data-toggle="dropdown">{{$languages->where('item_item','==',Config::get('app.locale'))->first()->short_desc}} </a>
                       <div class="dropdown-menu dropdown-menu-right" aria-labelledby="navbarDropdown">
-                          @foreach ($languages->where('item_item','!=',\Session::get('locale')) as $language)
+                          @foreach ($languages->where('item_item','!=',Config::get('app.locale')) as $language)
                           <a class="nav-link dropdown-item" href="{{ '/locale/'.$language->item_item}}">{{$language->short_desc}}</a>
                           
                       @endforeach

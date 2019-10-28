@@ -5,7 +5,7 @@ use App\Promotion;
 use App\Product;
 use Illuminate\Http\Request;
 
-class PromoController extends Controller
+class PromoController extends AdminPageController
 {
     /**
      * Display a listing of the resource.

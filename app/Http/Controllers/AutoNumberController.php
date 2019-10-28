@@ -7,7 +7,7 @@ use App\Product;
 use App\Http\Requests\AutoNumberRequest;
 use Illuminate\Http\Request;
 
-class AutoNumberController extends Controller
+class AutoNumberController extends AdminPageController
 {
     /**
      * Display a listing of the resource.

@@ -7,7 +7,7 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Input;
 use App\Http\Requests\RoleFormRequest;
 
-class RoleController extends Controller
+class RoleController extends AdminPageController
 {
     //
     public function index()

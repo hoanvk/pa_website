@@ -7,7 +7,7 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Input;
 use App\Http\Requests\PermissionFormRequest;
 
-class PermissionController extends Controller
+class PermissionController extends AdminPageController
 {
     //
     public function Index()

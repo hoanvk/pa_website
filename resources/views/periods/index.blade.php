@@ -3,12 +3,13 @@
 Period | MSIG
 @endsection
 @section('content')
-<div class="container">
+
         
     @include('dashboard._formheader',['title'=>'Index','action'=>'periods.create', 'button'=>'Create New'])
     @if ($message = Session::get('success'))
-        <div class="alert alert-success">
-            <p>{{ $message }}</p>
+        <div class="alert alert-success alert-dismissible">
+            <button type="button" class="close" data-dismiss="alert">&times;</button>
+            <strong>Success!</strong>{{ $message }}
         </div>
     @endif
     <table class="table">
@@ -36,4 +37,5 @@ Period | MSIG
         </tbody>
     </table>   
      {!! $model->links() !!}
+   
 @endsection

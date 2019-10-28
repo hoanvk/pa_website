@@ -30,5 +30,6 @@ class create_product_type extends Seeder
             'short_desc' => 'Travel Insurance',
             'long_desc'=>'Travel Insurance'
         ]);
+        
     }
 }

@@ -15,12 +15,11 @@ class CreateProductsTable extends Migration
     {
         Schema::create('products', function (Blueprint $table) {
             $table->increments('id');
-            $table->string('title',500);
+            $table->text('title',1000);
             $table->string('name', 50);
             $table->string('product_type',3)->nullable();
             $table->string('premium_formula', 3)->nullable();
-            $table->unsignedInteger('wording_id')->nullable();
-            $table->foreign('wording_id')->references('id')->on('wordings')->onDelete('SET NULL');
+            
             $table->timestamps();
         });
     }

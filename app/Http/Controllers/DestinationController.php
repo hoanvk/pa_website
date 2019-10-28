@@ -5,7 +5,7 @@ namespace App\Http\Controllers;
 use App\Destination;
 use Illuminate\Http\Request;
 
-class DestinationController extends Controller
+class DestinationController extends AdminPageController
 {
     /**
      * Display a listing of the resource.

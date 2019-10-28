@@ -20,6 +20,6 @@
         <a href="{{ route('prices.index')}}" class="list-group-item list-group-item-action {{ request()->is('*/prices*') ? 'active' : '' }}">Prices List</a>
         <a href="{{ route('cashes.index')}}" class="list-group-item list-group-item-action {{ request()->is('admin/cashes*') ? 'active' : '' }}">Balance</a>                    
         <a href="{{ route('promotions.index')}}" class="list-group-item list-group-item-action {{ request()->is('admin/promotions*') ? 'active' : '' }}">Promotion</a>                    
-        <a href="{{ route('benefits.index')}}" class="list-group-item list-group-item-action {{ request()->is('admin/benefits*') ? 'active' : '' }}">Benefit</a>  
+        <a href="{{ route('benefits.index')}}" class="list-group-item list-group-item-action {{ request()->is('admin/benefits*') ? 'active' : '' }}">Benefits</a>  
         <a href="{{ route('periods.index')}}" class="list-group-item list-group-item-action {{ request()->is('admin/periods*') ? 'active' : '' }}">Period</a>                  
     </div>

@@ -5,29 +5,30 @@
 
 @section('content-fluid')
 <div class="card-deck">
-    @foreach ($model as $item)
+    @foreach ($model as $product)
     <div class="card">
             <div class="card-header">
-                {{$item->title}}
+                {{$product->title}}
             </div>
             <div class="card-body">
-                <h4 class="card-title">Benefits</h4>
+                <h4 class="card-title">@lang('pa.benefit')</h4>
                 <p class="card-text">
                         <ul class="list-group list-group-flush">
-                            @foreach ($item->benefits as $benefit)
-                            <li class="list-group-item">{{ $benefit->description}} </li>
+                            @foreach ($product->benefits as $benefit)
+                            <li class="list-group-item">{{ $benefit->title}} </li>
                             @endforeach
                                 
                                 
-                              </ul>
+                                </ul>
                     </p>
             </div>
             <div class="card-footer text-muted">
-                <a href="{{ route('pa.create',$item->id)}} " class="btn btn-danger btn-block">Buy now</a>
+                <a href="{{ route('pa.create',$product->id)}} " class="btn btn-danger btn-block">@lang('pa.buy_now')</a>
             </div>
-        </div>  
-        
-    @endforeach    
+        </div> 
+  
+    @endforeach   
+     
 </div>
 
     

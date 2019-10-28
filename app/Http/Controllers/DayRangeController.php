@@ -5,7 +5,7 @@ namespace App\Http\Controllers;
 use App\DayRange;
 use Illuminate\Http\Request;
 
-class DayRangeController extends Controller
+class DayRangeController extends AdminPageController
 {
     /**
      * Display a listing of the resource.

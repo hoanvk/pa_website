@@ -10,7 +10,7 @@ use App\DayRange;
 use App\Http\Requests\PriceRequest;
 use Illuminate\Http\Request;
 
-class PriceController extends Controller
+class PriceController extends AdminPageController
 {
     /**
      * Display a listing of the resource.

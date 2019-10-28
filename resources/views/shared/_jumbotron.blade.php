@@ -2,8 +2,8 @@
     <div class="container">
             
             @if (isset($jumbotron))
-            <h1 class="text-danger">{{ $jumbotron->short_desc}}</h1>
-            <p class="text-primary">{{ $jumbotron->long_desc}}</p>
+            <h1 class="text-danger">{{ $jumbotron->title}}</h1>
+            <p class="text-primary">{{ $jumbotron->description}}</p>
              
             @else
             <h1 class="text-danger">Travel Insurance</h1>

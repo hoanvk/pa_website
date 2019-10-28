@@ -7,7 +7,7 @@ use App\Product;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Input;
 use App\Http\Requests\PlanRequest;
-class PlanController extends Controller
+class PlanController extends AdminPageController
 {
     /**
      * Display a listing of the resource.
