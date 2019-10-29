@@ -6,7 +6,7 @@
     margin: 0 auto;
 	background-color: #fff
 }
-@media only screen and (min-width:1637px) {
+@media only screen and (min-width:1403px) {
 	.page {
 		width: 1400px;
 		max-width: 1400px;
@@ -24,17 +24,6 @@
 	}
 	.card-deck .card{
         max-width: 290px;
-    }
-}
-
-@media only screen and (max-width:1403px) {
-	.page {
-		width: 1150px;
-		max-width: 1150px;
-		min-width: 1150px
-	}
-	.card-deck .card{
-        max-width: 258px;
     }
 }
 

@@ -22,7 +22,7 @@
 
 
 {!! Form::open([
-'route' => ['pa.store'],
+'route' => ['pa.store', $product_id],
 'method' => 'POST'
 
 ]) !!}

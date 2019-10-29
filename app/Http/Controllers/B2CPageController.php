@@ -12,20 +12,20 @@ use Illuminate\Support\Facades\Route;
 use Illuminate\Support\Facades\View;
 class B2CPageController extends Controller
 {
-    public $customer;
-    public $jumbotron;
-    public $links;
-    public $languages;
+    // public $customer;
+    // public $jumbotron;
+    // public $links;
+    // public $languages;
     //
     public function __construct(Request $request)
     {
         if (Session::has('customer')){
             // do some thing if the key is exist
-            $this->customer = Session::get('customer');
+            $customer = Session::get('customer');
           }else{
             //the key is not exist in the session
-            $this->customer = Customer::create(['status'=>'P']);
-            Session::put('customer', $this->customer);
+            $customer = Customer::create(['status'=>'P']);
+            Session::put('customer', $customer);
           }
           $action = 'TVL';
           if ($request->is('online/pa*') || $request->is('agent/pa*')) {
@@ -36,11 +36,11 @@ class B2CPageController extends Controller
             # code...
             $action ='MTT';
           }
-          $this->jumbotron = Jumbotron::where('name','=',$action)->first();
+          $jumbotron = Jumbotron::where('name','=',$action)->first();
           
-          $this->languages = SelectList::languages();
-          $this->links = Link::all();
-          foreach ($this->links as $link) {
+          $languages = SelectList::languages();
+          $links = Link::all();
+          foreach ($links as $link) {
             # code...
             if ($link->name == $action) {
               # code...
@@ -48,8 +48,8 @@ class B2CPageController extends Controller
             }
           }
 
-          View::share(['customer'=> $this->customer,'jumbotron'=>$this->jumbotron,
-            'languages'=> $this->languages, 'links'=> $this->links]);
+          View::share(['customer'=> $customer,'jumbotron'=>$jumbotron,
+            'languages'=> $languages, 'links'=> $links]);
           
     }
 }

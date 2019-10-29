@@ -21,7 +21,7 @@
             <div class="col-md-3">
                     
                     
-                @include('dashboard._leftmenu')
+                @include('dashboard._collapse')
             </div>
             <div class="col-md-9">
                 @section('content')

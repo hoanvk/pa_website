@@ -2,7 +2,7 @@
 
 use Illuminate\Database\Seeder;
 
-class create_jumbotron_table extends Seeder
+class create_jumbotron_data extends Seeder
 {
     /**
      * Run the database seeds.

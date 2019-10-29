@@ -2,7 +2,7 @@
 
 use Illuminate\Database\Seeder;
 
-class create_links_table extends Seeder
+class create_links_data extends Seeder
 {
     /**
      * Run the database seeds.
@@ -15,17 +15,17 @@ class create_links_table extends Seeder
         DB::table('links')->insert([
             'name' => 'PA',            
             'route' => 'pa.index',
-            'title'=>'{"en":"Personal Accident Insurance'
+            'title'=>'{"en":"Personal Accident Insurance"}'
         ]);
         DB::table('links')->insert([
             'name' => 'MTT',            
             'route' => 'pa.index',
-            'title'=>'{"en":"Motor Insurance'
+            'title'=>'{"en":"Motor Insurance"}'
         ]);
         DB::table('links')->insert([
             'name' => 'TVL',            
             'route' => 'travel.index',
-            'title'=>'{"en":"Travel Insurance'
+            'title'=>'{"en":"Travel Insurance"}'
         ]);
     }
 }

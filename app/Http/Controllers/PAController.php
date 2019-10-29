@@ -22,14 +22,14 @@ class PAController extends B2CPageController
         return view('pa.index')->with(['model'=>$model]);
     }
     
-    public function create()
+    public function create($product_id)
     {
         # code...
-        $plans = Plan::pluck('title', 'id');
+        $plans = Plan::where('product_id','=',$product_id)->pluck('title', 'id');
         $destinations = Destination::pluck('title', 'id');
         $quotation_no =PASeqNo::quotation_no();
         return view('pa.create',['quotation_no'=>$quotation_no,'plans'=>$plans,
-        'destinations'=>$destinations]);
+        'destinations'=>$destinations, 'product_id'=>$product_id]);
     }
     public function Store(PolicyFormRequest $request)
     {

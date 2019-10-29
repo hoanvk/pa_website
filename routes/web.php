@@ -25,32 +25,32 @@ Route::group(['prefix' => 'online','middleware' => 'web'], function () {
         'uses'=>'PAController@index'
         ]);
 
-    Route::get('pa/create',[
+    Route::get('pa/{product_id}/create',[
         'as'=>'pa.create',
         'uses'=>'PAController@create']
      );
     
-     Route::get('pa/show', [
+     Route::get('pa/{product_id}/show', [
         'as'=>'pa.show',
         'uses'=>'PAController@show'
     ]);
     
-     Route::post('pa', [
+     Route::post('pa/{product_id}', [
         'as' => 'pa.store',
         'uses' => 'PAController@store'
     ]);
     
-    Route::put('pa/{id}', [
+    Route::put('pa/{product_id}/{id}', [
         'as' => 'pa.update',
         'uses' => 'PAController@update'
     ]);
 
-    Route::get('pa/{id}edit', [
+    Route::get('pa/{product_id}/{id}edit', [
         'as'=>'pa.edit',
         'uses'=>'PAController@edit'
     ]);
     
-    Route::get('pa/confirm', [
+    Route::get('pa/{product_id}/confirm', [
         'as'=>'pa.confirm',
         'uses'=>'PAController@confirm'
     ]);
@@ -156,9 +156,37 @@ Route::group(['prefix' => 'admin','middleware' => 'auth'], function () {
     Route::resource('destinations','DestinationController');
     Route::resource('dayranges','DayRangeController');
     Route::resource('prices','PriceController');
-
     
 
+    Route::get('paprices/{product_id}', [
+        'as'=>'paprices.index',
+        'uses'=>'PAPriceController@index'
+    ]);
+    Route::get('paprices/{product_id}/create', [
+        'as'=>'paprices.create',
+        'uses'=>'PAPriceController@create'
+    ]);
+    Route::get('paprices/{product_id}/{id}', [
+        'as'=>'paprices.show',
+        'uses'=>'PAPriceController@show'
+    ]);
+    
+    Route::post('paprices/{product_id}', [
+        'as' => 'paprices.store',
+        'uses' => 'PAPriceController@store'
+    ]);
+    Route::put('paprices/{product_id}/{id}', [
+        'as' => 'paprices.update',
+        'uses' => 'PAPriceController@Update'
+    ]);
+    Route::get('paprices/{product_id}/{id}/edit', [
+        'as'=>'paprices.edit',
+        'uses'=>'PAPriceController@Edit'
+    ]); 
+    Route::delete('paprices/{product_id}/{id}', [
+        'as'=>'paprices.destroy',
+        'uses'=>'PAPriceController@destroy'
+    ]);
     Route::resource('cashes','CashController');
     Route::resource('autonumbers','AutoNumberController');
     Route::resource('plans','PlanController');
