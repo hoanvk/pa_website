@@ -20,6 +20,10 @@ Route::get('locale/{locale}', function ($locale) {
     
 });
 Route::group(['prefix' => 'online','middleware' => 'web'], function () {
+    Route::get('ajax/pa/period', [
+        'as'=>'ajax.period',
+        'uses'=>'PAController@period'
+        ]);
     Route::get('pa', [
         'as'=>'pa.index',
         'uses'=>'PAController@index'
@@ -45,12 +49,12 @@ Route::group(['prefix' => 'online','middleware' => 'web'], function () {
         'uses' => 'PAController@update'
     ]);
 
-    Route::get('pa/{product_id}/{id}edit', [
+    Route::get('pa/{product_id}/{id}/edit', [
         'as'=>'pa.edit',
         'uses'=>'PAController@edit'
     ]);
     
-    Route::get('pa/{product_id}/confirm', [
+    Route::get('pa/{product_id}/{id}/confirm', [
         'as'=>'pa.confirm',
         'uses'=>'PAController@confirm'
     ]);

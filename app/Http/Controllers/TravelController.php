@@ -112,7 +112,7 @@ class TravelController extends PageController
         'premium'=>0,        
         'period'=>$period,
         'client_name' => $agent->name,
-        'client_id' => $agent->taxnum,
+        'client_id' => $agent->client_no,
         'status'=>'1',
         'client_dob' => Carbon::now(),
         'ref_number'=>$ref_number,

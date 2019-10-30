@@ -1,6 +1,6 @@
 @extends('shared.master')
 @section('title')
-    Update
+Personal Accident | MSIG
 @endsection
 @section('css')
 <link rel="stylesheet" href="https://code.jquery.com/ui/1.12.1/themes/blitzer/jquery-ui.css">
@@ -12,65 +12,25 @@
 <div class="container">
     
     <div class="row">
-            <div class="col-sm-4">               
-                    @include('travel._help')
+        <div class="col-sm-4">               
+            @include('pa._policy')
+           
+            @include('pa._help')
+        </div>
+        <div class="col-sm-8">
+            <div class="clearfix">
+                <span class="float-left"><a href="{{ route('pa.index', $product->id)}} " class="btn btn-link"><i class="fa fa-chevron-left"></i> Previous</a></span>
+                <span class="float-right"><a href="{{ route('pa.show', $product->id, $model->id)}} " class="btn btn-link">Next <i class="fa fa-chevron-right"></i></a></span>
             </div>
-            <div class="col-sm-8">
-                    <div class="row">
-                            <div class="col-lg-12">
-                                <div class="pull-left"><h2>Quotation - Edit</h2></div>
-                            <div class="pull-right"><a href="{{ route('travel.index')}} " class="btn btn-link"><i class="fa fa-chevron-left"></i>
-                                Back to Index</a></div>
-                            </div>
-                        </div>
-                    
-               
-                
-                    {!! Form::model($model, array('route' => array('travel.update', $model->id), 'method'=>'PUT')) !!}
-                    {{-- {!! Form::open([
-                        'route' => ['item.update',$model->id],
-                        'method' => 'PUT'
-                    
-                    ]) !!} --}}
-                    
-                     
-                    <!-- TODO: This is for server side, there is another version for browser defaults -->
-                    {{-- <form action="{{ route('article.store') }}" method="POST">
-                            {{ csrf_field() }} --}}
-                        @include('travel._form',[ 'button_name' => 'Update'])
-                    {{-- </form> --}}
-                    {!! Form::close() !!}    
-            </div>
+            
+            {!! Form::model($model, array('route' => array('pa.update',$product->id, $model->id), 'method'=>'PUT')) !!}
+            
+                @include('pa._form',[ 'button_name' => 'Update'])
+            
+            {!! Form::close() !!}    
+        </div>
 
-        </div>   
+    </div>   
    
   
 @endsection
-@section('js')
-    <script src="/js/jquery-ui.js"></script>    
-    <script>
-        $("#start_date").datepicker({
-                dateFormat: "dd/mm/yy",
-                firstDay: 1,
-                isRTL: false,
-                showMonthAfterYear: false,
-                yearSuffix: ""
-            });
-            $('#start_picker').click(function(){
-            $('#start_date').datepicker('show');
-            });
-       
-
-        $("#end_date").datepicker({
-                dateFormat: "dd/mm/yy",
-                firstDay: 1,
-                isRTL: false,
-                showMonthAfterYear: false,
-                yearSuffix: ""
-            });
-            $('#end_picker').click(function(){
-            $('#end_date').datepicker('show');
-            });
-        jQuery.validator.methods["date"] = function (value, element) { return true; }
-    </script>
-@endsection 

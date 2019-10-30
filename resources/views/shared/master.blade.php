@@ -57,7 +57,7 @@
                         </div>
                         <div class="col-lg-8">
                             <div class="card">
-                                <div class="card-header bg-primary header-title">@yield('title') </div>
+                                <div class="card-header bg-primary header-title"> @yield('caption') </div>
                                 <div class="card-body">
                                     @section('content')
                                     @show

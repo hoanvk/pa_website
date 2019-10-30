@@ -10,7 +10,7 @@ class Policy extends Model
     //
     protected $table = 'tb_policy';
     protected $fillable = ['id', 'product_id', 'quotation_no', 'policy_no', 'client_name','client_address','client_id',
-        'client_dob','start_date','end_date','agent_id','premium','period','status','ref_number', 'remarks'];
+        'client_dob','start_date','end_date','agent_id','premium','period','status','ref_number', 'remarks', 'promo_code'];
 
         // public static function quotation()
         // {
@@ -43,13 +43,18 @@ class Policy extends Model
         //     return $quotation_no;
         // }
         public static function policyNumber($product_id)
-    {
-        # code...
-        $autonumber = AutoNumber::where('product_id',$product_id)->get()->first();
-        $last_number = $autonumber->last_number + 1;
-        $autonumber->update(['last_number'=>$last_number]);
-        return $last_number;
-    }
+        {
+            # code...
+            $autonumber = AutoNumber::where('product_id',$product_id)->get()->first();
+            $last_number = $autonumber->last_number + 1;
+            $autonumber->update(['last_number'=>$last_number]);
+            return $last_number;
+        }
+        public static function defaultAgent()
+        {
+            # code...
+            
+        }
         public function agent()
         {
             # code...
@@ -62,12 +67,17 @@ class Policy extends Model
         }
         
         
-           public function risks()
-           {
-               # code...
-               return $this->hasMany('App\Risk');
-               
-           }
+        public function risks()
+        {
+            # code...
+            return $this->hasMany('App\Risk');
+            
+        }
            
-           
+        public function parisk()
+        {
+            # code...
+            return $this->hasOne('App\PARisk','id','policy_id');
+            
+        }   
 }

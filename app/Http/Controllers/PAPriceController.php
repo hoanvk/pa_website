@@ -2,13 +2,15 @@
 
 namespace App\Http\Controllers;
 
-use Illuminate\Http\Request;
-use App\PAPrice;
 use App\Plan;
-use App\Product;
 use App\Period;
+use App\PAPrice;
+use App\Product;
+use Illuminate\Http\Request;
 use App\Http\Requests\PAPriceRequest;
-class PAPriceController extends Controller
+use Illuminate\Support\Facades\Input;
+
+class PAPriceController extends AdminPageController
 {
     /**
      * Display a listing of the resource.
@@ -48,6 +50,14 @@ class PAPriceController extends Controller
     public function store(PAPriceRequest $request, $product_id)
     {
         //
+        $amount = Input::get('amount');
+        $plan_id = Input::get('plan_id');
+        $period_id = Input::get('period_id');
+
+        PAPrice::create(['product_id'=>$product_id, 'amount'=>$amount, 'plan_id'=>$plan_id, 'period_id'=>$period_id]);
+   
+        return redirect()->route('paprices.index', $product_id)
+                        ->with('success','Prices created successfully.');
     }
 
     /**
@@ -59,6 +69,8 @@ class PAPriceController extends Controller
     public function show($product_id, $id)
     {
         //
+        $model = PAPrice::find($id);        
+        return view('paprices.show')->with(['model'=>$model,'product_id'=>$product_id]);
     }
 
     /**
@@ -70,6 +82,10 @@ class PAPriceController extends Controller
     public function edit($product_id, $id)
     {
         //
+        $model = PAPrice::find($id);
+        $plans = Plan::where('product_id','=',$product_id)->pluck('title', 'id');
+        $periods = Period::where('product_id','=',$product_id)->pluck('title', 'id');
+        return view('paprices.show')->with(['model'=>$model,'plans'=>$plans,'periods'=>$periods,'product_id'=>$product_id]);
     }
 
     /**
@@ -82,6 +98,14 @@ class PAPriceController extends Controller
     public function update(PAPriceRequest $request, $product_id, $id)
     {
         //
+        $amount = Input::get('amount');
+        $plan_id = Input::get('plan_id');
+        $period_id = Input::get('period_id');
+        $model = PAPrice::find($id);
+        $model->update(['amount'=>$amount, 'plan_id'=>$plan_id, 'period_id'=>$period_id]);
+   
+        return redirect()->route('paprices.index', $product_id)
+                        ->with('success','Prices created successfully.');
     }
 
     /**
@@ -93,5 +117,10 @@ class PAPriceController extends Controller
     public function destroy($product_id, $id)
     {
         //
+        $model = PAPrice::find($id);
+        $model->delete();
+  
+        return redirect()->route('paprices.index', $product_id)
+                        ->with('success','Price deleted successfully');
     }
 }

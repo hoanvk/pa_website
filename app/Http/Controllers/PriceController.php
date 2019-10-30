@@ -2,13 +2,14 @@
 
 namespace App\Http\Controllers;
 
-use App\Price;
 use App\Plan;
 use App\Agent;
-use App\Destination;
+use App\Price;
 use App\DayRange;
-use App\Http\Requests\PriceRequest;
+use App\Destination;
 use Illuminate\Http\Request;
+use App\Http\Requests\PriceRequest;
+use Illuminate\Support\Facades\Input;
 
 class PriceController extends AdminPageController
 {
@@ -55,10 +56,10 @@ class PriceController extends AdminPageController
     public function store(PriceRequest $request)
     {
         //
-        
+        Input::get('title');
         Price::create($request->all());
    
-        return redirect()->route('prices.index')
+        return redirect()->route('paprices.index')
                         ->with('success','Prices created successfully.');
     }
 

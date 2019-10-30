@@ -1,6 +1,6 @@
 @extends('shared.master')
 @section('title')
-    Confirmation
+Personal Accident | MSIG
 @endsection
 @section('content')
 
@@ -25,7 +25,7 @@
     <div class="pull-left">
         <h2>{{ optional($status->firstWhere('item_item','=',$model->status))->long_desc }}</h2>
     </div>
-<div class="pull-right"><a href="{{ route('travel.index')}} " class="btn btn-link"><i class="fa fa-chevron-left"></i>
+<div class="pull-right"><a href="{{ route('pa.index',$product->id)}} " class="btn btn-link"><i class="fa fa-chevron-left"></i>
     Back to Index</a></div>
 
     <table class="table">
@@ -37,10 +37,10 @@
                 
             </tr>
             <tr>
-                    <td scope="row">Policy Number</td>
-                    <td>{{ $model->policy_no }}</td>
-                    
-                </tr>
+                <td scope="row">Policy Number</td>
+                <td>{{ $model->policy_no }}</td>
+                
+            </tr>
             <tr>
                 <td scope="row">Insured Name</td>
                 <td>{{ $model->client_name }}</td>
@@ -60,12 +60,12 @@
                 <td>{{ $model->product->title }}</td>
             </tr>
             <tr>
-                    <td scope="row">Destination</td>                
-                    <td>{{ $risk->plan->title }}</td>
+                <td scope="row">Plan</td>                
+                <td>{{ $risk->plan->title }}</td>
                 </tr>
             <tr>
-                <td scope="row">Destination</td>                
-                <td>{{ $risk->destination->title }}</td>
+                <td scope="row">Insurance period</td>                
+                <td>{{ $risk->period->title }}</td>
             </tr>
             <tr>
                 <td scope="row">Start Date</td>                
@@ -75,46 +75,19 @@
                 <td scope="row">End Date</td>                
                 <td>{{ date('d-m-Y', strtotime($model->end_date)) }}</td>
             </tr>
-            <tr>
-                <td>Period</td>                
-                <td>{{ $model->period }}</td>
-            </tr>
+            
             <tr>
                 <td scope="row">Premium</td>                
                 <td>{{ $model->premium }}</td>
             </tr>
-            <tr>
-                    <td scope="row">Policy type</td>                
-                    <td>{{ optional($policy_type->firstWhere('item_item','=',$risk->policy_type))->long_desc }}</td>
-                </tr>
-                <tr>
-                        <td>Adult</td>                
-                        <td>{{ $risk->adult_qty }}</td>
-                    </tr>
-                    <tr>
-                            <td>Dependent</td>                
-                            <td>{{ $risk->dependent_qty }}</td>
-                        </tr>
-            <tr>
-                <td>Reference Number</td>                
-                <td>{{ $model->ref_number }}</td>
-            </tr>
-            <tr>
-                <td>Remarks</td>                
-                <td>{{ $model->remarks }}</td>
-            </tr>
+            
         </tbody>
     </table>  
-    <div class="row">
-            <div class="col-sm-12">
-                    <a href="{{ route('members.index', $model->id)}} " class="btn btn-link"><i class="fa fa-edit"></i>
-                        Insured person</a>
-            </div>
-    </div> 
+   
     @if ($model->status == '1')
     <p>
-        <a class="btn btn-outline-primary" href="{{route('travel.edit',$model->id)}} ">Edit Quotation</a> 
-        <a class="btn btn-primary" href="{{route('travel.confirm',$model->id)}} ">Confirm</a>
+        <a class="btn btn-outline-primary" href="{{route('pa.edit',$model->product_id,$model->id)}} ">Edit Quotation</a> 
+        <a class="btn btn-primary" href="{{route('pa.confirm',$model->product_id,$model->id)}} ">Confirm</a>
     </p>
     @endif
 

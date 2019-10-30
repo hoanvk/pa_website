@@ -1,6 +1,6 @@
 @extends('shared.master')
 @section('title')
-    Bao hiem ca nhan | MSIG
+Personal Accident | MSIG
 @endsection
 
 @section('content-fluid')

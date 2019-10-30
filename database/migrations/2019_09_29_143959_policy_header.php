@@ -32,6 +32,7 @@ class PolicyHeader extends Migration
             $table->integer('period')->nullable();
             $table->string('status',1);
             $table->string('ref_number',255);
+            $table->string('promo_code',30)->nullable();
             $table->text('remarks');
             $table->timestamps();
         });
