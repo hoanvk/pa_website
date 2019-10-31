@@ -1,12 +1,21 @@
 <?php
 namespace App;
-use Carbon\Carbon;
 use DateTime;
 use App\Price;
 use App\Policy;
+use App\PAPrice;
 use App\DayRange;
+use Carbon\Carbon;
 
 class Premium{
+    public static function PACalculate($risk)
+    {
+        # code...        
+        // $period = Period::find($risk->period_id);
+        // $plan = Plan::find($risk->plan_id);
+        $price = PAPrice::where([['period_id','=',$risk->period_id],['plan_id','=', $risk->plan_id]])->first();
+        return $price->amount;
+    }
     public static function calculate(Policy $policy)
     {
         
@@ -21,17 +30,17 @@ class Premium{
         $dependent_qty = $risk->dependent_qty;
         $policy_type = $risk->policy_type;
         $insured_qty = 1;
-if ($policy_type == 'F')
-{
-    $insured_qty =2;
-}
-else
-{
-    $insured_qty = $adult_qty + $dependent_qty;
-}
-// $interval = $end_date->diff($start_date);
-// $days = $interval->format('%a');
-$days = $end_date->diffInDays($start_date);
+        if ($policy_type == 'F')
+        {
+            $insured_qty =2;
+        }
+        else
+        {
+            $insured_qty = $adult_qty + $dependent_qty;
+        }
+        // $interval = $end_date->diff($start_date);
+        // $days = $interval->format('%a');
+        $days = $end_date->diffInDays($start_date);
         // $risk = $policy->risks->first();
         // $product_id = $risk->product_id; 
         // $destination_id = $risk->destination_id;
@@ -42,7 +51,7 @@ $days = $end_date->diffInDays($start_date);
              ['plan_id','=',$plan_id],
              ['destination_id','=',$destination_id],
              ['day_range_id','=',$day_range_id]])->get()->first()->amount;
-     return $premium*$insured_qty;
+        return $premium*$insured_qty;
     }  
     public static function withdrawl($agent_id, $premium)
     {

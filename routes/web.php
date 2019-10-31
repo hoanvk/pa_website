@@ -34,7 +34,7 @@ Route::group(['prefix' => 'online','middleware' => 'web'], function () {
         'uses'=>'PAController@create']
      );
     
-     Route::get('pa/{product_id}/show', [
+     Route::get('pa/{product_id}/{id}', [
         'as'=>'pa.show',
         'uses'=>'PAController@show'
     ]);

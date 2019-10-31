@@ -12,7 +12,7 @@ use Illuminate\Support\Facades\Route;
 use Illuminate\Support\Facades\View;
 class B2CPageController extends Controller
 {
-    // public $customer;
+    public $customer;
     // public $jumbotron;
     // public $links;
     // public $languages;
@@ -21,11 +21,11 @@ class B2CPageController extends Controller
     {
         if (Session::has('customer')){
             // do some thing if the key is exist
-            $customer = Session::get('customer');
+            $this->customer = Session::get('customer');
           }else{
             //the key is not exist in the session
-            $customer = Customer::create(['status'=>'P']);
-            Session::put('customer', $customer);
+            $this->customer = Customer::create(['status'=>'P']);
+            Session::put('customer', $this->customer);
           }
           $action = 'TVL';
           if ($request->is('online/pa*') || $request->is('agent/pa*')) {
@@ -48,7 +48,7 @@ class B2CPageController extends Controller
             }
           }
 
-          View::share(['customer'=> $customer,'jumbotron'=>$jumbotron,
+          View::share(['customer'=> $this->customer,'jumbotron'=>$jumbotron,
             'languages'=> $languages, 'links'=> $links]);
           
     }

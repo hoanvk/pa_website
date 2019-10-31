@@ -2,20 +2,32 @@
 
 namespace App;
 
+use App\Period;
+use App\DateUtil;
 use Illuminate\Database\Eloquent\Model;
 
 class PARisk extends Model
 {
     //
     protected $table = 'pa_risks';
-    protected $fillable = ['id','period_id','plan_id','premium'];
+    protected $fillable = ['id','policy_id','period_id','plan_id','premium'];
+    public function plan()
+        {
+            # code...
+            return $this->belongsTo('App\Plan');
+        }
+        public function period()
+        {
+            # code...
+            return $this->belongsTo('App\Period');
+        }
     public static function coverage($start_date, $period_id)
     {
         # code...
-        $start_date=DateUtil::parseDate($start_date);
+        
         $period = Period::find($period_id);
         $end_date = $start_date;
-        if (!$start_date) {
+        if ($start_date) {
             # code...
             
             if ($period->unit=='MM') {

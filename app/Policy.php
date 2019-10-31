@@ -77,7 +77,7 @@ class Policy extends Model
         public function parisk()
         {
             # code...
-            return $this->hasOne('App\PARisk','id','policy_id');
+            return $this->hasOne('App\PARisk','policy_id','id');
             
         }   
 }

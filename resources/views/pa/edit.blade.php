@@ -8,29 +8,26 @@ Personal Accident | MSIG
 
 {{-- <link rel="stylesheet" href="/css/themes/smoothness/jquery-ui.theme.css"> --}}
 @endsection
-@section('content')
-<div class="container">
+@section('left-menu')
+    @include('pa._policy')
     
-    <div class="row">
-        <div class="col-sm-4">               
-            @include('pa._policy')
-           
-            @include('pa._help')
-        </div>
-        <div class="col-sm-8">
-            <div class="clearfix">
-                <span class="float-left"><a href="{{ route('pa.index', $product->id)}} " class="btn btn-link"><i class="fa fa-chevron-left"></i> Previous</a></span>
-                <span class="float-right"><a href="{{ route('pa.show', $product->id, $model->id)}} " class="btn btn-link">Next <i class="fa fa-chevron-right"></i></a></span>
-            </div>
+    @include('pa._help')
+@endsection
+@section('caption')
+    CUSTOMER
+@endsection
+@section('content')
+<div class="clearfix">
+    <span class="float-left"><a href="{{ route('pa.index', $product->id)}} " class="btn btn-link"><i class="fa fa-chevron-left"></i> Previous</a></span>
+    <span class="float-right"><a href="{{ route('pa.show', $product->id, $model->id)}} " class="btn btn-link">Next <i class="fa fa-chevron-right"></i></a></span>
+</div>
             
             {!! Form::model($model, array('route' => array('pa.update',$product->id, $model->id), 'method'=>'PUT')) !!}
             
                 @include('pa._form',[ 'button_name' => 'Update'])
             
             {!! Form::close() !!}    
-        </div>
-
-    </div>   
+        
    
   
 @endsection
