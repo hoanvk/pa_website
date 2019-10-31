@@ -9,6 +9,6 @@ class Jumbotron extends Model
     //
     use HasTranslations;
     protected $table = 'jumbotrons';
-    protected $fillable = ['name','title', 'description'];
+    protected $fillable = ['name','title', 'description', 'status'];
     protected $translatable = ['title', 'description'];
 }

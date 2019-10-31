@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Product;
+use App\Agent;
 use App\SelectList;
 use Illuminate\Http\Request;
 
@@ -29,7 +30,8 @@ class ProductController extends AdminPageController
     {
         //
         $product_type = SelectList::productType()->pluck('long_desc','item_item');
-        return view('products.create')->with(['product_type'=>$product_type]);
+        $agents = Agent::pluck('title', 'id');
+        return view('products.create')->with(['product_type'=>$product_type,'agents'=>$agents]);
     }
 
     /**
@@ -73,8 +75,9 @@ class ProductController extends AdminPageController
     public function edit(Product $product)
     {
         //
+        $agents = Agent::pluck('title', 'id');
         $product_type = SelectList::productType()->pluck('long_desc','item_item');
-        return view('products.edit')->with(['product'=>$product, 'product_type'=>$product_type]);
+        return view('products.edit')->with(['product'=>$product, 'product_type'=>$product_type,'agents'=>$agents]);
     }
 
     /**
@@ -90,6 +93,7 @@ class ProductController extends AdminPageController
         $request->validate([
             'name' => 'required',
             'title' => 'required',
+            'agent_id'=>'required',
         ]);
   
         $product->update($request->all());

@@ -18,6 +18,7 @@ class CreateJumbotronsTable extends Migration
             $table->string('name',5);
             $table->string('title',500);
             $table->text('description');
+            $table->string('status',1);
             $table->timestamps();
         });
     }

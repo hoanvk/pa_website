@@ -14,6 +14,11 @@ class Agent extends Model
         # code...
         return $this->hasMany('App\Policy', 'agent_id');
     }
+    public function products()
+    {
+        # code...
+        return $this->hasMany('App\Product', 'product_id');
+    }
     public function cash()
     {
         # code...

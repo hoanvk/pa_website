@@ -19,6 +19,7 @@ class CreateLinksTable extends Migration
             $table->string('route',50);
             $table->string('title',500);
             $table->string('active',10)->nullable();
+            $table->string('status',1)->nullable();
             $table->timestamps();
         });
     }

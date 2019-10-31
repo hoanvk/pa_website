@@ -31,6 +31,11 @@
                 <td>{{ $product->product_type }}</td>
                 
             </tr>
+            <tr>
+                <td>Agent (default)</td>
+                <td>{{ optional($product->agent)->title }}</td>
+                
+            </tr>
         </tbody>
     </table>   
     <p>

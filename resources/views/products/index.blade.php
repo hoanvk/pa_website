@@ -23,6 +23,7 @@
                 <th>Title</th>
                 <th>Name</th>
                 <th>Product Type</th>
+                <th>Agent (default)</th>
                 <th></th>
             </tr>
         </thead>
@@ -32,6 +33,7 @@
                 <td scope="row">{{ $item->title }}</td>
                 <td>{{ $item->name}} </td>
                 <td>{{ $item->product_type}} </td>
+                <td>{{ optional($item->agent)->title}} </td>
                 <td><a href="{{  route('products.show', $item->id) }} "><i class="fa fa-pencil-square-o" aria-hidden="true"></i></a></td>
             </tr>
             @endforeach

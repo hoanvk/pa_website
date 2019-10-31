@@ -14,8 +14,15 @@
 </div>
 <div class="form-group row">
     <div class="col-sm-6">
-        <label for="product_type">Product</label>
+        <label for="product_type">Product Type</label>
         {!! Form::select('product_type', $product_type,null, ['class' => 'form-control']) !!}
+    </div>
+    
+</div>
+<div class="form-group row">
+    <div class="col-sm-6">
+        <label for="agent_id">Agent (Default)</label>
+        {!! Form::select('agent_id', $agents,null, ['class' => 'form-control']) !!}
     </div>
     
 </div>
