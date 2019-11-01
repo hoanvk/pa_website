@@ -8,7 +8,7 @@ class Customer extends Model
 {
     //
      protected $table = 'customers';
-     protected $fillable = ['id','name','address','email','policy_id','status','mobile','natlty','city','dob','tgram'];
+     protected $fillable = ['id','name','address','email','policy_id','status','mobile','natlty','city','dob','tgram','gender'];
      public function policy()
         {
             # code...

@@ -1,18 +1,19 @@
 @extends('shared.master')
 @section('title')
-    Insured Person
+    Customer
 @endsection
+
 @section('left-menu')
-    @include('pa._policy')
+    @include('shared._policy')
     
     @include('pa._help')
 @endsection
 @section('caption')
-    INSURED PERSON
+    POLICY HOLDER
 @endsection
+
 @section('content')
 @include('pa._tabs')
-                    
         <table class="table">
             <tbody>
             
@@ -50,14 +51,14 @@
         </table>   
         <p>
                 {!! Form::model($member, array('route' => array('members.destroy', 
-                    $policy->id, $member->id), 'method'=>'DELETE')) !!}
+                    $policy_id, $member->id), 'method'=>'DELETE')) !!}
             
-                <a class="btn btn-outline-primary" href="{{route('members.edit',
-                    ['policy_id'=>$policy->id, 'id'=>$member->id])}} ">Edit</a>
+                <a class="btn btn-primary" href="{{route('members.edit',
+                    ['policy_id'=>$policy_id, 'id'=>$member->id])}} ">Edit</a>
                 <button type="submit" class="btn btn-danger">Delete</button>
                 {!! Form::close() !!} 
             
         </p>
-        @include('members._insured')
-    
+        
+
 @endsection

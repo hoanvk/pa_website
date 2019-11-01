@@ -76,3 +76,20 @@
             <button type="submit" class="btn btn-primary"> {{ $button_name }} </button>        
     </div>
 </div>
+@section('js')
+    <script src="/js/jquery-ui.js"></script>    
+    <script>
+        $("#dob").datepicker({
+                dateFormat: "dd/mm/yy",
+                firstDay: 1,
+                isRTL: false,
+                showMonthAfterYear: false,
+                yearSuffix: ""
+            });
+            $('#dob_picker').click(function(){
+            $('#dob').datepicker('show');
+            });
+       
+        jQuery.validator.methods["date"] = function (value, element) { return true; }
+    </script>
+@endsection   

@@ -34,6 +34,8 @@ class PolicyHeader extends Migration
             $table->string('ref_number',255);
             $table->string('promo_code',30)->nullable();
             $table->text('remarks');
+            $table->unsignedBigInteger('customer_id')->nullable();
+            $table->foreign('customer_id')->references('id')->on('customers')->onDelete('SET NULL');
             $table->timestamps();
         });
         

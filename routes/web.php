@@ -20,10 +20,14 @@ Route::get('locale/{locale}', function ($locale) {
     
 });
 Route::group(['prefix' => 'online','middleware' => 'web'], function () {
+
+    //End date
     Route::get('ajax/pa/period', [
         'as'=>'ajax.period',
         'uses'=>'PAController@period'
         ]);
+
+    //Choose PA product
     Route::get('pa', [
         'as'=>'pa.index',
         'uses'=>'PAController@index'
@@ -34,7 +38,7 @@ Route::group(['prefix' => 'online','middleware' => 'web'], function () {
         'uses'=>'PAController@create']
      );
     
-     Route::get('pa/{product_id}/{id}', [
+     Route::get('pa/{product_id}/{policy_id}', [
         'as'=>'pa.show',
         'uses'=>'PAController@show'
     ]);
@@ -44,20 +48,52 @@ Route::group(['prefix' => 'online','middleware' => 'web'], function () {
         'uses' => 'PAController@store'
     ]);
     
-    Route::put('pa/{product_id}/{id}', [
+    Route::put('pa/{v}/{policy_id}', [
         'as' => 'pa.update',
         'uses' => 'PAController@update'
     ]);
 
-    Route::get('pa/{product_id}/{id}/edit', [
+    Route::get('pa/{product_id}/{policy_id}/edit', [
         'as'=>'pa.edit',
         'uses'=>'PAController@edit'
     ]);
     
-    Route::get('pa/{product_id}/{id}/confirm', [
+    Route::get('pa/{product_id}/{policy_id}/confirm', [
         'as'=>'pa.confirm',
         'uses'=>'PAController@confirm'
     ]);
+
+    //Customer
+    Route::get('customers/{policy_id}',[
+        'as'=>'customers.index',
+        'uses'=>'CustomerController@index']
+     );
+
+    Route::get('customers/{policy_id}/create',[
+        'as'=>'customers.create',
+        'uses'=>'CustomerController@create']
+     );
+    
+     Route::get('customers/{policy_id}/{id}', [
+        'as'=>'customers.show',
+        'uses'=>'CustomerController@show'
+    ]);
+    
+     Route::post('customers/{policy_id}', [
+        'as' => 'customers.store',
+        'uses' => 'CustomerController@store'
+    ]);
+    
+    Route::put('customers/{policy_id}/{id}', [
+        'as' => 'customers.update',
+        'uses' => 'CustomerController@update'
+    ]);
+
+    Route::get('customers/{policy_id}/{id}/edit', [
+        'as'=>'customers.edit',
+        'uses'=>'CustomerController@edit'
+    ]);
+    
 });
 Route::group(['prefix' => 'agent','middleware' => 'auth'], function () {
     //PA

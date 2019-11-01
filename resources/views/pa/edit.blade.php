@@ -1,6 +1,6 @@
 @extends('shared.master')
 @section('title')
-Personal Accident | MSIG
+Personal Accident
 @endsection
 @section('css')
 <link rel="stylesheet" href="https://code.jquery.com/ui/1.12.1/themes/blitzer/jquery-ui.css">
@@ -14,13 +14,10 @@ Personal Accident | MSIG
     @include('pa._help')
 @endsection
 @section('caption')
-    CUSTOMER
+    QUOTATION
 @endsection
 @section('content')
-<div class="clearfix">
-    <span class="float-left"><a href="{{ route('pa.index', $product->id)}} " class="btn btn-link"><i class="fa fa-chevron-left"></i> Previous</a></span>
-    <span class="float-right"><a href="{{ route('pa.show', $product->id, $model->id)}} " class="btn btn-link">Next <i class="fa fa-chevron-right"></i></a></span>
-</div>
+@include('pa._tabs')
             
             {!! Form::model($model, array('route' => array('pa.update',$product->id, $model->id), 'method'=>'PUT')) !!}
             

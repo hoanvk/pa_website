@@ -44,6 +44,11 @@ class SelectList{
         return Nationality::all();
     }
 
+    public static function province()
+    {
+        return Province::all();
+    }
+
     //Product Type
     public static function productType()
     {

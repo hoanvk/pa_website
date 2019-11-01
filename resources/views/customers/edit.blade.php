@@ -14,17 +14,14 @@
     @include('pa._help')
 @endsection
 @section('caption')
-    INSURED PERSON
+    POLICY HOLDER
 @endsection
 @section('content')
-
 @include('pa._tabs')
-        
-        
-    {!! Form::model($member, array('route' => array('members.update',$policy->id, $member->id), 'method'=>'PUT')) !!}
+    {!! Form::model($model, array('route' => array('customers.update',$policy_id, $model->id), 'method'=>'PUT')) !!}
     
-        @include('members._form',[ 'button_name' => 'Update'])
+    @include('customers._form',[ 'button_name' => 'Update'])
     {{-- </form> --}}
     {!! Form::close() !!}   
-                           
+                            
 @endsection

@@ -16,10 +16,13 @@
                                                     
             <div class="list-group-item list-group-item-action py-2 d-flex justify-content-between align-items-center">
                 Product: {{ $policy->product->title}}</div>
+                @isset($risk)
                 <div class="list-group-item list-group-item-action py-2 d-flex justify-content-between align-items-center">
-                    Plan: {{ $policy->parisk->plan->title}}</div>    
-            <div class="list-group-item list-group-item-action py-2 d-flex justify-content-between align-items-center">
-                        Insurance period: {{ $policy->parisk->period->title}}</div>   
+                        Plan: {{ $risk->plan->title}}</div>    
+                <div class="list-group-item list-group-item-action py-2 d-flex justify-content-between align-items-center">
+                            Insurance period: {{ $risk->period->title}}</div>  
+                @endisset
+                 
                                                     
         </div>
     </div> 

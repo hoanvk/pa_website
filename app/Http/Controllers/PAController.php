@@ -16,7 +16,7 @@ use App\Product;
 use App\DateUtil;
 use Carbon\Carbon;
 use App\SelectList;
-use App\TravelSeqNo;
+
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Input;
 use App\Http\Requests\PAPolicyRequest;
@@ -67,18 +67,18 @@ class PAController extends B2CPageController
     public function create($product_id)
     {
         # code...
-        $product = Product::find($product_id);
+        
         $plans = Plan::where('product_id','=',$product_id)->pluck('title', 'id');
         $periods = Period::where('product_id','=',$product_id)->pluck('title', 'id');
-        $quotation_no =PASeqNo::quotation_no();
-        return view('pa.create',['quotation_no'=>$quotation_no,'plans'=>$plans,
-        'periods'=>$periods, 'product'=>$product]);
+        
+        return view('pa.create',['plans'=>$plans,
+            'periods'=>$periods]);
     }
     public function store(PAPolicyRequest $request, $product_id)
     {
         # code...
         // dd(Input::get('content'));
-        $quotation_no =TravelSeqNo::quotation_no();       
+        $quotation_no =PASeqNo::quotation_no();       
         $start_date = DateUtil::parseDate(Input::get('start_date'));
         if (!$start_date) {
             $error = ValidationException::withMessages([
@@ -87,30 +87,31 @@ class PAController extends B2CPageController
              throw $error;
             
         }
-        $product = Product::find($product_id);
+        
+        //
         $promo_code = Input::get('promo_code');
+
         $period_id = Input::get('period_id');
         $plan_id = Input::get('plan_id');
         $end_date = PARisk::coverage($start_date, $period_id);
         $period = Period::find($period_id);
 
+        //Get default Agent for online customer
+        $product = Product::find($product_id);
         $agent = Agent::find($product->agent_id);
         
         $policy = Policy::create(['quotation_no'=> $quotation_no,
         'policy_no'=>'',
         'product_id'=>$product_id,        
-        'client_address'=>$agent->address,
+        
         'start_date'=>$start_date,
         'end_date'=>$end_date,
         'agent_id'=>$agent->id,
         'premium'=>0,        
         'period'=>$period->qty,
-        'client_name' => '',
-        'client_id' => '',
-        'status'=>'1',
-        'client_dob' => Carbon::now(),
-        'ref_number'=>'',
-        'remarks'=>'']);
+        
+        'status'=>'1',        
+        ]);
 
         $risk = PARisk::create(['policy_id'=> $policy->id,                 
         'premium'=>0,                
@@ -121,32 +122,26 @@ class PAController extends B2CPageController
         
         $premium = Premium::PACalculate($risk); 
         $policy->update(['premium'=>$premium]);
-        $risk->update(['premium'=>$premium]);
+        $risk->update(['premium'=>$premium]);        
 
-        $this->customer->update(['policy_id'=>$policy->id]);
-
-        return redirect()->route('pa.show',['product_id'=>$product_id, 'id'=>$policy->id])
-        ->with('success','Travel policy created successfully.');
+        return redirect()->route('customers.create',['policy_id'=>$policy->id]);
         
     }
-    public function show($product_id, $id)
+    public function show($product_id, $policy_id)
     {
         # code... 
-        $product = Product::find($product_id);   
            
-        $model = Policy::find($id);
-        $policy = Policy::find($id);
+        $model = Policy::find($policy_id);        
         $risk = $model->parisk;
         $status = SelectList::policyStatus();
         
-        return view('pa.show')->with(['model'=>$model,'policy'=>$policy,'status'=>$status,'product'=>$product,'risk'=>$risk]);
+        return view('pa.show')->with(['model'=>$model,'status'=>$status,'risk'=>$risk]);
     }
-    public function edit($product_id, $id)
+    public function edit($product_id, $policy_id)
     {
         //
-        $model=Policy::find($id);
-        $policy = Policy::find($id);
-        $product = Product::find($product_id);
+        $model=Policy::find($policy_id);
+        
         $plans = Plan::where('product_id','=',$product_id)->pluck('title', 'id');
         $periods = Period::where('product_id','=',$product_id)->pluck('title', 'id');
         
@@ -157,9 +152,56 @@ class PAController extends B2CPageController
         $model->plan_id = $risk->plan_id;
         $model->period_id = $risk->period_id;
         return view('pa.edit')->with(['model'=>$model,'plans'=>$plans,
-        'periods'=>$periods, 'product'=>$product,'policy'=>$policy]);
+        'periods'=>$periods]);
     }
-    public function confirm(Request $request, $product_id, $id)
+    public function update(PAPolicyRequest $request, $product_id, $policy_id)
+    {
+        # code...
+        // dd(Input::get('content'));
+             
+        $start_date = DateUtil::parseDate(Input::get('start_date'));
+        if (!$start_date) {
+            $error = ValidationException::withMessages([
+                'start_date' => ['Start date is invalid date format (DD/MM/YYYY)!']
+             ]);
+             throw $error;
+            
+        }
+        
+        //
+        $promo_code = Input::get('promo_code');
+
+        $period_id = Input::get('period_id');
+        $plan_id = Input::get('plan_id');
+        $end_date = PARisk::coverage($start_date, $period_id);
+        $period = Period::find($period_id);
+        
+        $policy = Policy::find($policy_id);
+        $policy->update([        
+        'start_date'=>$start_date,
+        'end_date'=>$end_date,
+
+        'premium'=>0,        
+        'period'=>$period->qty,
+
+        ]);
+
+        $risk = $policy->parisk;
+        $risk->update(['policy_id'=> $policy->id,                 
+        'premium'=>0,                
+        'plan_id' => $plan_id,
+        'period_id' => $period_id,
+        'promo_code' =>$promo_code]);  
+        
+        
+        $premium = Premium::PACalculate($risk); 
+        $policy->update(['premium'=>$premium]);
+        $risk->update(['premium'=>$premium]);        
+
+        return redirect()->route('pa.show',['product_id'=>$product_id, 'policy_id'=>$policy_id ]);
+        
+    }
+    public function confirm(Request $request, $product_id, $policy_id)
     {
         # code...
         $quotation_no =Policy::quotation();

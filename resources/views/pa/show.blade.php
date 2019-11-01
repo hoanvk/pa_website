@@ -11,7 +11,9 @@ Personal Accident | MSIG
     QUOTATION
 @endsection
 @section('content')
-
+ 
+      
+@include('pa._tabs')
 @if ($message = Session::get('success'))
     <div class="alert alert-success">
         <p>{{ $message }}</p>
@@ -22,12 +24,7 @@ Personal Accident | MSIG
         <p>{{ $message }}</p>
     </div>
 @endif            
-         
-<div class="clearfix">
-    <span class="float-left"><a href="{{ route('pa.index', $product->id)}} " class="btn btn-link"><i class="fa fa-chevron-left"></i> Previous</a></span>
-    <span class="float-right"><a href="{{ route('pa.show', ['product_id'=>$product->id, 'id'=>$model->id])}} " class="btn btn-link">Next <i class="fa fa-chevron-right"></i></a></span>
-</div>
-
+ 
     <table class="table">
         <tbody>
         
@@ -69,11 +66,11 @@ Personal Accident | MSIG
             </tr> --}}
             <tr>
                 <td scope="row">Start Date</td>                
-                <td>{{ date('d-m-Y', strtotime($model->start_date)) }}</td>
+                <td>{{ date('d/m/Y', strtotime($model->start_date)) }}</td>
             </tr>
             <tr>
                 <td scope="row">End Date</td>                
-                <td>{{ date('d-m-Y', strtotime($model->end_date)) }}</td>
+                <td>{{ date('d/m/Y', strtotime($model->end_date)) }}</td>
             </tr>
             
             <tr>
@@ -86,7 +83,7 @@ Personal Accident | MSIG
    
     @if ($model->status == '1')
     <p>
-        <a class="btn btn-outline-primary" href="{{route('pa.edit',['product_id'=>$product->id,'id'=>$model->id])}} ">Edit Quotation</a> 
+        <a class="btn btn-outline-primary" href="{{route('pa.edit',['product_id'=>$product->id,'id'=>$model->id])}} ">Edit Quotation</a>
         <a class="btn btn-primary" href="{{route('pa.confirm',['product_id'=>$product->id,'id'=>$model->id])}} ">Confirm</a>
     </p>
     @endif

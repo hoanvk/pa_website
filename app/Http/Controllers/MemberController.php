@@ -9,12 +9,13 @@ use App\DateUtil;
 use Carbon\Carbon;
 use App\SelectList;
 use Illuminate\Http\Request;
+use App\Http\Requests\MemberRequest;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Input;
 use Illuminate\Support\Facades\Validator;
 use Illuminate\Validation\ValidationException;
 
-class MemberController extends Controller
+class MemberController extends B2CPageController
 {
     /**
      * Display a listing of the resource.
@@ -24,12 +25,9 @@ class MemberController extends Controller
     public function index($policy_id)
     {
         //
-        $agent =optional(Auth::user()->agent);
-        $model = Member::where('policy_id','=',$policy_id)->get();
-        $policy = Policy::find($policy_id);
-        $risk = $policy->risks->first();
-        return view('members.index')->with(['agent'=>$agent,'model'=>$model, 
-            'policy_id'=>$policy_id, 'policy'=>$policy, 'risk'=>$risk]);
+        
+        $model = Member::where('policy_id','=',$policy_id)->get();        
+        return view('members.index')->with(['model'=>$model]);
     }
 
     /**
@@ -40,13 +38,11 @@ class MemberController extends Controller
     public function create($policy_id)
     {
         //        
-        $agent =optional(Auth::user()->agent);
+        
         $relationship = SelectList::relationship()->pluck('long_desc','item_item');
-        $country = SelectList::country()->pluck('long_desc','item_item');
-        $policy = Policy::find($policy_id);
-        $risk = $policy->risks->first();
-        return view('members.create')->with(['policy_id'=>$policy_id,       
-        'agent'=>$agent, 'relationship'=>$relationship, 'policy'=>$policy, 'risk'=>$risk,'country'=>$country]);
+        $country = SelectList::country()->pluck('name','ctry_code');
+        $model = Member::where('policy_id','=',$policy_id)->get();
+        return view('members.create')->with(['relationship'=>$relationship, 'country'=>$country, 'model'=>$model]);
     }
 
     /**
@@ -55,18 +51,10 @@ class MemberController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store($policy_id, Request $request)
+    public function store(MemberRequest $request, $policy_id)
     {
         //
-        $request->validate([
-            'insured_name' => 'required',
-            'insured_id' => 'required',
-            'dob' => 'required',
-            'naty' => 'required',
-            'gender' => 'required',
-            'ownship' => 'required'
-        ]);
-
+        
         $dob = DateUtil::parseDate(Input::get('dob'));
         if (DateUtil::compareNow($dob)) {
             $error = ValidationException::withMessages([
@@ -92,8 +80,7 @@ class MemberController extends Controller
                 ]
             );
    
-        return redirect()->route('members.index',$policy_id)
-                        ->with('success','Insured person created successfully.');
+        return redirect()->route('members.index',$policy_id);
     }
 
     /**
@@ -105,15 +92,12 @@ class MemberController extends Controller
     public function show($policy_id, $id)
     {
         //
-        $agent =optional(Auth::user()->agent);
-        $member = Member::find($id);
-        $model = Member::where('policy_id','=',$policy_id)->get();
-        $policy = Policy::find($policy_id);
-        $risk = $policy->risks->first();
+        $member = Member::find($id);        
         $relationship = SelectList::relationship();
         $gender = SelectList::gender();
-        return view('members.show')->with(['model'=>$model, 'member'=>$member,'policy_id'=>$policy_id,'agent'=>$agent, 
-            'policy'=>$policy, 'risk'=>$risk, 'relationship'=>$relationship, 'gender'=>$gender]);
+
+        $model = Member::where('policy_id','=',$policy_id)->get();
+        return view('members.show')->with(['member'=>$member, 'relationship'=>$relationship, 'gender'=>$gender,'model'=>$model]);
     }
 
     /**
@@ -125,15 +109,14 @@ class MemberController extends Controller
     public function edit($policy_id, $id)
     {
         //
-        $model = Member::find($id);
-        $model->dob = date('d/m/Y', strtotime($model->dob));
-        $agent =optional(Auth::user()->agent);
+        $member = Member::find($id);
+        $member->dob = date('d/m/Y', strtotime($member->dob));
+        
         $relationship = SelectList::relationship()->pluck('long_desc','item_item');
-        $country = SelectList::country()->pluck('long_desc','item_item');
-        $policy = Policy::find($policy_id);
-        $risk = $policy->risks->first();
-        return view('members.edit')->with(['policy_id'=>$policy_id,       
-        'agent'=>$agent, 'relationship'=>$relationship,'model'=>$model, 'policy'=>$policy, 'risk'=>$risk,'country'=>$country]);
+        $country = SelectList::country()->pluck('name','ctry_code');
+
+        $model = Member::where('policy_id','=',$policy_id)->get();
+        return view('members.edit')->with(['relationship'=>$relationship,'member'=>$member, 'country'=>$country, 'model'=>$model]);
     }
 
     /**
@@ -143,17 +126,10 @@ class MemberController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, $policy_id, $id)
+    public function update(MemberRequest $request, $policy_id, $id)
     {
         //
-        $request->validate([
-            'insured_name' => 'required',
-            'insured_id' => 'required',
-            'dob' => 'required',
-            'naty' => 'required',
-            'gender' => 'required',
-            'ownship' => 'required'
-        ]);
+        
         $dob = DateUtil::parseDate(Input::get('dob'));
         if (DateUtil::compareNow($dob)) {
             $error = ValidationException::withMessages([
@@ -177,11 +153,9 @@ class MemberController extends Controller
                 'naty'=>$naty,
                 'gender'=>$gender,
                 'ownship'=>$ownship,
-                'policy_id'=>$policy_id,
                 'age'=>$age
                 ]);
-        return redirect()->route('members.index',$policy_id)
-                        ->with('success','Insured person updated successfully.');
+        return redirect()->route('members.index',$policy_id);
     }
 
     /**
