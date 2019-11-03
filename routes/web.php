@@ -11,16 +11,21 @@
 |
 */
 
-Route::get('/', function () {
-    return redirect()->route('pa.index');
-});
+Route::get('/', [
+    'as'=>'home',
+    'uses'=>'HomeController@index'
+]);
 Route::get('locale/{locale}', function ($locale) {
     session::put('locale',$locale);
     return redirect()->back();
     
 });
 Route::group(['prefix' => 'online','middleware' => 'web'], function () {
-
+    //
+    Route::get('pa/{policy_id}/confirm', [
+        'as'=>'pa.confirm',
+        'uses'=>'PAController@confirm'
+    ]);
     //End date
     Route::get('ajax/pa/period', [
         'as'=>'ajax.period',
@@ -48,7 +53,7 @@ Route::group(['prefix' => 'online','middleware' => 'web'], function () {
         'uses' => 'PAController@store'
     ]);
     
-    Route::put('pa/{v}/{policy_id}', [
+    Route::put('pa/{product_id}/{policy_id}', [
         'as' => 'pa.update',
         'uses' => 'PAController@update'
     ]);
@@ -58,9 +63,9 @@ Route::group(['prefix' => 'online','middleware' => 'web'], function () {
         'uses'=>'PAController@edit'
     ]);
     
-    Route::get('pa/{product_id}/{policy_id}/confirm', [
-        'as'=>'pa.confirm',
-        'uses'=>'PAController@confirm'
+    Route::delete('pa/{product_id}/{policy_id}', [
+        'as'=>'pa.destroy',
+        'uses'=>'PAController@destroy'
     ]);
 
     //Customer
@@ -94,6 +99,36 @@ Route::group(['prefix' => 'online','middleware' => 'web'], function () {
         'uses'=>'CustomerController@edit'
     ]);
     
+    //Member
+    Route::get('members/{policy_id}',[
+        'as'=>'members.index',
+        'uses'=>'MemberController@index']
+    ); 
+
+    Route::get('members/{policy_id}/create', [
+        'as'=>'members.create',
+        'uses'=>'MemberController@Create'
+    ]);
+    Route::get('members/{policy_id}/{id}', [
+        'as'=>'members.show',
+        'uses'=>'MemberController@show'
+    ]);
+    Route::post('members/{policy_id}', [
+        'as' => 'members.store',
+        'uses' => 'MemberController@Store'
+    ]);
+    Route::put('members/{policy_id}/{id}', [
+        'as' => 'members.update',
+        'uses' => 'MemberController@Update'
+    ]);
+    Route::get('members/{policy_id}/{id}/edit', [
+        'as'=>'members.edit',
+        'uses'=>'MemberController@Edit'
+    ]); 
+    Route::delete('members/{policy_id}/{id}', [
+        'as'=>'members.destroy',
+        'uses'=>'MemberController@destroy'
+    ]);
 });
 Route::group(['prefix' => 'agent','middleware' => 'auth'], function () {
     //PA
@@ -131,36 +166,7 @@ Route::group(['prefix' => 'agent','middleware' => 'auth'], function () {
         'uses'=>'TravelController@confirm'
     ]);
 
-    //Member
-    Route::get('members/{policy_id}',[
-        'as'=>'members.index',
-        'uses'=>'MemberController@index']
-    ); 
-
-    Route::get('members/{policy_id}/create', [
-        'as'=>'members.create',
-        'uses'=>'MemberController@Create'
-    ]);
-    Route::get('members/{policy_id}/{id}', [
-        'as'=>'members.show',
-        'uses'=>'MemberController@show'
-    ]);
-    Route::post('members/{policy_id}', [
-        'as' => 'members.store',
-        'uses' => 'MemberController@Store'
-    ]);
-    Route::put('members/{policy_id}/{id}', [
-        'as' => 'members.update',
-        'uses' => 'MemberController@Update'
-    ]);
-    Route::get('members/{policy_id}/{id}/edit', [
-        'as'=>'members.edit',
-        'uses'=>'MemberController@Edit'
-    ]); 
-    Route::delete('members/{policy_id}/{id}', [
-        'as'=>'members.destroy',
-        'uses'=>'MemberController@destroy'
-    ]);
+    
 
     Route::resource('reports','ReportController');
 });
@@ -197,7 +203,7 @@ Route::group(['prefix' => 'admin','middleware' => 'auth'], function () {
     Route::resource('dayranges','DayRangeController');
     Route::resource('prices','PriceController');
     
-
+    //Begin PA Price
     Route::get('paprices/{product_id}', [
         'as'=>'paprices.index',
         'uses'=>'PAPriceController@index'
@@ -227,11 +233,46 @@ Route::group(['prefix' => 'admin','middleware' => 'auth'], function () {
         'as'=>'paprices.destroy',
         'uses'=>'PAPriceController@destroy'
     ]);
+    //End Price    
+
+    //Begin Benefit
+    Route::get('benefits/{product_id}', [
+        'as'=>'benefits.index',
+        'uses'=>'BenefitController@index'
+    ]);
+    Route::get('benefits/{product_id}/create', [
+        'as'=>'benefits.create',
+        'uses'=>'BenefitController@create'
+    ]);
+    Route::get('benefits/{product_id}/{id}', [
+        'as'=>'benefits.show',
+        'uses'=>'BenefitController@show'
+    ]);
+    
+    Route::post('benefits/{product_id}', [
+        'as' => 'benefits.store',
+        'uses' => 'BenefitController@store'
+    ]);
+    Route::put('benefits/{product_id}/{id}', [
+        'as' => 'benefits.update',
+        'uses' => 'BenefitController@Update'
+    ]);
+    Route::get('benefits/{product_id}/{id}/edit', [
+        'as'=>'benefits.edit',
+        'uses'=>'BenefitController@Edit'
+    ]); 
+    Route::delete('benefits/{product_id}/{id}', [
+        'as'=>'benefits.destroy',
+        'uses'=>'BenefitController@destroy'
+    ]);
+    //End benefit    
+
+
     Route::resource('cashes','CashController');
     Route::resource('autonumbers','AutoNumberController');
     Route::resource('plans','PlanController');
     Route::resource('agentplans','AgentPlanController');
-    Route::resource('benefits','BenefitController');
+    
     Route::resource('periods','PeriodController');
 });
 Route::group(['prefix' => 'export','middleware' => ['auth']], function () {
@@ -256,10 +297,10 @@ Route::group(['prefix' => 'import','middleware' => ['auth']], function () {
 });
 Auth::routes();
 
-Route::get('/home', function ()
+Route::get('/online', function ()
 {
     # code...
-    return redirect()->route('travel.create');
+    return redirect()->route('pa.index');
 });
 Route::get('/admin', function ()
 {

@@ -18,18 +18,12 @@
 </div>
 <div class="form-group row">
      
-        <div class="col-md-6">
-                <label for="title">Title</label>   
-                {!! Form::textarea('title', null, ['class' => 'form-control']) !!}
-        </div>
-        
+    <div class="col-md-6">
+            <label for="title">Title</label>   
+            {!! Form::textarea('title', null, ['class' => 'form-control']) !!}
     </div>
+    
+</div>
 
-<div class="form-group row">
-        <div class="col-md-6">
-            <label for="product_id">Product</label>
-            {!! Form::select('product_id', $products,null, ['class' => 'form-control']) !!}
-        </div>
-        
-    </div>
+
 <button type="submit" class="btn btn-primary"> {{ $button_name }} </button>

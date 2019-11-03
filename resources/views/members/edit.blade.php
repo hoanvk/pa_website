@@ -1,6 +1,6 @@
 @extends('shared.master')
 @section('title')
-    Update
+Insured Person
 @endsection
 @section('css')
 <link rel="stylesheet" href="https://code.jquery.com/ui/1.12.1/themes/blitzer/jquery-ui.css">
@@ -14,16 +14,17 @@
     @include('pa._help')
 @endsection
 @section('caption')
-    INSURED PERSON
+    @lang('members.insured_person')
 @endsection
 @section('content')
 
-@include('pa._tabs')
+{{-- @include('pa._tabs') --}}
         
         
     {!! Form::model($member, array('route' => array('members.update',$policy->id, $member->id), 'method'=>'PUT')) !!}
     
-        @include('members._form',[ 'button_name' => 'Update'])
+        @include('members._form',[ 'button_name' => 'members.edit'])
+        
     {{-- </form> --}}
     {!! Form::close() !!}   
                            

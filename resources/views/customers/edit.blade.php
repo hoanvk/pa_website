@@ -1,6 +1,6 @@
 @extends('shared.master')
 @section('title')
-    Update
+Policy Holder
 @endsection
 @section('css')
 <link rel="stylesheet" href="https://code.jquery.com/ui/1.12.1/themes/blitzer/jquery-ui.css">
@@ -17,10 +17,10 @@
     POLICY HOLDER
 @endsection
 @section('content')
-@include('pa._tabs')
-    {!! Form::model($model, array('route' => array('customers.update',$policy_id, $model->id), 'method'=>'PUT')) !!}
+{{-- @include('pa._tabs') --}}
+    {!! Form::model($customer, array('route' => array('customers.update',$customer->policy_id, $customer->id), 'method'=>'PUT')) !!}
     
-    @include('customers._form',[ 'button_name' => 'Update'])
+    @include('customers._form',[ 'button_name' => 'customers.edit'])
     {{-- </form> --}}
     {!! Form::close() !!}   
                             

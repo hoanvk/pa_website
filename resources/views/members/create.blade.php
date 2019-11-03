@@ -1,6 +1,6 @@
 @extends('shared.master')
 @section('title')
-    Create Insured Person
+Insured Person
 @endsection
 @section('css')
 <link rel="stylesheet" href="https://code.jquery.com/ui/1.12.1/themes/blitzer/jquery-ui.css">
@@ -14,10 +14,10 @@
     @include('pa._help')
 @endsection
 @section('caption')
-    INSURED PERSON
+@lang('members.insured_person')
 @endsection
 @section('content')
-@include('pa._tabs')
+{{-- @include('pa._tabs') --}}
 
 
     {!! Form::open([
@@ -30,7 +30,7 @@
     <!-- TODO: This is for server side, there is another version for browser defaults -->
     {{-- <form action="{{ route('article.store') }}" method="POST">
         {{ csrf_field() }} --}}
-    @include('members._form',[ 'button_name' => 'Create'])
+    @include('members._form',[ 'button_name' => 'members.create'])
     {{-- </form> --}}
     {!! Form::close() !!}     
       

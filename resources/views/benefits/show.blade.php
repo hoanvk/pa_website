@@ -4,7 +4,7 @@ Benefit | MSIG
 @endsection
 @section('content')
 <div class="container">
-    @include('dashboard._breadcrumb',['nodes' =>[['action'=>'benefits.index', 'title'=>'Index'], 
+    @include('dashboard._breadcrumb',['nodes' =>[['action'=>'benefits.index', 'title'=>$product->title,'parameter'=>$product->id], 
     
         ['title'=>'Details']]])
     
@@ -26,18 +26,14 @@ Benefit | MSIG
                 <td>{{ $model->name }}</td>
                 
             </tr>
-            <tr>
-                <td scope="row">Product</td>
-                <td>{{ $model->product->title }}</td>
-                
-            </tr>
+            
         </tbody>
     </table>   
     <p>
         
-        {!! Form::model($model, array('route' => array('benefits.destroy', $model->id), 'method'=>'DELETE')) !!}
+        {!! Form::model($model, array('route' => array('benefits.destroy',$model->product_id, $model->id), 'method'=>'DELETE')) !!}
         
-        <a class="btn btn-outline-primary" href="{{route('benefits.edit',['id'=>$model->id])}} ">Edit Benefit</a>
+        <a class="btn btn-outline-primary" href="{{route('benefits.edit',['product_id'=> $model->product_id, 'id'=>$model->id])}} ">Edit Benefit</a>
         <button type="submit" class="btn btn-danger">Delete</button>
         {!! Form::close() !!} 
     </p>

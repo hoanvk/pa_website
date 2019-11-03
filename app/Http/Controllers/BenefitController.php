@@ -13,12 +13,13 @@ class BenefitController extends AdminPageController
      *
      * @return \Illuminate\Http\Response
      */
-    public function index()
+    public function index($product_id)
     {
         //
-        $model = Benefit::latest()->paginate(10);
+        $product = Product::find($product_id);
+        $model = Benefit::where('product_id','=',$product_id)->latest()->paginate(10);
         return view('benefits.index')->with(['i'=> (request()->input('page', 1) - 1) * 10,
-            'model'=>$model]);
+            'model'=>$model, 'product'=>$product]);
     }
 
     /**
@@ -26,11 +27,11 @@ class BenefitController extends AdminPageController
      *
      * @return \Illuminate\Http\Response
      */
-    public function create()
+    public function create($product_id)
     {
         //
-        $products = Product::pluck('title', 'id');
-        return view('benefits.create')->with(['products'=>$products]);
+        $product = Product::find($product_id);
+        return view('benefits.create')->with(['product'=>$product]);
     }
 
     /**
@@ -39,19 +40,19 @@ class BenefitController extends AdminPageController
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(Request $request)
+    public function store(Request $request, $product_id)
     {
         //
         $name = Input::get('name');
         $title = Input::get('title');
-        $product_id = Input::get('product_id'); 
+        
         $model = Benefit::create(['name'=>$name,'title'=>$title, 'product_id'=>$product_id]);
         $locale = App::getLocale();
         $model
             ->setTranslation('title', $locale, $title)
             
             ->save();
-        return redirect()->route('benefits.index')
+        return redirect()->route('benefits.index',$product_id)
                         ->with('success','Benefit created successfully.');
     }
 
@@ -61,11 +62,12 @@ class BenefitController extends AdminPageController
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function show($id)
+    public function show($product_id, $id)
     {
         //
         $model =Benefit::find($id);
-        return view('benefits.show',compact('model'));
+        $product = Product::find($product_id);
+        return view('benefits.show')->with(['model'=>$model, 'product'=>$product]);
     }
 
     /**
@@ -74,12 +76,12 @@ class BenefitController extends AdminPageController
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function edit($id)
+    public function edit($product_id, $id)
     {
         //
         $model =Benefit::find($id);
-        $products = Product::pluck('title', 'id');
-        return view('benefits.edit',compact('model'))->with(['model'=>$model,'products'=>$products]);
+        $product = Product::find($product_id);
+        return view('benefits.edit')->with(['model'=>$model,'product'=>$product]);
     }
 
     /**
@@ -89,7 +91,7 @@ class BenefitController extends AdminPageController
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, $id)
+    public function update(Request $request, $product_id, $id)
     {
         //
         $model =Benefit::find($id);
@@ -101,7 +103,7 @@ class BenefitController extends AdminPageController
         $locale = App::getLocale();
         $model->setTranslation('title', $locale, $title)            
             ->save();
-        return redirect()->route('benefits.index')
+        return redirect()->route('benefits.index',$product_id)
                         ->with('success','Benefit updated successfully');
     }
 
@@ -111,7 +113,7 @@ class BenefitController extends AdminPageController
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function destroy($id)
+    public function destroy($product_id, $id)
     {
         //
         $model =Benefit::find($id);

@@ -25,7 +25,7 @@
                 </ul>
               </div>
             
-              <a href="{{route('travel.create')}}" class="navbar-brand mx-auto order-0 order-md-2 p-2">
+              <a href="{{route('home')}}" class="navbar-brand mx-auto order-0 order-md-2 p-2">
                     <img src="{{ asset('images/banner/msig_logo.png') }}" alt="MSIG Vietnam" class="header-logo img-fluid">
                 </a>
             

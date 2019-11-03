@@ -3,7 +3,7 @@
         @if ($loop->last)
         <li class="breadcrumb-item active">{{ $item['title'] }}</li>
         @else
-        <li class="breadcrumb-item"><a href=" {{ route($item['action'])}} ">{{ $item['title'] }}</a></li>
+        <li class="breadcrumb-item"><a href=" {{ route($item['action'],$item['parameter'])}} ">{{ $item['title'] }}</a></li>
         @endif
     @endforeach
         

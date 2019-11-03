@@ -10,7 +10,7 @@ class Policy extends Model
     //
     protected $table = 'tb_policy';
     protected $fillable = ['id', 'product_id', 'quotation_no', 'policy_no', 'client_name','client_address','client_id',
-        'client_dob','start_date','end_date','agent_id','premium','period','status','ref_number', 'remarks', 'promo_code'];
+        'client_dob','start_date','end_date','agent_id','premium','period','status','ref_number', 'remarks', 'promo_code', 'customer_id'];
 
         // public static function quotation()
         // {
@@ -65,7 +65,11 @@ class Policy extends Model
             # code...
             return $this->belongsTo('App\Product');
         }
-        
+        public function customer()
+        {
+            # code...
+            return $this->belongsTo('App\Customer');
+        }
         
         public function risks()
         {

@@ -57,11 +57,28 @@
                         </div>
                         <div class="col-lg-8">
                             <div class="card">
-                                <div class="card-header bg-primary header-title"> @yield('caption') </div>
+                                    <div class="card-header bg-primary header-title">
+                                @hasSection ('card-tab')
+                                <div class="card-header">
+                                        @section('card-tab')
+                                            
+                                        @show
+                                      </div>
+                                @else
+                                     @yield('caption') 
+                                @endif
+                            </div>
                                 <div class="card-body">
                                     @section('content')
                                     @show
                                 </div>
+                                @hasSection ('card-button')
+                                <div class="card-footer">
+                                    @section('card-button')
+                                        
+                                    @show
+                                </div>
+                                @endif
                             </div>  
                         </div>
                     </div>

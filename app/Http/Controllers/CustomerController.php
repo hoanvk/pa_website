@@ -8,7 +8,8 @@ use App\SelectList;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Input;
 use App\Http\Requests\CustomerRequest;
-
+use App\Policy;
+use Illuminate\Validation\ValidationException;
 class CustomerController extends B2CPageController
 {
     /**
@@ -33,9 +34,9 @@ class CustomerController extends B2CPageController
         
         $cities = SelectList::province()->pluck('title','name');
         $countries = SelectList::country()->pluck('name','ctry_code');
-        $model = new Customer();
-        $model->natlty = 'VN';        
-        return view('customers.create')->with(['model'=>$model, 'cities'=>$cities, 'countries'=>$countries]);
+        $customer = new Customer();
+        $customer->natlty = 'VN';        
+        return view('customers.create')->with(['customer'=>$customer, 'cities'=>$cities, 'countries'=>$countries]);
     }
 
     /**
@@ -62,7 +63,9 @@ class CustomerController extends B2CPageController
         $natlty = Input::get('natlty');
         $city = Input::get('city');
         $mobile = Input::get('mobile');
-        Customer::create(['name' => $name,
+        $address = Input::get('address');
+        $email = Input::get('email');
+        $customer = Customer::create(['name' => $name,
                 'tgram'=>$tgram,
                 'dob'=>$dob,
                 'natlty'=>$natlty,
@@ -70,11 +73,19 @@ class CustomerController extends B2CPageController
                 'city'=>$city,
                 'policy_id'=>$policy_id,
                 'mobile'=>$mobile,
+                'address'=>$address,
+                'email'=>$email,
                 'status'=>'1'
                 ]
             );
-   
-        return redirect()->route('members.index',$policy_id);
+        $policy = Policy::find($policy_id);
+        
+        if ($policy->status < 3) {
+            # code...
+            $policy->update(['status'=>$status]);
+        }
+        $policy->update(['customer_id'=>$customer->id]);
+        return redirect()->route('customers.show',['policy_id'=>$policy_id, 'id'=>$customer->id]);
     }
 
     /**
@@ -90,7 +101,8 @@ class CustomerController extends B2CPageController
         if (Customer::where('id', '=', $id)->exists()) {
             // user found                        
             $customer = Customer::find($id);
-            return view('customers.show')->with(['customer'=>$customer]);
+            $gender = SelectList::gender();
+            return view('customers.show')->with(['customer'=>$customer,'gender'=>$gender]);
          }
          else {
              
@@ -107,10 +119,11 @@ class CustomerController extends B2CPageController
     public function edit($policy_id, $id)
     {
         //        
-        $countries = SelectList::country()->pluck('title','name');
+        $countries = SelectList::country()->pluck('name','ctry_code');
         $cities = SelectList::province()->pluck('title','name');
         
         $customer = Customer::find($id);
+        $customer->dob = date('d/m/Y', strtotime($customer->dob));
         return view('customers.edit')->with(['countries'=>$countries, 'cities'=>$cities, 'customer'=>$customer]);
     }
 
@@ -139,17 +152,26 @@ class CustomerController extends B2CPageController
         $natlty = Input::get('natlty');
         $city = Input::get('city');
         $mobile = Input::get('mobile');
-        Customer::create(['name' => $name,
-            'tgram'=>$tgram,
-            'dob'=>$dob,
-            'natlty'=>$natlty,
-            'gender'=>$gender,
-            'city'=>$city,
-            'policy_id'=>$policy_id,
-            'mobile'=>$mobile
-            ]
-        );
-   
+        $address = Input::get('address');
+        $email = Input::get('email');
+        $customer = Customer::find($id);
+        $customer->update(['name' => $name,
+                'tgram'=>$tgram,
+                'dob'=>$dob,
+                'natlty'=>$natlty,
+                'gender'=>$gender,
+                'city'=>$city,
+                'policy_id'=>$policy_id,
+                'mobile'=>$mobile,
+                'address'=>$address,
+                'email'=>$email
+                ]
+            );
+            $policy = Policy::find($policy_id);
+            if ($policy->status < 3) {
+                # code...
+                $policy->update(['status'=>$status]);
+            }
         return redirect()->route('customers.show',['policy_id'=>$policy_id,'id'=>$id]);
     }
 

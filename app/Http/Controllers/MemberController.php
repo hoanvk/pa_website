@@ -8,6 +8,7 @@ use App\Policy;
 use App\DateUtil;
 use Carbon\Carbon;
 use App\SelectList;
+use App\Premium;
 use Illuminate\Http\Request;
 use App\Http\Requests\MemberRequest;
 use Illuminate\Support\Facades\Auth;
@@ -42,7 +43,10 @@ class MemberController extends B2CPageController
         $relationship = SelectList::relationship()->pluck('long_desc','item_item');
         $country = SelectList::country()->pluck('name','ctry_code');
         $model = Member::where('policy_id','=',$policy_id)->get();
-        return view('members.create')->with(['relationship'=>$relationship, 'country'=>$country, 'model'=>$model]);
+        $member = new Member();
+        $member->naty = 'VN';
+        return view('members.create')->with(['relationship'=>$relationship, 'country'=>$country, 
+            'model'=>$model, 'member'=>$member]);
     }
 
     /**
@@ -79,7 +83,17 @@ class MemberController extends B2CPageController
                 'age'=>$age
                 ]
             );
-   
+        $policy = Policy::find($policy_id);
+        
+        if ($policy->status < 4) {
+            # code...
+            $policy->update(['status' => 4]);
+
+        }
+        $risk = $policy->parisk;
+        $premium = Premium::PACalculate($risk);
+        $risk->update(['premium'=>$premium]);
+        $policy->update(['premium'=>$premium]);
         return redirect()->route('members.index',$policy_id);
     }
 
@@ -97,7 +111,8 @@ class MemberController extends B2CPageController
         $gender = SelectList::gender();
 
         $model = Member::where('policy_id','=',$policy_id)->get();
-        return view('members.show')->with(['member'=>$member, 'relationship'=>$relationship, 'gender'=>$gender,'model'=>$model]);
+        return view('members.show')->with(['member'=>$member, 'relationship'=>$relationship, 
+            'gender'=>$gender,'model'=>$model]);
     }
 
     /**
@@ -155,6 +170,13 @@ class MemberController extends B2CPageController
                 'ownship'=>$ownship,
                 'age'=>$age
                 ]);
+        $policy = Policy::find($policy_id);
+        if ($policy->status < 4) {
+            # code...
+            $policy->update(['status' => 4]);
+
+        }
+        
         return redirect()->route('members.index',$policy_id);
     }
 
@@ -167,5 +189,25 @@ class MemberController extends B2CPageController
     public function destroy($policy_id, $id)
     {
         //
+        $model = Member::where('policy_id','=',$policy_id)->get();
+        $exists =$model->count();
+        echo $exists;
+        if ($exists<=1) {
+            # code...
+            $error = ValidationException::withMessages([
+                'id' => ['Could not delete because the policy need at least 1 insured person!']
+            ]);
+            throw $error;
+        }
+        $member = Member::find($id);
+        $member->delete();
+
+        $policy = Policy::find($policy_id);
+        $risk = $policy->parisk;
+        $premium = Premium::PACalculate($risk);
+        $risk->update(['premium'=>$premium]);
+        $policy->update(['premium'=>$premium]);
+
+        return redirect()->route('members.index',$policy_id);
     }
 }

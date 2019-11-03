@@ -34,7 +34,8 @@
         ||request()->is('admin/dayranges*')
         ||request()->is('admin/plans*')
         ||request()->is('admin/periods*')
-        ||request()->is('admin/paprices*') ? 'show' : '' }}" data-parent="#accordion">
+        ||request()->is('admin/paprices*')
+        ||request()->is('admin/benefits*') ? 'show' : '' }}" data-parent="#accordion">
         <div class="card-body">
             <div class="list-group list-group-flush">
                 <a href="{{ route('products.index')}}" class="list-group-item list-group-item-action {{ request()->is('admin/products*')||request()->is('admin/paprices*') ? 'active' : '' }}">@lang('dashboard.products')</a>
@@ -58,8 +59,7 @@
       <div id="collapseThree" class="collapse {{ request()->is('admin/agentplans*')
         ||request()->is('admin/prices*')
         ||request()->is('admin/cashes*')
-        ||request()->is('admin/promotions*')
-        ||request()->is('admin/benefits*') ? 'show' : '' }}" data-parent="#accordion">
+        ||request()->is('admin/promotions*') ? 'show' : '' }}" data-parent="#accordion">
         <div class="card-body">
             <div class="list-group list-group-flush">
                 <a href="{{ route('agentplans.index')}}" class="list-group-item list-group-item-action {{ request()->is('admin/agentplans*') ? 'active' : '' }}">Agent Plan</a>
@@ -67,7 +67,7 @@
                 <a href="{{ route('prices.index')}}" class="list-group-item list-group-item-action {{ request()->is('*/prices*') ? 'active' : '' }}">Travel Price</a>
                 <a href="{{ route('cashes.index')}}" class="list-group-item list-group-item-action {{ request()->is('admin/cashes*') ? 'active' : '' }}">Balance</a>                    
                 <a href="{{ route('promotions.index')}}" class="list-group-item list-group-item-action {{ request()->is('admin/promotions*') ? 'active' : '' }}">Promotion</a>                    
-                <a href="{{ route('benefits.index')}}" class="list-group-item list-group-item-action {{ request()->is('admin/benefits*') ? 'active' : '' }}">Benefits</a>  
+                
                                   
             </div>
         </div>

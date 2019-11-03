@@ -70,7 +70,7 @@ class PAPriceController extends AdminPageController
     {
         //
         $model = PAPrice::find($id);        
-        return view('paprices.show')->with(['model'=>$model,'product_id'=>$product_id]);
+        return view('paprices.show')->with(['model'=>$model]);
     }
 
     /**
@@ -85,7 +85,7 @@ class PAPriceController extends AdminPageController
         $model = PAPrice::find($id);
         $plans = Plan::where('product_id','=',$product_id)->pluck('title', 'id');
         $periods = Period::where('product_id','=',$product_id)->pluck('title', 'id');
-        return view('paprices.show')->with(['model'=>$model,'plans'=>$plans,'periods'=>$periods,'product_id'=>$product_id]);
+        return view('paprices.edit')->with(['model'=>$model,'plans'=>$plans,'periods'=>$periods]);
     }
 
     /**

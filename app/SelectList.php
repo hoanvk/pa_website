@@ -60,32 +60,7 @@ class SelectList{
     {
         return Item::where('item_tabl','=','TV408')->get();
     }
-    public static function jumbotron($item_item)
-    {
-        $jumbotron = new Jumbotron;
-        $title = Item::where([['item_tabl','=','TV406'],['item_item','=',$item_item]])->first();
-        echo \App::getLocale();
-        $name = Item::where([['item_tabl','=','TV409'],['item_item','=',$item_item]])->first();
-        $jumbotron->name = $name->long_desc;
-        $jumbotron->title = $title->long_desc;
-        return $jumbotron;
-    }
-    public static function links()
-    {
-        
-        $model = Item::where('item_tabl','=','TV411')->get();
-        $links = collect();
-        foreach ($model as $item) {
-            # code...
-            $link = new Link;
-            $link->name = $item->item_item;
-            $link->title = $item->long_desc;
-            $link->route = $item->short_desc;
-            $links->add($link);
-        }
-        return $links;
-        
-    }
+    
     public static function languages()
     {
         return Item::where('item_tabl','=','TV410')->get();

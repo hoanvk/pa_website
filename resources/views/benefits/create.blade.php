@@ -1,11 +1,12 @@
 @extends('dashboard.master')
 @section('title')
-Benefit | MSIG
+Benefit
 @endsection
 @section('content')
-@include('dashboard._breadcrumb',['nodes' =>[['action'=>'benefits.index', 'title'=>'Index'], ['title'=>'Create']]])
+@include('dashboard._breadcrumb',['nodes' =>[['action'=>'benefits.index', 'title'=>$product->title,'parameter'=> $product->id], 
+    ['title'=>'Create']]])
     {!! Form::open([
-        'route' => ['benefits.store'],
+        'route' => ['benefits.store',$product->id],
         'method' => 'POST'
 
     ]) !!}

@@ -1,6 +1,6 @@
 @extends('shared.master')
 @section('title')
-Personal Accident | MSIG
+Personal Accident
 @endsection
 
 @section('content-fluid')

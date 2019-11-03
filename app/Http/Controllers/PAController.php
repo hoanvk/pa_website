@@ -21,7 +21,7 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Input;
 use App\Http\Requests\PAPolicyRequest;
 use Illuminate\Support\ServiceProvider;
-
+use Illuminate\Validation\ValidationException;
 
 class PAController extends B2CPageController
 {
@@ -109,7 +109,7 @@ class PAController extends B2CPageController
         'agent_id'=>$agent->id,
         'premium'=>0,        
         'period'=>$period->qty,
-        
+        // 'customer_id'=>0,
         'status'=>'1',        
         ]);
 
@@ -201,13 +201,13 @@ class PAController extends B2CPageController
         return redirect()->route('pa.show',['product_id'=>$product_id, 'policy_id'=>$policy_id ]);
         
     }
-    public function confirm(Request $request, $product_id, $policy_id)
+    public function confirm($policy_id)
     {
         # code...
-        $quotation_no =Policy::quotation();
-        $request->session()->forget('quotation_no');
-        $request->session()->flash('status', 'Create '.$quotation_no.' successful!');
+        $model = Policy::find($policy_id);        
+        $risk = $model->parisk;
+        $status = SelectList::policyStatus();
         
-        return redirect(route('pa.create'));
+        return view('pa.confirm')->with(['model'=>$model,'status'=>$status,'risk'=>$risk]);
     }
 }

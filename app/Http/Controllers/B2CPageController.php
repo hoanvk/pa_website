@@ -60,6 +60,8 @@ class B2CPageController extends Controller
           }
 
         }
+        $action = 'TVL';
+        
         if ($product_id) {
           //           
           $product = Product::find($product_id);
@@ -78,7 +80,22 @@ class B2CPageController extends Controller
             $array->put('risk', $risk);
           }
           $array->put('product', $product);
-          $jumbotron = Jumbotron::where('name','=',$action)->first();
+          
+        }
+        else{
+          
+          if ($request->is('online/pa*') || $request->is('agent/pa*')) {
+            //
+            $action ='PA';
+            
+          }
+          elseif ($request->is('online/motor*') || $request->is('agent/motor*')) {
+            # code...
+            $action ='MTT';
+            
+          }
+        }
+        $jumbotron = Jumbotron::where('name','=',$action)->first();
           $array->put('jumbotron', $jumbotron);
 
           
@@ -91,7 +108,23 @@ class B2CPageController extends Controller
             }
           }
           $array->put('links', $links);
-        }
+
+          $tabs ='quotation';
+
+          if ($request->is('*customers*')) {
+            # code...
+            $tabs = 'customers';
+          }
+          elseif ($request->is('*members*')) {
+            # code...
+            $tabs = 'members';
+          }
+          elseif ($request->is('*confirm')) {
+            # code...
+            $tabs = 'confirm';
+          }
+          
+          $array->put('tabs', $tabs);
           View::share($array->all());
           
     }

@@ -1,25 +1,26 @@
+@include('pa._status')
 <div class="row">
     <div class="col-sm-12">
-            @if ($errors->any())
-            <div class="alert alert-danger">
-                <ul>
-                    @foreach ($errors->all() as $error)
-                        <li>{{ $error }}</li>
-                    @endforeach
-                </ul>
-            </div>
+        @if ($errors->any())
+        <div class="alert alert-danger">
+            <ul>
+                @foreach ($errors->all() as $error)
+                    <li>{{ $error }}</li>
+                @endforeach
+            </ul>
+        </div>
         @endif
     </div>
 </div>
 
 <div class="form-group row">
         <div class="col-sm-6">
-                <label for="plan_id">Plan</label>
+                <label for="plan_id">@lang('pa.plan')</label>
                 {!! Form::select('plan_id', $plans,null, ['class' => 'form-control']) !!}
         </div>
         
         <div class="col-sm-6">
-                <label for="start_date">From Date</label>
+                <label for="start_date">@lang('pa.from_date') </label>
                 <div class="input-group">
                         {!! Form::text('start_date', null, ['class' => 'form-control datepicker', 'id'=>'start_date']) !!}
                         <div class="input-group-append">
@@ -34,12 +35,12 @@
     <div class="form-group row">
                          
             <div class="col-sm-6">
-                        <label for="period_id">Period</label>
+                        <label for="period_id">@lang('pa.period') </label>
                         {!! Form::select('period_id', $periods,null, ['class' => 'form-control', 'id'=>'period_id']) !!}
                 </div>        
             <div class="col-sm-6">
             
-                    <label for="end_date">To Date</label>
+                    <label for="end_date">@lang('pa.to_date') </label>
                     <div class="input-group">
                             {!! Form::text('end_date', null, ['class' => 'form-control datepicker', 'id'=>'end_date','disabled'=>'"disabled"']) !!}
                             <div class="input-group-append">
@@ -52,11 +53,11 @@
         </div> 
       <div class="row">
                 <div class="col-sm-6">
-                        <label for="promo_code">Promotion Code</label>
+                        <label for="promo_code">@lang('pa.promo_code') </label>
                         {!! Form::text('promo_code', null, ['class' => 'form-control']) !!}    
                 </div>
       </div>    
-      <button type="submit" class="btn btn-primary mt-3"> {{ $button_name }} </button>    
+      <button type="submit" class="btn btn-primary mt-3"> @lang($button_name) </button>    
           
       @section('js')
       <script src="/js/jquery-ui.js"></script>    
@@ -77,7 +78,9 @@
               
               
   
-              function fetch_item_data(start_date='',period_id=0) {
+              function fetch_item_data() {
+                var period_id = $('#period_id').val();
+                  var start_date = $('#start_date').val();
                   $.ajax({
                       url:" {{ route('ajax.period') }}",
                       method:'GET',
@@ -90,9 +93,12 @@
                   })
               }
               $('#period_id').change(function () {
-                  var period_id = $(this).val();
-                  var start_date = $('#start_date').val();
-                  fetch_item_data(start_date, period_id);
+                  
+                  fetch_item_data();
+              });
+              $('#start_date').change(function () {
+                  
+                  fetch_item_data();
               });
           });
           jQuery.validator.methods["date"] = function (value, element) { return true; }

@@ -1,6 +1,6 @@
 @extends('shared.master')
 @section('title')
-    Personal Accident | MSIG
+    Personal Accident
 @endsection
 @section('css')
 <link rel="stylesheet" href="https://code.jquery.com/ui/1.12.1/themes/blitzer/jquery-ui.css">
@@ -13,14 +13,12 @@
     @include('pa._help')
 @endsection
 @section('caption')
-    COVERAGE
+    @lang('pa.quotation')
 @endsection
 @section('content')
-    <div class="clearfix">
-        <span class="float-left"><a href="{{ route('pa.index', $product->id)}} " class="btn btn-link"><i class="fa fa-chevron-left"></i> Previous</a></span>
-        
-      </div>
-
+{{-- <a href="{{ route('pa.index')}} " class="btn btn-link">
+    <i class="fa fa-chevron-left"></i>@lang('pa.previous') </a> --}}
+    {{-- @include('pa._status') --}}
 
 {!! Form::open([
 'route' => ['pa.store', $product->id],
@@ -29,7 +27,7 @@
 ]) !!}
 
 
-@include('pa._form',[ 'button_name' => 'Create'])
+@include('pa._form',[ 'button_name' => 'pa.create'])
 
 {!! Form::close() !!}   
 

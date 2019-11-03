@@ -6,6 +6,11 @@
     margin: 0 auto;
 	background-color: #fff
 }
+.card-deck .card{
+    margin-top: 15px;
+    min-width: 290px;   
+    max-width: 320px;       
+}
 @media only screen and (min-width:1403px) {
 	.page {
 		width: 1400px;
@@ -13,7 +18,8 @@
 		min-width: 1400px
 	}
 	.card-deck .card{
-        max-width: 320px;
+        width: 320px;
+        
     }
 }
 @media only screen and (max-width:1403px) {
@@ -23,7 +29,7 @@
 		min-width: 1280px
 	}
 	.card-deck .card{
-        max-width: 290px;
+        width: 290px;        
     }
 }
 
@@ -34,7 +40,7 @@
 		min-width: 1100px
 	}
 	.card-deck .card{
-        max-width: 245px;
+        width: 390px;        
     }
 }
 
@@ -45,7 +51,7 @@
 		min-width: 940px
 	}
 	.card-deck .card{
-        max-width: 215px;
+        width: 410px;        
     }
 }
 
@@ -56,7 +62,7 @@
 		min-width: 820px
 	}
 	.card-deck .card{
-        max-width: 180px;
+        width: 350px;        
     }
 }
 
@@ -66,9 +72,7 @@
 		max-width: 720px;
 		min-width: 720px
     }
-    .card-deck .card{
-        max-width: 150px;
-    }
+    
     img#msig-banner{
         display:none;
     }
@@ -312,4 +316,29 @@ line-height: 24px;
 }
 .list-group-item {
     padding: 0.5rem 1.25rem !important;
+}
+.btn-danger {
+   
+    background-color: #dd252f!important;
+    border-color: #dd252f!important;
+}
+.btn-outline-primary {
+    color: #26245f!important;
+    border-color: #26245f!important;
+}
+.btn-outline-primary:hover{
+    color:#fff!important;
+    background-color: #26245f;
+}
+.btn-primary:hover{
+    color:#fff!important;
+    background-color: #dd252f;
+    border-color: #dd252f;
+}
+.list-group-status {
+    padding: 0.25rem 0.75rem !important;
+}
+.list-group-item.active {
+    background-color: #26245f;
+    border-color: #26245f;
 }

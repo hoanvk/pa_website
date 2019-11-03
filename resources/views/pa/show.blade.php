@@ -1,6 +1,6 @@
 @extends('shared.master')
 @section('title')
-Personal Accident | MSIG
+Personal Accident
 @endsection
 @section('left-menu')
     @include('pa._policy')
@@ -8,12 +8,12 @@ Personal Accident | MSIG
     @include('pa._help')
 @endsection
 @section('caption')
-    QUOTATION
+    @lang('pa.quotation')
 @endsection
 @section('content')
  
       
-@include('pa._tabs')
+@include('pa._status')
 @if ($message = Session::get('success'))
     <div class="alert alert-success">
         <p>{{ $message }}</p>
@@ -29,65 +29,35 @@ Personal Accident | MSIG
         <tbody>
         
             <tr>
-                <td scope="row">Quotation No</td>
+                <td scope="row">@lang('pa.quotation_no')</td>
                 <td>{{ $model->quotation_no }}</td>
                 
             </tr>
+            
             <tr>
-                <td scope="row">Policy Number</td>
-                <td>{{ $model->policy_no }}</td>
-                
-            </tr>
-            <tr>
-                <td scope="row">Insured Name</td>
-                <td>{{ $model->client_name }}</td>
-                
-            </tr>
-            <tr>
-                <td scope="row">Insured Address</td>
-                <td>{{ $model->client_address }}</td>
-                
-            </tr>
-            <tr>
-                <td scope="row">Identity No</td>                
-                <td>{{ $model->client_id }}</td>
-            </tr>
-            {{-- <tr>
-                <td scope="row">Product</td>                
-                <td>{{ $model->product->title }}</td>
-            </tr>
-            <tr>
-                <td scope="row">Plan</td>                
-                <td>{{ $risk->plan->title }}</td>
-                </tr>
-            <tr>
-                <td scope="row">Insurance period</td>                
-                <td>{{ $risk->period->title }}</td>
-            </tr> --}}
-            <tr>
-                <td scope="row">Start Date</td>                
+                <td scope="row">@lang('pa.from_date')</td>                
                 <td>{{ date('d/m/Y', strtotime($model->start_date)) }}</td>
             </tr>
             <tr>
-                <td scope="row">End Date</td>                
+                <td scope="row">@lang('pa.to_date')</td>                
                 <td>{{ date('d/m/Y', strtotime($model->end_date)) }}</td>
             </tr>
             
             <tr>
-                <td scope="row">Premium</td>                
+                <td scope="row">@lang('pa.premium')</td>                
                 <td>{{ $model->premium }}</td>
             </tr>
             
         </tbody>
     </table>  
-   
-    @if ($model->status == '1')
-    <p>
-        <a class="btn btn-outline-primary" href="{{route('pa.edit',['product_id'=>$product->id,'id'=>$model->id])}} ">Edit Quotation</a>
-        <a class="btn btn-primary" href="{{route('pa.confirm',['product_id'=>$product->id,'id'=>$model->id])}} ">Confirm</a>
-    </p>
+    
+    @if ($model->status < 6)
+    
+        <a class="btn btn-outline-primary" href="{{route('pa.edit',['product_id'=>$product->id,'id'=>$model->id])}} ">@lang('pa.edit')</a>
+        
+    
     @endif
 
-
+    @include('pa._button')
 
 @endsection

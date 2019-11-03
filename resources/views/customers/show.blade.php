@@ -1,6 +1,6 @@
 @extends('shared.master')
 @section('title')
-    Customer
+    @lang('customers.policy_holder')
 @endsection
 
 @section('left-menu')
@@ -9,56 +9,57 @@
     @include('pa._help')
 @endsection
 @section('caption')
-    POLICY HOLDER
+    @lang('customers.policy_holder')
 @endsection
 
 @section('content')
-@include('pa._tabs')
+@include('pa._status')
         <table class="table">
             <tbody>
             
                 <tr>
-                    <td scope="row">Full name</td>
-                    <td>{{ $member->insured_name }}</td>
+                    <td scope="row">@lang('customers.name')</td>
+                    <td>{{ $customer->name }}</td>
                     
                 </tr>
                 <tr>
-                    <td scope="row">Date of birth</td>
-                    <td>{{ date('d/m/Y', strtotime($member->dob)) }}</td>
+                    <td scope="row">@lang('customers.dob')</td>
+                    <td>{{ date('d/m/Y', strtotime($customer->dob)) }}</td>
                     
                 </tr>
+                
                 <tr>
-                        <td>Age</td>                
-                        <td>{{ $member->age }}</td>
-                    </tr>
-                <tr>
-                    <td scope="row">ID/Passport</td>                
-                    <td>{{ $member->insured_id }}</td>
+                    <td scope="row">@lang('customers.identity')</td>                
+                    <td>{{ $customer->tgram }}</td>
                 </tr>
                 <tr>
-                    <td scope="row">Gender</td>                
-                    <td>{{ optional($gender->firstWhere('item_item','=',$member->gender))->long_desc }}</td>
+                    <td scope="row">@lang('customers.email')</td>                
+                    <td>{{ $customer->email }}</td>
                 </tr>
                 <tr>
-                        <td scope="row">Relationship</td>                
-                        <td>{{ optional($relationship->firstWhere('item_item','=',$member->ownship))->long_desc }}</td>
-                    </tr>
+                    <td scope="row">@lang('customers.mobile')</td>                
+                    <td>{{ $customer->mobile }}</td>
+                </tr>
                 <tr>
-                        <td>Nationality</td>                
-                        <td>{{ $member->naty }}</td>
-                    </tr>
+                    <td scope="row">@lang('customers.address')</td>                
+                    <td>{{ $customer->address }}</td>
+                </tr>
+                <tr>
+                    <td scope="row">@lang('customers.gender')</td>                
+                    <td>{{ optional($gender->firstWhere('item_item','=',$customer->gender))->long_desc }}</td>
+                </tr>
+                <tr>
+                    <td scope="row">@lang('customers.province')</td>                
+                    <td>{{ $customer->city }}</td>
+                </tr>
+                <tr>
+                    <td>@lang('customers.nationality')</td>                
+                    <td>{{ $customer->natlty }}</td>
+                </tr>
             </tbody>
         </table>   
-        <p>
-                {!! Form::model($member, array('route' => array('members.destroy', 
-                    $policy_id, $member->id), 'method'=>'DELETE')) !!}
-            
-                <a class="btn btn-primary" href="{{route('members.edit',
-                    ['policy_id'=>$policy_id, 'id'=>$member->id])}} ">Edit</a>
-                <button type="submit" class="btn btn-danger">Delete</button>
-                {!! Form::close() !!} 
-            
-        </p>
-        
+        <a class="btn btn-outline-primary" href="{{route('customers.edit',
+                    ['policy_id'=>$customer->policy_id, 'id'=>$customer->id])}} ">@lang('customers.edit')</a>
+        @include('pa._button')
 
 @endsection

@@ -7,24 +7,15 @@
     <div class="row">
         <div class="col-lg-12">
             <div class="pull-left"><h2>Update</h2></div>
-        <div class="pull-right"><a href="{{ route('paprices.index')}} " class="btn btn-link"><i class="fa fa-chevron-left"></i>
+        <div class="pull-right"><a href="{{ route('paprices.index',$model->product_id)}} " class="btn btn-link"><i class="fa fa-chevron-left"></i>
             Back to Index</a></div>
         </div>
     </div>
        
     
-{!! Form::model($price, array('route' => array('paprices.update', $price->id), 'method'=>'PUT')) !!}
-{{-- {!! Form::open([
-    'route' => ['item.update',$model->id],
-    'method' => 'PUT'
+{!! Form::model($model, array('route' => array('paprices.update', $model->product_id, $model->id), 'method'=>'PUT')) !!}
 
-]) !!} --}}
-
- 
-<!-- TODO: This is for server side, there is another version for browser defaults -->
-{{-- <form action="{{ route('article.store') }}" method="POST">
-        {{ csrf_field() }} --}}
     @include('paprices._form',[ 'button_name' => 'Update'])
-{{-- </form> --}}
+
 {!! Form::close() !!}   
 @endsection
