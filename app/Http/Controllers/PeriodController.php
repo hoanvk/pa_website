@@ -15,12 +15,13 @@ class PeriodController extends AdminPageController
      *
      * @return \Illuminate\Http\Response
      */
-    public function index()
+    public function index($product_id)
     {
         //
-        $model = Period::latest()->paginate(15);
+        $product = Product::find($product_id);
+        $model = Period::where('product_id','=',$product_id)->latest()->paginate(15);
         return view('periods.index')->with(['i'=> (request()->input('page', 1) - 1) * 15,
-            'model'=>$model]);
+            'model'=>$model, 'product'=>$product]);
     }
 
     /**
@@ -28,12 +29,12 @@ class PeriodController extends AdminPageController
      *
      * @return \Illuminate\Http\Response
      */
-    public function create()
+    public function create($product_id)
     {
         //
-        $products = Product::pluck('title', 'id');
+        $product = Product::find($product_id);
         $units = SelectList::periodUnit()->pluck('long_desc', 'item_item');
-        return view('periods.create')->with(['products'=>$products,'units'=>$units]);
+        return view('periods.create')->with(['product'=>$product,'units'=>$units]);
     }
 
     /**
@@ -42,12 +43,12 @@ class PeriodController extends AdminPageController
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(PeriodRequest $request)
+    public function store(PeriodRequest $request, $product_id)
     {
         //
         $title = Input::get('title');
         $name = Input::get('name');
-        $product_id = Input::get('product_id');
+        
         $qty = Input::get('qty');
         $unit = Input::get('unit');
         Period::create(['title'=>$title,
@@ -56,7 +57,7 @@ class PeriodController extends AdminPageController
             'qty'=>$qty,
             'unit'=>$unit]);
    
-        return redirect()->route('periods.index')
+        return redirect()->route('periods.index',$product_id)
                         ->with('success','Benefit created successfully.');
     }
 
@@ -66,9 +67,10 @@ class PeriodController extends AdminPageController
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function show($id)
+    public function show($product_id, $id)
     {
         //
+        
         $model =Period::find($id);
         return view('periods.show',compact('model'));
     }
@@ -79,13 +81,13 @@ class PeriodController extends AdminPageController
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function edit($id)
+    public function edit($product_id, $id)
     {
         //
         $model =Period::find($id);
-        $products = Product::pluck('title', 'id');
+        
         $units = SelectList::periodUnit()->pluck('long_desc', 'item_item');
-        return view('periods.edit',compact('model'))->with(['model'=>$model, 'products'=>$products,'units'=>$units]);
+        return view('periods.edit',compact('model'))->with(['model'=>$model, 'units'=>$units]);
     }
 
     /**
@@ -95,14 +97,14 @@ class PeriodController extends AdminPageController
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(PeriodRequest $request, $id)
+    public function update(PeriodRequest $request, $product_id, $id)
     {
         //
         $model =Period::find($id);
 
         $title = Input::get('title');
         $name = Input::get('name');
-        $product_id = Input::get('product_id');
+        
         $qty = Input::get('qty');
         $unit = Input::get('unit');
         
@@ -112,7 +114,7 @@ class PeriodController extends AdminPageController
         'qty'=>$qty,
         'unit'=>$unit]);
   
-        return redirect()->route('periods.index')
+        return redirect()->route('periods.index',$product_id)
                         ->with('success','Benefit updated successfully');
     }
 
@@ -122,13 +124,13 @@ class PeriodController extends AdminPageController
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function destroy($id)
+    public function destroy($product_id, $id)
     {
         //
         $model =Period::find($id);
         $model->delete();
   
-        return redirect()->route('periods.index')
+        return redirect()->route('periods.index',$product_id)
                         ->with('success','Benefit deleted successfully');
     }
 }

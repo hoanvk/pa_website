@@ -1,11 +1,11 @@
 @extends('dashboard.master')
 @section('title')
-Period | MSIG
+Period
 @endsection
 @section('content')
-@include('dashboard._breadcrumb',['nodes' =>[['action'=>'periods.index', 'title'=>'Index'], ['title'=>'Create']]])
+@include('dashboard._breadcrumb',['nodes' =>[['action'=>'periods.index', 'title'=>'Index','parameter'=>$product->id], ['title'=>'Create']]])
     {!! Form::open([
-        'route' => ['periods.store'],
+        'route' => ['periods.store',$product->id],
         'method' => 'POST'
 
     ]) !!}

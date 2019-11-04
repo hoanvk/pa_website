@@ -82,7 +82,7 @@ class CustomerController extends B2CPageController
         
         if ($policy->status < 3) {
             # code...
-            $policy->update(['status'=>$status]);
+            $policy->update(['status'=>3]);
         }
         $policy->update(['customer_id'=>$customer->id]);
         return redirect()->route('customers.show',['policy_id'=>$policy_id, 'id'=>$customer->id]);
@@ -170,7 +170,7 @@ class CustomerController extends B2CPageController
             $policy = Policy::find($policy_id);
             if ($policy->status < 3) {
                 # code...
-                $policy->update(['status'=>$status]);
+                $policy->update(['status'=>3]);
             }
         return redirect()->route('customers.show',['policy_id'=>$policy_id,'id'=>$id]);
     }

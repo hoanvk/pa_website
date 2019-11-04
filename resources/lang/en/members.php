@@ -20,5 +20,5 @@ return [
     'previous'=>'Previous',
     'age'=>'Age',
     'relationship'=>'Relationship with policy holder',
-
+    'delete'=>'Delete',
 ];

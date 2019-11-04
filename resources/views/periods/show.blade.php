@@ -4,7 +4,7 @@ Period | MSIG
 @endsection
 @section('content')
 <div class="container">
-    @include('dashboard._breadcrumb',['nodes' =>[['action'=>'periods.index', 'title'=>'Index'], 
+    @include('dashboard._breadcrumb',['nodes' =>[['action'=>'periods.index', 'title'=>'Index', 'parameter'=>$model->product->id], 
     
         ['title'=>'Details']]])
     
@@ -35,9 +35,9 @@ Period | MSIG
     </table>   
     <p>
         
-        {!! Form::model($model, array('route' => array('periods.destroy', $model->id), 'method'=>'DELETE')) !!}
+        {!! Form::model($model, array('route' => array('periods.destroy', $model->product->id, $model->id), 'method'=>'DELETE')) !!}
         
-        <a class="btn btn-outline-primary" href="{{route('periods.edit',['id'=>$model->id])}} ">Edit Period</a>
+        <a class="btn btn-outline-primary" href="{{route('periods.edit',['product_id'=>$model->product->id, 'id'=>$model->id])}} ">Edit Period</a>
         <button type="submit" class="btn btn-danger">Delete</button>
         {!! Form::close() !!} 
     </p>

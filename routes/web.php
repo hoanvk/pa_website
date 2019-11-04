@@ -273,7 +273,38 @@ Route::group(['prefix' => 'admin','middleware' => 'auth'], function () {
     Route::resource('plans','PlanController');
     Route::resource('agentplans','AgentPlanController');
     
-    Route::resource('periods','PeriodController');
+    
+    //Begin Period
+    Route::get('periods/{product_id}', [
+        'as'=>'periods.index',
+        'uses'=>'PeriodController@index'
+    ]);
+    Route::get('periods/{product_id}/create', [
+        'as'=>'periods.create',
+        'uses'=>'PeriodController@create'
+    ]);
+    Route::get('periods/{product_id}/{id}', [
+        'as'=>'periods.show',
+        'uses'=>'PeriodController@show'
+    ]);
+    
+    Route::post('periods/{product_id}', [
+        'as' => 'periods.store',
+        'uses' => 'PeriodController@store'
+    ]);
+    Route::put('periods/{product_id}/{id}', [
+        'as' => 'periods.update',
+        'uses' => 'PeriodController@Update'
+    ]);
+    Route::get('periods/{product_id}/{id}/edit', [
+        'as'=>'periods.edit',
+        'uses'=>'PeriodController@Edit'
+    ]); 
+    Route::delete('periods/{product_id}/{id}', [
+        'as'=>'periods.destroy',
+        'uses'=>'PeriodController@destroy'
+    ]);
+    //End Period  
 });
 Route::group(['prefix' => 'export','middleware' => ['auth']], function () {
     Route::get('prices', [

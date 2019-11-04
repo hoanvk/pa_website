@@ -110,7 +110,7 @@ class PAController extends B2CPageController
         'premium'=>0,        
         'period'=>$period->qty,
         // 'customer_id'=>0,
-        'status'=>'1',        
+        'status'=>2,        
         ]);
 
         $risk = PARisk::create(['policy_id'=> $policy->id,                 

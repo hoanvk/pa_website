@@ -6,21 +6,21 @@
         
         <div class="list-group list-group-flush">
                 <div class="list-group-item list-group-item-action py-2 d-flex justify-content-between align-items-center">
-                        Quotation No: {{ $policy->quotation_no}}</div>
+                        @lang('pa.quotation_no'): {{ $policy->quotation_no}}</div>
             <div class="list-group-item list-group-item-action py-2 d-flex justify-content-between align-items-center">
-                Premium: {{ $policy->premium}}</div>
+                @lang('pa.premium'): {{ $policy->premium}}</div>
             <div class="list-group-item list-group-item-action py-2 d-flex justify-content-between align-items-center">
-                    From Date: {{ date('d/m/Y', strtotime($policy->start_date))}}</div>
+                @lang('pa.from_date'): {{ date('d/m/Y', strtotime($policy->start_date))}}</div>
             <div class="list-group-item list-group-item-action py-2 d-flex justify-content-between align-items-center">
-                    To Date: {{ date('d/m/Y', strtotime($policy->end_date))}}</div>
+                @lang('pa.to_date'): {{ date('d/m/Y', strtotime($policy->end_date))}}</div>
                                                     
             <div class="list-group-item list-group-item-action py-2 d-flex justify-content-between align-items-center">
-                Product: {{ $policy->product->title}}</div>
+                @lang('pa.product'): {{ $policy->product->title}}</div>
                 @isset($risk)
                 <div class="list-group-item list-group-item-action py-2 d-flex justify-content-between align-items-center">
-                        Plan: {{ $risk->plan->title}}</div>    
+                        @lang('pa.plan'): {{ $risk->plan->title}}</div>    
                 <div class="list-group-item list-group-item-action py-2 d-flex justify-content-between align-items-center">
-                            Insurance period: {{ $risk->period->title}}</div>  
+                        @lang('pa.period'): {{ $risk->period->title}}</div>  
                 @endisset
                  
                                                     
