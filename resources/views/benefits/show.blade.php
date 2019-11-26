@@ -8,11 +8,7 @@ Benefit | MSIG
     
         ['title'=>'Details']]])
     
-    @if ($message = Session::get('success'))
-        <div class="alert alert-success">
-            <p>{{ $message }}</p>
-        </div>
-    @endif
+    
     <table class="table">
         <tbody>
         

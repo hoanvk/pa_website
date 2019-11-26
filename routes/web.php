@@ -178,10 +178,13 @@ Route::group(['prefix' => 'agent','middleware' => 'auth'], function () {
 //  )->middleware('pa.quotation');
 
 //Admin
-
+Route::get('change-password', 'ChangePasswordController@index');
+Route::get('user-profile', 'UserProfileController@index')->name('user.profile');
+Route::post('change-password', 'ChangePasswordController@store')->name('change.password');
 Route::group(['prefix' => 'admin','middleware' => 'auth'], function () {
     //User Admin
     
+
     Route::resource('users','UserController');
 
     //Table and Codes
