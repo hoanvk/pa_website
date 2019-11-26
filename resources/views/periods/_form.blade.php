@@ -24,13 +24,7 @@
     
 </div>
 
-<div class="form-group row">
-        <div class="col-md-6">
-            <label for="product_id">Product</label>
-            {!! Form::select('product_id', $products,null, ['class' => 'form-control']) !!}
-        </div>
-        
-    </div>
+
     <div class="form-group row">
             <div class="col-sm-3">
                     

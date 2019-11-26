@@ -27,7 +27,7 @@ class PeriodRequest extends FormRequest
             //
             'title'=>'required',
             'name'=>'required',
-            'product_id'=>'required',
+            // 'product_id'=>'required',
             'qty'=>'required'
         ];
     }

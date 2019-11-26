@@ -1,10 +1,10 @@
 @extends('dashboard.master')
 @section('title')
-Period | MSIG
+Period
 @endsection
 @section('content')
-@include('dashboard._breadcrumb',['nodes' =>[['action'=>'periods.index', 'title'=>'Index'], ['title'=>'Update']]])
-                {!! Form::model($model, array('route' => array('periods.update', $model->id), 'method'=>'PUT')) !!}
+@include('dashboard._breadcrumb',['nodes' =>[['action'=>'periods.index', 'title'=>'Index', 'parameter'=>$model->product->id], ['title'=>'Update']]])
+                {!! Form::model($model, array('route' => array('periods.update', $model->product->id, $model->id), 'method'=>'PUT')) !!}
                 
                     @include('periods._form',[ 'button_name' => 'Update'])
                 {{-- </form> --}}

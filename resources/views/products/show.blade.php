@@ -42,10 +42,12 @@
         
         {!! Form::model($product, array('route' => array('products.destroy', $product->id), 'method'=>'DELETE')) !!}
         
-        <a class="btn btn-outline-danger" href="{{route('paprices.index',$product->id)}} ">PA Price</a>
-        <a class="btn btn-outline-primary" href="{{route('benefits.index',$product->id)}} ">Benefit</a>
-        <a class="btn btn-outline-primary" href="{{route('products.edit',$product->id)}} ">Edit Item</a>
+        
+        <a class="btn btn-outline-primary" href="{{route('products.edit',$product->id)}} ">Edit Product</a>
         <button type="submit" class="btn btn-danger">Delete</button>
+        <a class="btn btn-outline-danger" href="{{route('paprices.index',$product->id)}} ">PA Price</a>
+        <a class="btn btn-outline-primary" href="{{route('benefits.index',$product->id)}} ">Benefits</a>
+        <a class="btn btn-outline-primary" href="{{route('periods.index',$product->id)}} ">Periods</a>
         {!! Form::close() !!} 
     </p>
 @endsection

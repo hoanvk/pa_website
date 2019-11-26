@@ -21,4 +21,5 @@ return [
     'previous'=>'Quay lại',
     'age'=>'Tuổi',
     'relationship'=>'Quan hệ với chủ HĐ',
+    
 ];
