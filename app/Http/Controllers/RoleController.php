@@ -6,9 +6,14 @@ use App\Role;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Input;
 use App\Http\Requests\RoleFormRequest;
-
+use App\Repositories\User\UserInterface as UserInterface;
+use Illuminate\Validation\ValidationException;
 class RoleController extends AdminPageController
 {
+    public function __construct(UserInterface $user)
+    {
+        $this->user = $user;
+    }
     //
     public function index()
     {
@@ -26,7 +31,14 @@ class RoleController extends AdminPageController
     {
         # code...
         // dd(Input::get('content'));
-        $title = Input::get('title');        
+        $title = Input::get('title');   
+        if ($this->user->getLength($title)>10) {
+            $error = ValidationException::withMessages([
+                'title' => ['Title must be less than 10 characters!']
+             ]);
+             throw $error;
+            
+        }     
         $role = Role::create([
             'title'=> $title
         ]);

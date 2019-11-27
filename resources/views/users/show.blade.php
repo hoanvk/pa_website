@@ -3,15 +3,10 @@
     Details
 @endsection
 @section('content')
-<div class="container">
-        
-    <div class="pull-left"><h2>Details</h2></div>
-    <div class="pull-right"><a href="{{ route('users.index')}} " class="btn btn-link"><i class="fa fa-chevron-left"></i> Back to Index</a></div>
-        
-    
-    
-    
-    
+@php
+    $link_to_index = route('users.index');
+@endphp
+  
     <table class="table">
         <tbody>
         

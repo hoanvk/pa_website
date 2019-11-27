@@ -3,13 +3,8 @@
     User List
 @endsection
 @section('content')
-<div class="container">
-    
-    @if (session('status'))
-        <div class="alert alert-info">{{session('status')}}</div>
-    @endif
-    <div class="pull-left"><h2>Index</h2></div>
-    <div class="pull-right"><a class="btn btn-primary" href="{{route('users.create')}} ">Create New</a></div>
+
+    <div class="text-right mb-2"><a class="btn btn-primary" href="{{route('users.create')}} ">Create New</a></div>
     
     <table class="table">
         <thead>
@@ -30,7 +25,7 @@
                 
                 <td>{{ optional($role->firstWhere('id', '==', $item->role_id))->title }}</td>
                 <td>{{ optional($agent->firstWhere('id', '==', $item->agent_id))->title }}</td>
-                <td><a href="{{  route('users.show', $item->id) }} "><i class="fa fa-pencil-square-o" aria-hidden="true"></i></a></td>
+                <td><a href="{{  route('users.show', $item->id) }} "><i class="fas fa-edit" aria-hidden="true"></i></a></td>
                 {{-- <td>{{ $item->role_id}} </td> --}}
             </tr>
             @endforeach

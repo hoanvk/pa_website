@@ -3,7 +3,7 @@
 namespace App\Http\Requests;
 
 use Illuminate\Foundation\Http\FormRequest;
-
+use App\Rules\RoleValidator;
 class RoleFormRequest extends FormRequest
 {
     /**
@@ -26,6 +26,7 @@ class RoleFormRequest extends FormRequest
     {
         return [
             //
+            'title'=>['required', 'string'],
         ];
     }
 }

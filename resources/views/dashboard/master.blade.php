@@ -39,10 +39,13 @@
 
         <!-- Breadcrumbs-->
         <ol class="breadcrumb">
+          @isset($link_to_index)
           <li class="breadcrumb-item">
-            <a href="#">Dashboard</a>
+            <a href="{{$link_to_index}} ">Index</a>
+            
           </li>
-          <li class="breadcrumb-item active">Overview</li>
+          @endisset
+          <li class="breadcrumb-item active">@yield('title')</li>
         </ol>
 
         @if ($message = Session::get('success'))
@@ -63,7 +66,7 @@
         <div class="card mb-3">
             <div class="card-header">
               <i class="fas fa-table"></i>
-              Data Table Example</div>
+              @yield('title')</div>
             <div class="card-body">
                 @section('content')
                 @show
