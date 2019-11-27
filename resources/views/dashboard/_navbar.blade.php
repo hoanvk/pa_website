@@ -1,76 +1,65 @@
-<nav class="navbar navbar-expand-sm bg-dark navbar-dark">
-        <a class="navbar-brand" href="#">Admin</a>
-        <button class="navbar-toggler d-lg-none" type="button" data-toggle="collapse" data-target="#collapsibleNavId" aria-controls="collapsibleNavId"
-            aria-expanded="false" aria-label="Toggle navigation">
-            <span class="navbar-toggler-icon"></span>
+<nav class="navbar navbar-expand navbar-dark bg-dark static-top">
+
+        <a class="navbar-brand mr-1" href="index.html">Start Admin</a>
+    
+        <button class="btn btn-link btn-sm text-white order-1 order-sm-0" id="sidebarToggle" href="#">
+          <i class="fas fa-bars"></i>
         </button>
-        <div class="collapse navbar-collapse" id="collapsibleNavId">
-            <ul class="navbar-nav mr-auto mt-2 mt-lg-0">
-                <li class="nav-item active">
-                    <a class="nav-link" href="{{ route('travel.index') }}">Dash Board</a>
-                </li>
-                <li class="nav-item">
-                    <a class="nav-link" href="{{ route('pa.index') }}">Online<span class="sr-only">(current)</span></a>
-                </li>
-                
-            </ul>
-            <ul class="navbar-nav ml-auto">
-                    <!-- Authentication Links -->
-                    @guest
-                        <li class="nav-item">
-                            <a class="nav-link" href="{{ route('login') }}">{{ __('Login') }}</a>
-                        </li>
-                        {{-- @if (Route::has('register'))
-                            <li class="nav-item">
-                                <a class="nav-link" href="{{ route('register') }}">{{ __('Register') }}</a>
-                            </li>
-                        @endif --}}
-                    @else
-                    
-                        <li class="nav-item dropdown">
-                            <a id="navbarDropdown" class="nav-link dropdown-toggle" href="#" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" v-pre>
-                                {{ Auth::user()->name }} <span class="caret"></span>
-                            </a>
-
-                            <div class="dropdown-menu dropdown-menu-right" aria-labelledby="navbarDropdown">
-                                <a class="nav-link dropdown-item" href="{{ route('logout') }}"
-                                   onclick="event.preventDefault();
-                                                 document.getElementById('logout-form').submit();">
-                                    {{ __('Logout') }}
-                                </a>
-                                <a class="nav-link dropdown-item" href="/change-password">Change Password</a>    
-                                <form id="logout-form" action="{{ route('logout') }}" method="POST" style="display: none;">
-                                    @csrf
-                                </form>
-                            </div>
-
-                        </li>
-                    @endguest
-
-                    @if (isset($languages))
+    
+        <!-- Navbar Search -->
+        <div class="d-none d-md-inline-block ml-auto mr-0 mr-md-3 my-2 my-md-0"></div>
+        {{-- <form class="d-none d-md-inline-block form-inline ml-auto mr-0 mr-md-3 my-2 my-md-0">
+          <div class="input-group">
+            <input type="text" class="form-control" placeholder="Search for..." aria-label="Search" aria-describedby="basic-addon2">
+            <div class="input-group-append">
+              <button class="btn btn-primary" type="button">
+                <i class="fas fa-search"></i>
+              </button>
+            </div>
+          </div>
+        </form> --}}
+    
+        
+        <ul class="navbar-nav ml-auto ml-md-0">
+          
+          <!-- Languages -->
+        @if (isset($languages))
+        <li class="nav-item dropdown no-arrow mx-1">
+            <a class="nav-link dropdown-toggle" href="#" id="messagesDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+              <i class="fas fa-globe"></i>
+              {{$languages->where('item_item','==',Config::get('app.locale'))->first()->short_desc}}
+            </a>
+            <div class="dropdown-menu dropdown-menu-right" aria-labelledby="messagesDropdown">
+              @foreach ($languages->where('item_item','!=',Config::get('app.locale')) as $language)
+                  <a class="dropdown-item" href="{{ '/locale/'.$language->item_item}}">{{$language->short_desc}}</a>
                   
-                  <li class="nav-item dropdown">  
-                      <a class="nav-link dropdown-toggle" href="#" data-toggle="dropdown">{{$languages->where('item_item','==',Config::get('app.locale'))->first()->short_desc}} </a>
-                      <div class="dropdown-menu dropdown-menu-right" aria-labelledby="navbarDropdown">
-                          @foreach ($languages->where('item_item','!=',Config::get('app.locale')) as $language)
-                          <a class="nav-link dropdown-item" href="{{ '/locale/'.$language->item_item}}">{{$language->short_desc}}</a>
-                          
-                      @endforeach
-                       
-                      </div>
-                    </li> 
-                     @else
-                     <li class="nav-item dropdown">  
-                        <a class="nav-link dropdown-toggle" href="#" data-toggle="dropdown">English</a>
-                        <div class="dropdown-menu dropdown-menu-right" aria-labelledby="navbarDropdown">
-                          <a class="nav-link dropdown-item" href="/locale/vi">Vietnamese</a>
-                          <a class="nav-link dropdown-item" href="/locale/ja">Japanese</a>
-                        </div>
-                      </li> 
-                    @endif
-
-                    
-                </ul>
-            
-        </div>
-    </nav>
+              @endforeach
+              
+            </div>
+        </li>  
+    
+    @endif
+          <!-- User -->
+        @guest
+        <li class="nav-item">
+            <a class="nav-link" href="{{ route('login') }}">{{ __('Login') }}</a>
+        </li>
+        
+    @else
+        <li class="nav-item dropdown no-arrow mx-1">
+            <a class="nav-link dropdown-toggle" href="#" id="userDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                <i class="fas fa-user-circle fa-fw"></i>{{ Auth::user()->name }}
+            </a>
+            <div class="dropdown-menu dropdown-menu-right" aria-labelledby="userDropdown">
+                <a class="dropdown-item" href="/change-password">Change Password</a>
+                
+                <div class="dropdown-divider"></div>
+                <a class="dropdown-item" href="/change-password" data-toggle="modal" data-target="#logoutModal">Logout</a>
+            </div>
+        </li>
+        
+    @endguest
+        </ul>
+    
+      </nav>
+     

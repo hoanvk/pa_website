@@ -3,16 +3,8 @@
     Table Setup
 @endsection
 @section('content')
-<div class="container">
-    @if ($message = Session::get('success'))
-        <div class="alert alert-success">
-            <p>{{ $message }}</p>
-        </div>
-    @endif
-    <div class="pull-left">
-    <h2>Index</h2>
-    </div>
-    <div class="pull-right">
+
+    <div class="mb-2">
         <a class="btn btn-primary" href="{{route('cashes.create')}} ">Create New</a>
     </div>
     
