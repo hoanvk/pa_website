@@ -36,7 +36,9 @@
     },
     "autoload": {
         "psr-4": {
-            "App\\": "app/"
+            "App\\": "app/",
+            "MSIGVN\\Calculator\\": "packages/msigvn/calculator/src"
+
         },
         "classmap": [
             "database/seeds",

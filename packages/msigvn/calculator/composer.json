@@ -1,0 +1,12 @@
+{
+    "name": "vnhnvkh/calculator",
+    "description": "Calculate premium insurance premium",
+    "authors": [
+        {
+            "name": "vnhnvkh",
+            "email": "hoan_vukhac@vn.msig-asia.com"
+        }
+    ],
+    "minimum-stability": "dev",
+    "require": {}
+}
