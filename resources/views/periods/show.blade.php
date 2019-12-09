@@ -1,18 +1,11 @@
 @extends('dashboard.master')
 @section('title')
-Period | MSIG
+Period
 @endsection
 @section('content')
-<div class="container">
-    @include('dashboard._breadcrumb',['nodes' =>[['action'=>'periods.index', 'title'=>'Index', 'parameter'=>$model->product->id], 
-    
-        ['title'=>'Details']]])
-    
-    @if ($message = Session::get('success'))
-        <div class="alert alert-success">
-            <p>{{ $message }}</p>
-        </div>
-    @endif
+@php
+$link_to_index=route('periods.index', $model->product_id); 
+@endphp
     <table class="table">
         <tbody>
         

@@ -13,7 +13,7 @@ class CreateAgentsTables extends Migration
      */
     public function up()
     {
-        Schema::create('agents', function (Blueprint $table) {
+        Schema::connection('admin')->create('agents', function (Blueprint $table) {
             $table->increments('id');
             $table->string('title',255);
             $table->string('name',10);
@@ -32,6 +32,6 @@ class CreateAgentsTables extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('agents');
+        Schema::connection('admin')->dropIfExists('agents');
     }
 }

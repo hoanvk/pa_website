@@ -1,21 +1,12 @@
 @extends('dashboard.master')
 @section('title')
-    Table Setup
+    Plan
 @endsection
 @section('content')
-<div class="container">
-    @if ($message = Session::get('success'))
-        <div class="alert alert-success">
-            <p>{{ $message }}</p>
-        </div>
-    @endif
-    <div class="pull-left">
-    <h2>Index</h2>
-    </div>
-    <div class="pull-right">
-        <a class="btn btn-primary" href="{{route('plans.create')}} ">Create New</a>
-    </div>
+<div class="clearfix mb-2">
     
+        <span class="float-right"><a class="btn btn-primary" href="{{route('plans.create')}} ">Create New</a></span>
+      </div>
     
     <table class="table">
         <thead>
@@ -34,7 +25,7 @@
                 <td>{{ $item->title }}</td>
                 <td>{{ $item->name}} </td>
                 <td>{{ $item->id}} </td>
-                <td><a href="{{  route('plans.show', $item->id) }} "><i class="fa fa-pencil-square-o" aria-hidden="true"></i></a></td>
+                <td><a href="{{  route('plans.show', $item->id) }} "><i class="fas fa-edit" aria-hidden="true"></i></a></td>
             </tr>
             @endforeach
         </tbody>

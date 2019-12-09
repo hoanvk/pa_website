@@ -3,7 +3,7 @@
 namespace App\Policies;
 
 use App\User;
-use App\Agent;
+use App\Models\Master\Agent;
 use Illuminate\Auth\Access\HandlesAuthorization;
 
 class AgentPolicy

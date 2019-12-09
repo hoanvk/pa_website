@@ -3,21 +3,10 @@
     PA Price
 @endsection
 @section('content')
-<div class="container">
-    @if ($message = Session::get('success'))
-        <div class="alert alert-success">
-            <p>{{ $message }}</p>
-        </div>
-    @endif
-    <div class="pull-left">
-    <h2>Index</h2>
-    </div>
-    <div class="pull-right">
-            
-        <a class="btn btn-primary" href="{{route('paprices.create', $product_id)}} ">Create New</a>
-    </div>
-    
-    
+<div class="clearfix mb-2">
+    <span class="float-left"><a class="btn btn-outline-primary" href="{{route('products.show', $product->id)}} ">Back</a></span>
+    <span class="float-right"><a class="btn btn-primary" href="{{route('benefits.create', $product->id)}} ">Create New</a></span>
+  </div>
     <table class="table">
         <thead>
             <tr>
@@ -39,7 +28,7 @@
                     
                 <td>{{ $item->amount}} </td>
                 <td>{{ $item->id}} </td>
-                <td><a href="{{  route('paprices.show', ['product_id'=>$product_id,'id'=>$item->id]) }} "><i class="fa fa-pencil-square-o" aria-hidden="true"></i></a></td>
+                <td><a href="{{  route('paprices.show', ['product_id'=>$product_id,'id'=>$item->id]) }} "><i class="fas fa-edit" aria-hidden="true"></i></a></td>
             </tr>
             @endforeach
         </tbody>

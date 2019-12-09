@@ -1,17 +1,7 @@
-<div class="row">
-        <div class="col-sm-12">
-                @if ($errors->any())
-                <div class="alert alert-danger">
-                    <ul>
-                        @foreach ($errors->all() as $error)
-                            <li>{{ $error }}</li>
-                        @endforeach
-                    </ul>
-                </div>
-            @endif
-        </div>
+@php
+   $link_to_index=route('items.index'); 
+@endphp
 
-    </div>
 <div class="form-group row">
     <div class="col-sm-6">
             <label for="item_tabl">Table</label>    

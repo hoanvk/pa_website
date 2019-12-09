@@ -2,6 +2,7 @@
 
 namespace App;
 
+
 use App\Permission;
 use Illuminate\Notifications\Notifiable;
 use Illuminate\Contracts\Auth\MustVerifyEmail;

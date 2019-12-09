@@ -1,14 +1,11 @@
 @extends('dashboard.master')
 @section('title')
-Benefit | MSIG
+Benefit
 @endsection
 @section('content')
-<div class="container">
-    @include('dashboard._breadcrumb',['nodes' =>[['action'=>'benefits.index', 'title'=>$product->title,'parameter'=>$product->id], 
-    
-        ['title'=>'Details']]])
-    
-    
+@php
+$link_to_index=route('benefits.index', $model->product_id); 
+@endphp
     <table class="table">
         <tbody>
         

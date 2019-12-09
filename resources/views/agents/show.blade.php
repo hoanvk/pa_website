@@ -1,16 +1,11 @@
 @extends('dashboard.master')
 @section('title')
-    Table Setup
+    Agent
 @endsection
 @section('content')
-@include('dashboard._breadcrumb',['nodes' =>[['action'=>'agents.index', 'title'=>'Index'], 
-        ['title'=>'Details']]])
-    @if ($message = Session::get('success'))
-    <div class="alert alert-success">
-        <strong>Success!</strong>
-        <p>{{ $message }}</p>
-    </div>
-@endif
+@php
+    $link_to_index = route('agents.index');
+@endphp
     <table class="table">
         <tbody>
                 <tr>

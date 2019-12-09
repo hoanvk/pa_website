@@ -3,15 +3,11 @@
 Period
 @endsection
 @section('content')
-
-        
-    @include('dashboard._formheader',['title'=>'Index','action'=>'periods.create', 'parameter'=>$product->id, 'button'=>'Create New'])
-    @if ($message = Session::get('success'))
-        <div class="alert alert-success alert-dismissible">
-            <button type="button" class="close" data-dismiss="alert">&times;</button>
-            <strong>Success!</strong>{{ $message }}
-        </div>
-    @endif
+<div class="clearfix mb-2">
+    <span class="float-left"><a class="btn btn-outline-primary" href="{{route('products.show', $product->id)}} ">Back</a></span>
+    <span class="float-right"><a class="btn btn-primary" href="{{route('periods.create', $product->id)}} ">Create New</a></span>
+  </div>
+    
     <table class="table">
         <thead>
             <tr>

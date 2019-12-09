@@ -3,41 +3,40 @@
     Table Setup
 @endsection
 @section('content')
-<div class="container">
+@php
+   $link_to_index=route('items.index'); 
+@endphp
+<table class="table">
+    <tbody>
     
-    <h2>Details</h2>
+        <tr>
+            <td scope="row">Item Code</td>
+            <td>{{ $item->item_item }}</td>
+            
+        </tr>
+        <tr>
+            <td scope="row">Table</td>
+            <td>{{ $item->item_tabl }}</td>
+            
+        </tr>
+        <tr>
+            <td scope="row">Short Desc</td>                
+            <td>{{ $item->short_desc }}</td>
+        </tr>
+        <tr>
+            <td scope="row">Long Desc</td>                
+            <td>{{ $item->long_desc }}</td>
+        </tr>
+    </tbody>
+</table>   
+<p>
+        {!! Form::model($item, array('route' => array('items.destroy', $item->id), 'method'=>'DELETE')) !!}
+    
+        <a class="btn btn-primary" href="{{route('items.edit',$item->id)}} ">Edit Item</a>
+        <button type="submit" class="btn btn-danger">Delete</button>
+        {!! Form::close() !!} 
+    
+</p>  
     
     
-    
-    <table class="table">
-        <tbody>
-        
-            <tr>
-                <td scope="row">Item Code</td>
-                <td>{{ $item->item_item }}</td>
-                
-            </tr>
-            <tr>
-                <td scope="row">Table</td>
-                <td>{{ $item->item_tabl }}</td>
-                
-            </tr>
-            <tr>
-                <td scope="row">Short Desc</td>                
-                <td>{{ $item->short_desc }}</td>
-            </tr>
-            <tr>
-                <td scope="row">Long Desc</td>                
-                <td>{{ $item->long_desc }}</td>
-            </tr>
-        </tbody>
-    </table>   
-    <p>
-            {!! Form::model($item, array('route' => array('items.destroy', $item->id), 'method'=>'DELETE')) !!}
-        
-            <a class="btn btn-primary" href="{{route('items.edit',$item->id)}} ">Edit Item</a>
-            <button type="submit" class="btn btn-danger">Delete</button>
-            {!! Form::close() !!} 
-        
-    </p>
 @endsection

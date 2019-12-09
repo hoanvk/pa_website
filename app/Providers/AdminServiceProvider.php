@@ -2,6 +2,8 @@
 
 namespace App\Providers;
 
+use App\Models\Master\Item;
+use Illuminate\Support\Facades\View;
 use Illuminate\Support\ServiceProvider;
 
 class AdminServiceProvider extends ServiceProvider
@@ -15,6 +17,10 @@ class AdminServiceProvider extends ServiceProvider
     {
         //
         $this->app->bind('App\Repositories\User\UserInterface', 'App\Repositories\User\UserRepository');
+        $this->app->bind('App\Repositories\Common\IDateUtil', 'App\Repositories\Common\DateUtil');
+        $this->app->bind('App\Repositories\Common\ISelectList', 'App\Repositories\Common\SelectList');
+        $this->app->bind('App\Repositories\PA\IPAPremium', 'App\Repositories\PA\PAPremium');
+        $this->app->bind('App\Repositories\Travel\ITravelPremium', 'App\Repositories\Travel\TravelPremium');
     }
 
     /**
@@ -25,5 +31,6 @@ class AdminServiceProvider extends ServiceProvider
     public function boot()
     {
         //
+        View::share(['languages'=> Item::where('item_tabl','=','TV410')->get()]);
     }
 }

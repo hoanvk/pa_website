@@ -3,8 +3,9 @@
 Benefit
 @endsection
 @section('content')
-@include('dashboard._breadcrumb',['nodes' =>[['action'=>'benefits.index', 'title'=>$product->title,'parameter'=> $product->id], 
-    ['title'=>'Create']]])
+@php
+$link_to_index=route('benefits.index', $product->id); 
+@endphp
     {!! Form::open([
         'route' => ['benefits.store',$product->id],
         'method' => 'POST'

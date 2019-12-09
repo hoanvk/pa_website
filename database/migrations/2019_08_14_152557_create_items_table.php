@@ -13,11 +13,11 @@ class CreateItemsTable extends Migration
      */
     public function up()
     {
-        Schema::create('tb_item', function (Blueprint $table) {
+        Schema::connection('admin')->create('tb_items', function (Blueprint $table) {
             $table->increments('id');
             $table->string('item_item',5);
             $table->string('item_tabl',5);
-            $table->strin('short_desc',50);
+            $table->string('short_desc',50);
             $table->text('long_desc');
             $table->timestamps();
         });
@@ -30,6 +30,6 @@ class CreateItemsTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('tb_item');
+        Schema::connection('admin')->dropIfExists('tb_items');
     }
 }

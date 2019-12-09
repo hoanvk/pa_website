@@ -3,15 +3,8 @@
     Agent
 @endsection
 @section('content')
-
-        @include('dashboard._formheader',['title'=>'Index','action'=>'agents.create', 'button'=>'Create New'])
-        @if ($message = Session::get('success'))
-        <div class="alert alert-success">
-            <strong>Success!</strong>
-            <p>{{ $message }}</p>
-        </div>
-    @endif
-    
+<div class="text-right mb-2"><a class="btn btn-primary" href="{{route('agents.create')}} ">Create New</a></div>
+ 
     <table class="table">
         <thead>
             <tr>
@@ -33,7 +26,7 @@
                 <td>{{ $item->taxnum}} </td>
                 <td>{{ $item->email}} </td>
                 <td>{{ $item->id}} </td>
-                <td><a href="{{  route('agents.show', $item->id) }} "><i class="fa fa-pencil-square-o" aria-hidden="true"></i></a></td>
+                <td><a href="{{  route('agents.show', $item->id) }} "><i class="fas fa-edit" aria-hidden="true"></i></a></td>
             </tr>
             @endforeach
         </tbody>

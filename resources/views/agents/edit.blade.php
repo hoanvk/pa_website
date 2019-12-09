@@ -1,7 +1,10 @@
 @extends('dashboard.master')
 @section('title')
-    Update
+    Edit Agent
 @endsection
+@php
+    $link_to_index = route('agents.index');
+@endphp
 @section('content')
 
     {!! Form::model($model, array('route' => array('agents.update', $model->id), 'method'=>'PUT')) !!}

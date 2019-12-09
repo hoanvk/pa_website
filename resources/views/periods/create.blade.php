@@ -3,7 +3,9 @@
 Period
 @endsection
 @section('content')
-@include('dashboard._breadcrumb',['nodes' =>[['action'=>'periods.index', 'title'=>'Index','parameter'=>$product->id], ['title'=>'Create']]])
+@php
+$link_to_index=route('periods.index', $product->id); 
+@endphp
     {!! Form::open([
         'route' => ['periods.store',$product->id],
         'method' => 'POST'

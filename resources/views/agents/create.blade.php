@@ -1,9 +1,11 @@
 @extends('dashboard.master')
 @section('title')
-    Create
+    Create Agent
 @endsection
 @section('content')
-
+@php
+    $link_to_index = route('agents.index');
+@endphp
 {!! Form::open([
     'route' => ['agents.store'],
     'method' => 'POST'
