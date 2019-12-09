@@ -13,9 +13,10 @@ class CreateDayRangesTable extends Migration
      */
     public function up()
     {
-        Schema::connection('admin')->create('day_ranges', function (Blueprint $table) {
+        Schema::connection('admin')->create('tb_day_ranges', function (Blueprint $table) {
             $table->increments('id');
             $table->string('title',255);
+            $table->string('name',50);
             $table->integer('day_from');
             $table->integer('day_to');
             $table->timestamps();
@@ -29,6 +30,6 @@ class CreateDayRangesTable extends Migration
      */
     public function down()
     {
-        Schema::connection('admin')->dropIfExists('day_ranges');
+        Schema::connection('admin')->dropIfExists('tb_day_ranges');
     }
 }

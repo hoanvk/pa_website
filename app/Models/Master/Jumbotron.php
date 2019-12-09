@@ -9,7 +9,7 @@ class Jumbotron extends Model
     //
     protected $connection = 'admin';
     use HasTranslations;
-    protected $table = 'jumbotrons';
+    protected $table = 'tb_jumbotrons';
     protected $fillable = ['name','title', 'description', 'status'];
     protected $translatable = ['title', 'description'];
 }

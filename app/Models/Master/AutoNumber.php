@@ -9,7 +9,7 @@ class AutoNumber extends Model
 {
     //
     protected $connection = 'admin';
-    protected $table = 'auto_numbers';
+    protected $table = 'tb_auto_numbers';
     protected $fillable = [
         'id', 'product_id', 'last_number','start_number', 'end_number'
     ];

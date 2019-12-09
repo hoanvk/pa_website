@@ -1,21 +1,22 @@
 <?php
 
 namespace App\Http\Controllers\PA;
-use App\Plan;
+use App\Models\Master\Plan;
 use DateTime;
-use App\Agent;
-use App\PARisk;
-use App\Period;
-use App\Policy;
-use App\PASeqNo;
+use App\Models\Master\Agent;
+use App\Models\Master\Product;
+use App\Models\PA\PARisk;
+use App\Models\Master\Period;
+use App\Models\PA\PolicyHeader;
+use App\Models\PA\PASeqNo;
 
-use App\Premium;
+use App\Repositories\Common\ISelectList;
+use App\Repositories\Common\IDateUtil;
+use App\Repositories\PA\IPAPremium;
 
 
-use App\Product;
-use App\DateUtil;
 use Carbon\Carbon;
-use App\SelectList;
+
 
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Input;
@@ -25,7 +26,7 @@ use Illuminate\Validation\ValidationException;
 
 class PAController extends B2CPageController
 {
-    public function period(Request $request)
+    public function period(Request $request, IDateUtil $dateUtil)
     {
         # code...
         
@@ -39,7 +40,7 @@ class PAController extends B2CPageController
 
             if ($start_date != '' && $period_id != 0) {
                 # code...
-                $start_date=DateUtil::parseDate($start_date);
+                $start_date=$dateUtil->parseDate($start_date);
                 $end_date = PARisk::coverage($start_date, $period_id);
                
                 if ($end_date) {

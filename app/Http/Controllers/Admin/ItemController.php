@@ -2,8 +2,8 @@
 
 namespace App\Http\Controllers\Admin;
 
-
-
+use App;
+use App\Http\Requests\ItemFormRequest;
 use App\Models\Master\Item;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
@@ -41,16 +41,10 @@ class ItemController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(Request $request)
+    public function store(ItemFormRequest $request)
     {
         //
-        $request->validate([
-            'item_item' => 'required|max:5',
-            'item_tabl' => 'required|max:5',
-            'short_desc' => 'required|max:50', 
-            'long_desc' => 'required|max:250'
-        ]);
-  
+     
         $item_tabl = Input::get('item_tabl');
         $item_item = Input::get('item_item');
         $short_desc = Input::get('short_desc');
@@ -100,7 +94,7 @@ class ItemController extends Controller
      * @param  \App\Destination  $destination
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, $id)
+    public function update(ItemFormRequest $request, $id)
     {
         //
         

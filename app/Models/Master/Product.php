@@ -9,7 +9,7 @@ class Product extends Model
     //
     protected $connection = 'admin';
     use HasTranslations;
-    protected $table = 'products';
+    protected $table = 'tb_products';
     protected $fillable = ['id', 'title','name','product_type','agent_id'];
     public function benefits()
     {

@@ -13,9 +13,9 @@ class CreateJumbotronsTable extends Migration
      */
     public function up()
     {
-        Schema::create('jumbotrons', function (Blueprint $table) {
+        Schema::connection('admin')->create('tb_jumbotrons', function (Blueprint $table) {
             $table->increments('id');
-            $table->string('name',5);
+            $table->string('name',5)->unique();
             $table->string('title',500);
             $table->text('description');
             $table->string('status',1);
@@ -30,6 +30,6 @@ class CreateJumbotronsTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('jombotrons');
+        Schema::connection('admin')->dropIfExists('tb_jombotrons');
     }
 }

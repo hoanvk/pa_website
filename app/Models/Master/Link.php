@@ -9,7 +9,7 @@ class Link extends Model
     //
     protected $connection = 'admin';
     use HasTranslations;
-    protected $table = 'links';
+    protected $table = 'tb_links';
     protected $fillable = ['name','route','title','active','status'];
 
     protected $translatable = ['title'];

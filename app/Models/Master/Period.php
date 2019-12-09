@@ -9,7 +9,7 @@ class Period extends Model
 {
     //
     protected $connection = 'admin';
-    protected $table = 'periods';
+    protected $table = 'tb_periods';
     protected $fillable = ['id','title','name','product_id','qty','unit'];
     public function product()
     {

@@ -9,7 +9,7 @@ class Benefit extends Model
     protected $connection = 'admin';
     use HasTranslations;
     //
-    protected $table = 'benefits';
+    protected $table = 'tb_benefits';
     protected $fillable = ['id','title','name','product_id'];
     public function product()
     {

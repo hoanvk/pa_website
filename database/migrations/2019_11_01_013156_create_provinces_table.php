@@ -13,7 +13,7 @@ class CreateProvincesTable extends Migration
      */
     public function up()
     {
-        Schema::create('provinces', function (Blueprint $table) {
+        Schema::connection('admin')->create('tb_provinces', function (Blueprint $table) {
             $table->increments('id');
             $table->string('name',50);
             $table->string('title',500);
@@ -28,6 +28,6 @@ class CreateProvincesTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('provinces');
+        Schema::connection('admin')->dropIfExists('tb_provinces');
     }
 }

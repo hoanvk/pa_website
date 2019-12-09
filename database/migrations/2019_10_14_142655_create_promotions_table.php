@@ -13,11 +13,11 @@ class CreatePromotionsTable extends Migration
      */
     public function up()
     {
-        Schema::create('promotions', function (Blueprint $table) {
+        Schema::connection('admin')->create('tb_promotions', function (Blueprint $table) {
             $table->increments('id');
             $table->string('promo_code',50);
             $table->unsignedInteger('product_id')->nullable();
-            $table->foreign('product_id')->references('id')->on('products')->onDelete('SET NULL');
+            // $table->foreign('product_id')->references('id')->on('tb_products')->onDelete('SET NULL');
             $table->decimal('discount',18,0);
             $table->date('start_date');
             $table->date('end_date');
@@ -32,6 +32,6 @@ class CreatePromotionsTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('promotions');
+        Schema::connection('admin')->dropIfExists('tb_promotions');
     }
 }

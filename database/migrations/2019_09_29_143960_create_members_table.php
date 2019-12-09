@@ -13,7 +13,7 @@ class CreateMembersTable extends Migration
      */
     public function up()
     {
-        Schema::create('members', function (Blueprint $table) {
+        Schema::create('tb_members', function (Blueprint $table) {
             $table->bigIncrements('id');
             $table->string('insured_name',250);
             $table->string('insured_id',30);
@@ -23,7 +23,7 @@ class CreateMembersTable extends Migration
             $table->string('ownship',50);
             $table->string('gender',1);            
             $table->unsignedBigInteger('policy_id')->nullable();
-            $table->foreign('policy_id')->references('id')->on('tb_policy')->onDelete('SET NULL');
+            // $table->foreign('policy_id')->references('id')->on('tb_policy_header')->onDelete('SET NULL');
             $table->timestamps();
         });
     }
@@ -35,6 +35,6 @@ class CreateMembersTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('members');
+        Schema::dropIfExists('tb_members');
     }
 }

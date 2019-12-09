@@ -25,9 +25,10 @@ class ItemFormRequest extends FormRequest
     {
         return [
             //
-            'item_item'=>'required|max:5',
-            'item_tabl'=>'required|max:5',
-            'short_desc'=>'required|max:50'
+            'item_item' => 'required|max:5',
+            'item_tabl' => 'required|max:5',
+            'short_desc' => 'required|max:50', 
+            'long_desc' => 'required|max:250'
         ];
     }
 

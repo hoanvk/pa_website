@@ -7,7 +7,8 @@ use Illuminate\Database\Eloquent\Model;
 class Price extends Model
 {
     //
-    protected $table = 'prices';
+    protected $connection = 'admin';
+    protected $table = 'tb_travel_prices';
     protected $fillable = ['id', 'agent_id','plan_id', 'destination_id', 'day_range_id', 'amount'];
     public function plan()
     {

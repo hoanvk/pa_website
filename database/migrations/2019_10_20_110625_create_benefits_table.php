@@ -13,10 +13,10 @@ class CreateBenefitsTable extends Migration
      */
     public function up()
     {
-        Schema::create('benefits', function (Blueprint $table) {
+        Schema::connection('admin')->create('tb_benefits', function (Blueprint $table) {
             $table->increments('id');
             $table->unsignedInteger('product_id');
-            $table->foreign('product_id')->references('id')->on('products')->onDelete('CASCADE');
+            // $table->foreign('product_id')->references('id')->on('tb_products')->onDelete('CASCADE');
             $table->text('title',1000)->nullable();
             
             $table->string('name',50)->nullable();
@@ -31,6 +31,6 @@ class CreateBenefitsTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('benefits');
+        Schema::connection('admin')->dropIfExists('tb_benefits');
     }
 }

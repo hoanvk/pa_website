@@ -10,7 +10,7 @@ class AgentPlan extends Model
 {
     //
     protected $connection = 'admin';
-    protected $table = 'agent_plans';
+    protected $table = 'tb_agent_plans';
     protected $fillable = [
         'id', 'agent_id', 'plan_id'
     ];

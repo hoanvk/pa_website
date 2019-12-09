@@ -8,6 +8,6 @@ class Nationality extends Model
 {
     //
     protected $connection = 'admin';
-    protected $table = 'nationalities';
+    protected $table = 'tb_nationalities';
     protected $fillable = ['id','ctry_code', 'name'];
 }

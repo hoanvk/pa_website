@@ -13,7 +13,7 @@ class CreateReportsTable extends Migration
      */
     public function up()
     {
-        Schema::create('reports', function (Blueprint $table) {
+        Schema::connection('admin')->create('tb_reports', function (Blueprint $table) {
             $table->increments('id');
             $table->string('title',500);
             $table->string('report_no',50);
@@ -29,6 +29,6 @@ class CreateReportsTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('reports');
+        Schema::connection('admin')->dropIfExists('tb_reports');
     }
 }

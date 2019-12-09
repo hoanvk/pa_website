@@ -25,6 +25,12 @@ class AgentFormRequest extends FormRequest
     {
         return [
             //
+            'title' => 'required',
+            'name' => 'required',
+            'taxnum' => 'required',
+            'email' => 'required',
+            'address' => 'required',
+            'client_no' => 'required',
         ];
     }
 }

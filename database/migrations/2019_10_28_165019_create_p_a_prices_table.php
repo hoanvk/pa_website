@@ -13,14 +13,14 @@ class CreatePAPricesTable extends Migration
      */
     public function up()
     {
-        Schema::create('pa_prices', function (Blueprint $table) {
+        Schema::connection('admin')->create('tb_pa_prices', function (Blueprint $table) {
             $table->increments('id');
             $table->unsignedInteger('product_id');
-            $table->foreign('product_id')->references('id')->on('products')->onDelete('CASCADE');
+            // $table->foreign('product_id')->references('id')->on('tb_products')->onDelete('CASCADE');
             $table->unsignedInteger('plan_id');
-            $table->foreign('plan_id')->references('id')->on('plans')->onDelete('CASCADE');
+            // $table->foreign('plan_id')->references('id')->on('tb_plans')->onDelete('CASCADE');
             $table->unsignedInteger('period_id')->nullable();
-            $table->foreign('period_id')->references('id')->on('periods')->onDelete('SET NULL');
+            // $table->foreign('period_id')->references('id')->on('tb_periods')->onDelete('SET NULL');
             $table->decimal('amount',18);
             $table->timestamps();
         });
@@ -33,6 +33,6 @@ class CreatePAPricesTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('pa_prices');
+        Schema::connection('admin')->dropIfExists('tb_pa_prices');
     }
 }

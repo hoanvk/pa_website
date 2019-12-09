@@ -8,7 +8,7 @@ class Promotion extends Model
 {
     //
     protected $connection = 'admin';
-    protected $table = 'promotions';
+    protected $table = 'tb_promotions';
     protected $fillable = ['id', 'promo_code','product_id', 'discount', 'start_date','end_date'];
     public function product()
     {

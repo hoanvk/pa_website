@@ -10,7 +10,8 @@ use Illuminate\Database\Eloquent\Model;
 class PAPrice extends Model
 {
     //
-    protected $table = 'pa_prices';
+    protected $connection = 'admin';
+    protected $table = 'tb_pa_prices';
     protected $fillable = ['id','product_id','plan_id','period_id','amount'];
     public function product()
     {

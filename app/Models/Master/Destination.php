@@ -8,6 +8,6 @@ class Destination extends Model
 {
     //
     protected $connection = 'admin';
-    protected $table = 'destinations';
+    protected $table = 'tb_destinations';
     protected $fillable = ['id', 'title','name'];
 }

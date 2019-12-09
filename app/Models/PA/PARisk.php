@@ -2,14 +2,13 @@
 
 namespace App\Models\PA;
 
-use App\Period;
-use App\DateUtil;
+
 use Illuminate\Database\Eloquent\Model;
 
 class PARisk extends Model
 {
     //
-    protected $table = 'pa_risks';
+    protected $table = 'tb_pa_risks';
     protected $fillable = ['id','policy_id','period_id','plan_id','premium'];
     public function plan()
         {

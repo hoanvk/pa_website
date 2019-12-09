@@ -13,7 +13,7 @@ class Agent extends Model
 {
     //
     protected $connection = 'admin';
-    protected $table = 'agents';
+    protected $table = 'tb_agents';
     protected $fillable = ['id', 'title','name', 'client_no', 'address','taxnum','email'];
     public function policies()
     {

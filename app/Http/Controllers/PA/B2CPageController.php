@@ -3,6 +3,10 @@
 namespace App\Http\Controllers\PA;
 
 use Session;
+use App\Models\Master\Product;
+use App\Models\Master\Jumbotron;
+use App\Models\Master\Link;
+use App\Models\PA\PolicyHeader;
 
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
@@ -42,12 +46,12 @@ class B2CPageController extends Controller
                        
           ]);
         $product_id = $request->route('product_id');
-        
+        $policy = new PolicyHeader();
         $policy_id = $request->route('policy_id');
-        $policy = new Policy();
+        
         if ($policy_id) {
           //           
-          $policy = Policy::find($policy_id);
+          $policy = PolicyHeader::find($policy_id);
           $array->put('policy', $policy);
           
           if (!$product_id) {

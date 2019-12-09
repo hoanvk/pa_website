@@ -1,18 +1,11 @@
 @extends('dashboard.master')
 @section('title')
-    Table Setup
+Product Number
 @endsection
 @section('content')
-<div class="container">
-    
-        <div class="pull-left">
-            <h2>Details</h2>
-        </div>
-    <div class="pull-right"><a href="{{ route('autonumbers.index')}} " class="btn btn-link"><i class="fa fa-chevron-left"></i>
-        Back to Index</a></div>
-    
-    
-    
+@php
+   $link_to_index=route('autonumbers.index'); 
+@endphp
     <table class="table">
         <tbody>
         

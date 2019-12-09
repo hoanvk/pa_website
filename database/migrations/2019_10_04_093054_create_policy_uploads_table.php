@@ -13,10 +13,10 @@ class CreatePolicyUploadsTable extends Migration
      */
     public function up()
     {
-        Schema::create('policy_uploads', function (Blueprint $table) {
+        Schema::create('tb_policy_uploads', function (Blueprint $table) {
             $table->bigIncrements('id');
             $table->unsignedInteger('agent_id');
-            $table->foreign('agent_id')->references('id')->on('agents')->onDelete('CASCADE');
+            // $table->foreign('agent_id')->references('id')->on('tb_agents')->onDelete('CASCADE');
             $table->integer('master_id');
             $table->string('name',255);
             $table->string('passport_no',30);
@@ -44,6 +44,6 @@ class CreatePolicyUploadsTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('policy_uploads');
+        Schema::dropIfExists('tb_policy_uploads');
     }
 }

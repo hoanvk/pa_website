@@ -8,8 +8,8 @@ class Item extends Model
 {
     use HasTranslations;
     //
-    // protected $connection = 'admin';
-    protected $table = 'tb_item';
+    protected $connection = 'admin';
+    protected $table = 'tb_items';
     protected $fillable = ['id','item_item', 'item_tabl', 'short_desc', 'long_desc'];
     protected $translatable = ['long_desc'];
 }

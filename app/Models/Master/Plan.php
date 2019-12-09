@@ -9,7 +9,7 @@ class Plan extends Model
 {
     //
     protected $connection = 'admin';
-    protected $table = 'plans';
+    protected $table = 'tb_plans';
     protected $fillable = ['id', 'title','name','product_id'];
     public function product()
     {

@@ -14,20 +14,18 @@ class PolicyHeader extends Migration
     public function up()
     {
         //
-        Schema::create('tb_policy', function (Blueprint $table) {
+        Schema::create('tb_policy_header', function (Blueprint $table) {
+            // $adminSchema = Schema::connection(null);
             $table->bigIncrements('id');
             $table->unsignedInteger('product_id')->nullable();
-            $table->foreign('product_id')->references('id')->on('products')->onDelete('SET NULL');
+            // $table->foreign('product_id')->references('id')->on('tb_products')->onDelete('SET NULL');
             $table->string('quotation_no', 20);
             $table->string('policy_no', 10)->nullable();
-            $table->string('client_name', 255)->nullable();
-            $table->string('client_address', 255)->nullable();
-            $table->string('client_id', 30)->nullable();
-            $table->dateTime('client_dob')->nullable();
+            
             $table->dateTime('start_date');
             $table->dateTime('end_date');
             $table->unsignedInteger('agent_id')->nullable();
-            $table->foreign('agent_id')->references('id')->on('agents')->onDelete('SET NULL');
+            // $table->foreign('agent_id')->references('id')->on('tb_agents')->onDelete('SET NULL');
             $table->decimal('premium',18,0);                        
             $table->integer('period')->nullable();
             $table->string('status',1);
@@ -35,20 +33,20 @@ class PolicyHeader extends Migration
             $table->string('promo_code',30)->nullable();
             $table->text('remarks');
             $table->unsignedBigInteger('customer_id')->nullable();
-            $table->foreign('customer_id')->references('id')->on('customers')->onDelete('SET NULL');
+            // $table->foreign('customer_id')->references('id')->on('tb_customers')->onDelete('SET NULL');
             $table->timestamps();
         });
         
-        Schema::create('tb_risk', function (Blueprint $table) {
+        Schema::create('tb_travel_risks', function (Blueprint $table) {
             $table->bigIncrements('id');
             $table->unsignedBigInteger('policy_id')->nullable();
-            $table->foreign('policy_id')->references('id')->on('tb_policy')->onDelete('SET NULL');
+            // $table->foreign('policy_id')->references('id')->on('tb_policy_header')->onDelete('SET NULL');
             $table->string('policy_type', 3);                                                           
             $table->decimal('premium',18,0);            
             $table->unsignedInteger('plan_id')->nullable();
-            $table->foreign('plan_id')->references('id')->on('plans')->onDelete('SET NULL');
+            // $table->foreign('plan_id')->references('id')->on('tb_plans')->onDelete('SET NULL');
             $table->unsignedInteger('destination_id')->nullable();
-            $table->foreign('destination_id')->references('id')->on('destinations')->onDelete('SET NULL');
+            // $table->foreign('destination_id')->references('id')->on('tb_destinations')->onDelete('SET NULL');
             $table->integer('adult_qty')->nullable(); 
             $table->integer('dependent_qty')->nullable(); 
             $table->timestamps();
@@ -64,8 +62,8 @@ class PolicyHeader extends Migration
     public function down()
     {
         //
-        Schema::dropIfExists('tb_policy');
-        Schema::dropIfExists('tb_risk');
+        Schema::dropIfExists('tb_policy_header');
+        Schema::dropIfExists('tb_travel_risks');
         
     }
 }

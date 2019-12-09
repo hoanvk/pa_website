@@ -13,7 +13,7 @@ class CreateNationalitiesTable extends Migration
      */
     public function up()
     {
-        Schema::create('nationalities', function (Blueprint $table) {
+        Schema::connection('admin')->create('tb_nationalities', function (Blueprint $table) {
             $table->increments('id');
             $table->string('ctry_code',3);
             $table->string('name',500);            
@@ -28,6 +28,6 @@ class CreateNationalitiesTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('nationalities');
+        Schema::connection('admin')->dropIfExists('tb_nationalities');
     }
 }

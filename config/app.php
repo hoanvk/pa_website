@@ -176,7 +176,7 @@ return [
         App\Providers\RouteServiceProvider::class,
         Maatwebsite\Excel\ExcelServiceProvider::class,
         App\Providers\AdminServiceProvider::class,
-        MSIGVN\Calculator\CalculatorServiceProvider::class,
+        // MSIGVN\Calculator\CalculatorServiceProvider::class,
     ],
 
     /*

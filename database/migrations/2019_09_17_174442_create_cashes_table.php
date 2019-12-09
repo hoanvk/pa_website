@@ -13,12 +13,13 @@ class CreateCashesTable extends Migration
      */
     public function up()
     {
-        Schema::create('cashes', function (Blueprint $table) {
+        Schema::connection('admin')->create('tb_cashes', function (Blueprint $table) {
+            $adminSchema = Schema::connection(null);
             $table->bigIncrements('id');
             $table->decimal('limit_bal',18,0);
             $table->decimal('os_bal',18,0)->default(0);
             $table->unsignedInteger('agent_id')->unique();
-            $table->foreign('agent_id')->references('id')->on('agents')->onDelete('CASCADE');
+            // $table->foreign('agent_id')->references('id')->on($adminSchema->getConnection()->getDatabaseName() . '.tb_agents')->onDelete('CASCADE');
             $table->timestamps();
         });
     }
@@ -30,6 +31,6 @@ class CreateCashesTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('cashes');
+        Schema::connection('admin')->dropIfExists('tb_cashes');
     }
 }

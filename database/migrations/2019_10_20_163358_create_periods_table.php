@@ -13,10 +13,10 @@ class CreatePeriodsTable extends Migration
      */
     public function up()
     {
-        Schema::create('periods', function (Blueprint $table) {
+        Schema::connection('admin')->create('tb_periods', function (Blueprint $table) {
             $table->increments('id');
             $table->unsignedInteger('product_id');
-            $table->foreign('product_id')->references('id')->on('products')->onDelete('CASCADE');
+            // $table->foreign('product_id')->references('id')->on('tb_products')->onDelete('CASCADE');
             $table->text('title',1000)->nullable();
             $table->string('name',50)->nullable();
             $table->unsignedInteger('qty');
@@ -32,6 +32,6 @@ class CreatePeriodsTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('periods');
+        Schema::connection('admin')->dropIfExists('tb_periods');
     }
 }

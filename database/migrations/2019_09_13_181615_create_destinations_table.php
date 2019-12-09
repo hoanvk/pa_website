@@ -13,7 +13,7 @@ class CreateDestinationsTable extends Migration
      */
     public function up()
     {
-        Schema::connection('admin')->create('destinations', function (Blueprint $table) {
+        Schema::connection('admin')->create('tb_destinations', function (Blueprint $table) {
             $table->increments('id');
             $table->string('title',255);
             $table->string('name',50);
@@ -28,6 +28,6 @@ class CreateDestinationsTable extends Migration
      */
     public function down()
     {
-        Schema::connection('admin')->dropIfExists('destinations');
+        Schema::connection('admin')->dropIfExists('tb_destinations');
     }
 }

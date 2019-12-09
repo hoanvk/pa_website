@@ -8,7 +8,7 @@ $link_to_index=route('paprices.index', $product->id);
 @endphp
     
 {!! Form::open([
-    'route' => ['paprices.store',$product_id],
+    'route' => ['paprices.store',$product->id],
     'method' => 'POST'
 
 ]) !!}

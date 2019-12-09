@@ -8,6 +8,6 @@ class Province extends Model
 {
     //
     protected $connection = 'admin';
-    protected $table = 'provinces';
+    protected $table = 'tb_provinces';
     protected $fillable = ['id','name','title'];
 }

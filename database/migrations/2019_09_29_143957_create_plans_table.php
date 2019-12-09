@@ -13,12 +13,13 @@ class CreatePlansTable extends Migration
      */
     public function up()
     {
-        Schema::create('plans', function (Blueprint $table) {
+        Schema::connection('admin')->create('tb_plans', function (Blueprint $table) {
+            // $adminSchema = Schema::connection(null);
             $table->increments('id');
             $table->string('title');
             $table->string('name');
             $table->unsignedInteger('product_id');
-            $table->foreign('product_id')->references('id')->on('products')->onDelete('CASCADE');
+            // $table->foreign('product_id')->references('id')->on('tb_products')->onDelete('CASCADE');
             $table->timestamps();
         });
     }
@@ -30,6 +31,6 @@ class CreatePlansTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('plans');
+        Schema::connection('admin')->dropIfExists('tb_plans');
     }
 }

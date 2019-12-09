@@ -6,7 +6,7 @@ use Illuminate\Http\Request;
 use App\Models\Master\Benefit;
 use App\Models\Master\Product;
 use Illuminate\Support\Facades\Input;
-
+use App;
 class BenefitController extends ProductPageController
 {
     /**
@@ -120,7 +120,7 @@ class BenefitController extends ProductPageController
         $model =Benefit::find($id);
         $model->delete();
   
-        return redirect()->route('benefits.index')
+        return redirect()->route('benefits.index', $product_id)
                         ->with('success','Benefit deleted successfully');
     }
 }

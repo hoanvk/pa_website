@@ -13,10 +13,11 @@ class CreateAutoNumbersTable extends Migration
      */
     public function up()
     {
-        Schema::create('auto_numbers', function (Blueprint $table) {
+        Schema::connection('admin')->create('tb_auto_numbers', function (Blueprint $table) {
+            // $adminSchema = Schema::connection(null);
             $table->bigIncrements('id');
             $table->unsignedInteger('product_id');
-            $table->foreign('product_id')->references('id')->on('products')->onDelete('CASCADE');
+            // $table->foreign('product_id')->references('id')->on('tb_products')->onDelete('CASCADE');
             $table->integer('start_number')->unsigned();
             $table->integer('end_number')->unsigned();
             $table->integer('last_number')->unsigned();
@@ -27,7 +28,7 @@ class CreateAutoNumbersTable extends Migration
 
     public function boot()
     {
-        $table->unique('table_name');
+        // $table->unique('table_name');
     }
     /**
      * Reverse the migrations.
@@ -36,6 +37,6 @@ class CreateAutoNumbersTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('auto_numbers');
+        Schema::connection('admin')->dropIfExists('tb_auto_numbers');
     }
 }

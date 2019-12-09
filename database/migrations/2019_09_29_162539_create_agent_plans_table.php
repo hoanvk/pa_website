@@ -13,12 +13,12 @@ class CreateAgentPlansTable extends Migration
      */
     public function up()
     {
-        Schema::create('agent_plans', function (Blueprint $table) {
+        Schema::connection('admin')->create('tb_agent_plans', function (Blueprint $table) {
             $table->increments('id');
             $table->unsignedInteger('agent_id');
-            $table->foreign('agent_id')->references('id')->on('agents')->onDelete('CASCADE');
+            // $table->foreign('agent_id')->references('id')->on('tb_agents')->onDelete('CASCADE');
             $table->unsignedInteger('plan_id');
-            $table->foreign('plan_id')->references('id')->on('plans')->onDelete('CASCADE');
+            // $table->foreign('plan_id')->references('id')->on('tb_plans')->onDelete('CASCADE');
             $table->unique(['plan_id', 'agent_id']);
             $table->timestamps();
         });
@@ -31,6 +31,6 @@ class CreateAgentPlansTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('agent_plans');
+        Schema::connection('admin')->dropIfExists('tb_agent_plans');
     }
 }

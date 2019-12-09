@@ -13,9 +13,9 @@ class CreateLinksTable extends Migration
      */
     public function up()
     {
-        Schema::create('links', function (Blueprint $table) {
+        Schema::connection('admin')->create('tb_links', function (Blueprint $table) {
             $table->increments('id');
-            $table->string('name',10);
+            $table->string('name',10)->unique();
             $table->string('route',50);
             $table->string('title',500);
             $table->string('active',10)->nullable();
@@ -31,6 +31,6 @@ class CreateLinksTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('links');
+        Schema::connection('admin')->dropIfExists('tb_links');
     }
 }

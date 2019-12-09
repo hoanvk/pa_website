@@ -5,7 +5,7 @@
 @section('content')
 <div class="clearfix mb-2">
     <span class="float-left"><a class="btn btn-outline-primary" href="{{route('products.show', $product->id)}} ">Back</a></span>
-    <span class="float-right"><a class="btn btn-primary" href="{{route('benefits.create', $product->id)}} ">Create New</a></span>
+    <span class="float-right"><a class="btn btn-primary" href="{{route('paprices.create', $product->id)}} ">Create New</a></span>
   </div>
     <table class="table">
         <thead>

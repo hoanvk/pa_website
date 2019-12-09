@@ -8,7 +8,7 @@ use Illuminate\Database\Eloquent\Model;
 class Member extends Model
 {
     //
-    protected $table = 'members';
+    protected $table = 'tb_members';
     protected $fillable = ['id', 'insured_name','dob','age','insured_id','naty', 'ownship','gender', 'policy_id'];
     
 }
