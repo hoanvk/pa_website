@@ -2,11 +2,15 @@
 
 namespace App\Http\Controllers\Admin;
 
+
+use App\Repositories\PA\IPAPremium;
+
 use App\Models\Master\Agent;
 use Illuminate\Http\Request;
-
 use App\Models\Master\Product;
+
 use App\Http\Controllers\Controller;
+use App\Repositories\Common\IDateUtil;
 use App\Repositories\Common\ISelectList;
 
 class ProductController extends Controller
@@ -19,8 +23,12 @@ class ProductController extends Controller
     public function index()
     {
         //
+        // $start_date = $dateUtil->parseDate('12/05/1981');
+        // $end_date = $repository->coverage($start_date, 1);
         $products = Product::latest()->paginate(10);
-        return view('products.index', compact('products'))->with('i', (request()->input('page', 1) - 1) * 10);
+        return view('products.index')->with(['i'=> (request()->input('page', 1) - 1) * 10,'products'=>$products,
+            // 'start_date'=>$start_date, 'end_date'=>$end_date
+            ]);
     }
 
     /**

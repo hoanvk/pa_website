@@ -6,42 +6,23 @@ use Session;
 use App\Models\Master\Product;
 use App\Models\Master\Jumbotron;
 use App\Models\Master\Link;
-use App\Models\PA\PolicyHeader;
+use App\Models\Common\PolicyHeader;
 
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\View;
 use Illuminate\Support\Facades\Route;
 
+
+
 class B2CPageController extends Controller
 {
-    // public $customer;
-    // public $jumbotron;
-    // public $links;
-    // public $languages;
-    //
+
+    
     public function __construct(Request $request)
     {
-        // if (Session::has('customer')){
-        //     // do some thing if the key is exist
-        //     $this->customer = Session::get('customer');
-        //   }else{
-        //     //the key is not exist in the session
-        //     $this->customer = Customer::create(['status'=>'P']);
-        //     Session::put('customer', $this->customer);
-        //   }
+      
         
-        
-          // $action = 'TVL';
-          // if ($request->is('online/pa*') || $request->is('agent/pa*')) {
-          //   //
-          //   $action ='PA';
-          // }
-          // elseif ($request->is('online/motor*') || $request->is('agent/motor*')) {
-          //   # code...
-          //   $action ='MTT';
-          // }
-          
           $array = collect([            
                        
           ]);

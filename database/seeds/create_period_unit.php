@@ -12,19 +12,19 @@ class create_period_unit extends Seeder
     public function run()
     {
         //
-        DB::table('tb_item')->insert([
+        DB::connection('admin')->table('tb_items')->insert([
             'item_item' => 'DD',
             'item_tabl' => 'TV408',
             'short_desc' => 'Days',
             'long_desc'=>'Days'
         ]);
-        DB::table('tb_item')->insert([
+        DB::connection('admin')->table('tb_items')->insert([
             'item_item' => 'MM',
             'item_tabl' => 'TV408',
             'short_desc' => 'Months',
             'long_desc'=>'Months'
         ]);
-        DB::table('tb_item')->insert([
+        DB::connection('admin')->table('tb_items')->insert([
             'item_item' => 'YY',
             'item_tabl' => 'TV408',
             'short_desc' => 'Years',

@@ -15,7 +15,7 @@ return [
     'payment'=>'Payment',
     'previous'=>'Previous',
     'next'=>'Next',
-    'payment'=>'Payment',
+    'checkout'=>'Check Out',
     'premium'=>'Premium',
     'product'=>'Product',
     'quotation_no'=>'Quotation No',

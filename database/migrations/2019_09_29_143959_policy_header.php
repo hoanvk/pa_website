@@ -29,9 +29,9 @@ class PolicyHeader extends Migration
             $table->decimal('premium',18,0);                        
             $table->integer('period')->nullable();
             $table->string('status',1);
-            $table->string('ref_number',255);
+            $table->string('ref_number',255)->nullable();
             $table->string('promo_code',30)->nullable();
-            $table->text('remarks');
+            $table->text('remarks')->nullable();
             $table->unsignedBigInteger('customer_id')->nullable();
             // $table->foreign('customer_id')->references('id')->on('tb_customers')->onDelete('SET NULL');
             $table->timestamps();

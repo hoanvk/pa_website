@@ -12,13 +12,13 @@ class ItemsTableSeeder extends Seeder
     public function run()
     {
         //Relationship
-        DB::table('tb_item')->insert([
+        DB::connection('admin')->table('tb_items')->insert([
             'item_item' => 'M',
             'item_tabl' => 'TV403',
             'short_desc' => 'Male',
             'long_desc'=>'Male'
         ]);
-        DB::table('tb_item')->insert([
+        DB::connection('admin')->table('tb_items')->insert([
             'item_item' => 'F',
             'item_tabl' => 'TV403',
             'short_desc' => 'Female',

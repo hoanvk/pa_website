@@ -10,7 +10,7 @@
 
 namespace App\Repositories\Common;
 
-interface UserInterface {
+interface IDateUtil {
   public function parseDate($date);
   public function compareNow($date);
   public function compareDate($date1, $date2);

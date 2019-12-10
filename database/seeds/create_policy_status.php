@@ -11,19 +11,19 @@ class create_policy_status extends Seeder
      */
     public function run()
     {
-        DB::table('tb_item')->insert([
+        DB::connection('admin')->table('tb_items')->insert([
             'item_item' => 'CHPAI',
             'item_tabl' => 'TV401',
             'short_desc' => '68001000',
             'long_desc'=>'Contract header number'
         ]);
-        DB::table('tb_item')->insert([
+        DB::connection('admin')->table('tb_items')->insert([
             'item_item' => '1',
             'item_tabl' => 'TV402',
             'short_desc' => 'Pending',
             'long_desc'=>'Policy pending'
         ]);
-        DB::table('tb_item')->insert([
+        DB::connection('admin')->table('tb_items')->insert([
             'item_item' => '2',
             'item_tabl' => 'TV402',
             'short_desc' => 'Issued',

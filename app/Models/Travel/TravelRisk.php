@@ -2,12 +2,15 @@
 
 namespace App\Models\Travel;
 
+use App\Models\Master\Plan;
+use App\Models\Master\Destination;
+use App\Models\Common\PolicyHeader;
 use Illuminate\Database\Eloquent\Model;
 
 class Risk extends Model
 {
     //
-    protected $table = 'tb_risk';
+    protected $table = 'tb_travel_risks';
     protected $fillable = ['id','policy_id','policy_type',    
     'premium',            
     'plan_id',    
@@ -17,7 +20,7 @@ class Risk extends Model
     public function policy()
         {
             # code...
-            return $this->belongsTo(Policy::class);
+            return $this->belongsTo(PolicyHeader::class,'policy_id');
         }
     public function plan()
         {
@@ -27,6 +30,6 @@ class Risk extends Model
         public function destination()
         {
             # code...
-            return $this->belongsTo(Destination::class);
+            return $this->belongsTo(Destination::class,'destination_id');
         }
 }

@@ -12,7 +12,7 @@ return [
     'quotation'=>'Báo giá',
     'policy_holder'=>'Chủ hợp đồng',
     'insured_person'=>'Người được BH',
-    'payment'=>'Thanh toán',
+    'checkout'=>'Thanh toán',
     'previous'=>'Quay lại',
     'next'=>'Tiếp theo',
     'payment'=>'Thanh toán',

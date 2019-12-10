@@ -7,11 +7,12 @@ use Illuminate\Database\Eloquent\Model;
 class Permission extends Model
 {
     //
-    protected $table = 'permissions';
+    protected $connection = 'admin';
+    protected $table = 'tb_permissions';
     protected $fillable = ['id', 'title','name'];
     public function roles()
     {
         # code...
-        return $this->belongsToMany(Role::class,'role_permission');
+        return $this->belongsToMany(Role::class,'tb_role_permission');
     }
 }

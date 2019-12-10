@@ -2,11 +2,13 @@
 namespace App\Repositories\Common;
 
 use DateTime;
-use App\Models\Master\Price;
 use App\Models\Master\Item;
-use App\Models\Master\Nationality;
-use App\Models\Master\Jumbotron;
 use App\Models\Master\Link;
+use App\Models\Master\Price;
+use App\Models\Master\Province;
+use App\Models\Master\Jumbotron;
+use App\Models\Master\Nationality;
+
 class SelectList implements ISelectList{
     //Trang thai don 1: Pending/2: Issued
     public function policyStatus()

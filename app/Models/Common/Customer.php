@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Models\PA;
+namespace App\Models\Common;
 
 use App\Models\PA\Policy;
 use Illuminate\Database\Eloquent\Model;

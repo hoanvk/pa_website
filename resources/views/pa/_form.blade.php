@@ -79,6 +79,7 @@
               
   
               function fetch_item_data() {
+                 
                 var period_id = $('#period_id').val();
                   var start_date = $('#start_date').val();
                   $.ajax({
@@ -87,6 +88,7 @@
                       data: {start_date:start_date, period_id:period_id},
                       dataType:'json',
                       success:function(data){
+                        //   alert(data.end_date);
                           $('#end_date').val(data.end_date);
                           
                       }

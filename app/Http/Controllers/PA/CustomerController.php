@@ -2,14 +2,19 @@
 
 namespace App\Http\Controllers\PA;
 
-use App\Customer;
-use App\DateUtil;
-use App\SelectList;
+
+
+
 use Illuminate\Http\Request;
+use App\Models\Common\Customer;
+use App\Repositories\PA\IPAPremium;
+
 use Illuminate\Support\Facades\Input;
 use App\Http\Requests\CustomerRequest;
-use App\Policy;
+use App\Repositories\Common\IDateUtil;
+use App\Repositories\Common\ISelectList;
 use Illuminate\Validation\ValidationException;
+
 class CustomerController extends B2CPageController
 {
     /**
@@ -28,12 +33,12 @@ class CustomerController extends B2CPageController
      *
      * @return \Illuminate\Http\Response
      */
-    public function create($policy_id)
+    public function create($policy_id, ISelectList $selectList)
     {
         //
         
-        $cities = SelectList::province()->pluck('title','name');
-        $countries = SelectList::country()->pluck('name','ctry_code');
+        $cities = $selectList->province()->pluck('title','name');
+        $countries = $selectList->country()->pluck('name','ctry_code');
         $customer = new Customer();
         $customer->natlty = 'VN';        
         return view('customers.create')->with(['customer'=>$customer, 'cities'=>$cities, 'countries'=>$countries]);
@@ -45,11 +50,11 @@ class CustomerController extends B2CPageController
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(CustomerRequest $request, $policy_id)
+    public function store(CustomerRequest $request, $policy_id, IDateUtil $dateUtil, IPAPremium $repository)
     {
         //
-        $dob = DateUtil::parseDate(Input::get('dob'));
-        if (DateUtil::compareNow($dob)) {
+        $dob = $dateUtil->parseDate(Input::get('dob'));
+        if ($dateUtil->compareNow($dob)) {
             $error = ValidationException::withMessages([
                 'dob' => ['Date of birth require less than today!']
              ]);
@@ -65,26 +70,17 @@ class CustomerController extends B2CPageController
         $mobile = Input::get('mobile');
         $address = Input::get('address');
         $email = Input::get('email');
-        $customer = Customer::create(['name' => $name,
-                'tgram'=>$tgram,
-                'dob'=>$dob,
-                'natlty'=>$natlty,
-                'gender'=>$gender,
-                'city'=>$city,
-                'policy_id'=>$policy_id,
-                'mobile'=>$mobile,
-                'address'=>$address,
-                'email'=>$email,
-                'status'=>'1'
-                ]
-            );
-        $policy = Policy::find($policy_id);
-        
-        if ($policy->status < 3) {
-            # code...
-            $policy->update(['status'=>3]);
+
+        $error_code = $repository->checkPolicyHolder($name,$tgram,$dob,$gender,$city,$natlty,$mobile,$address,$email);
+        if ($error_code<0) {
+            $error = ValidationException::withMessages([
+                'name' => ['Policy holder could not create!']
+             ]);
+             throw $error;
+            
         }
-        $policy->update(['customer_id'=>$customer->id]);
+        $customer = $repository->createPolicyHolder($policy_id,$name,$tgram,$dob,$gender,$city,$natlty,$mobile,$address,$email);
+        
         return redirect()->route('customers.show',['policy_id'=>$policy_id, 'id'=>$customer->id]);
     }
 
@@ -94,19 +90,18 @@ class CustomerController extends B2CPageController
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function show($policy_id, $id)
+    public function show($policy_id, $id, ISelectList $selectList, IPAPremium $repository)
     {
-        
+        $customer = $repository->getPolicyHolder($policy_id);
         //
-        if (Customer::where('id', '=', $id)->exists()) {
-            // user found                        
-            $customer = Customer::find($id);
-            $gender = SelectList::gender();
-            return view('customers.show')->with(['customer'=>$customer,'gender'=>$gender]);
+        if ($customer===null) {
+            return redirect()->route('customers.create',$policy_id);                   
+            
          }
          else {
-             
-            return redirect()->route('customers.create',$policy_id);
+                         
+            $gender = $selectList->gender();
+            return view('customers.show')->with(['customer'=>$customer,'gender'=>$gender]);
          }
     }
 
@@ -116,14 +111,14 @@ class CustomerController extends B2CPageController
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function edit($policy_id, $id)
+    public function edit($policy_id, $id, ISelectList $selectList, IPAPremium $repository)
     {
         //        
-        $countries = SelectList::country()->pluck('name','ctry_code');
-        $cities = SelectList::province()->pluck('title','name');
+        $countries = $selectList->country()->pluck('name','ctry_code');
+        $cities = $selectList->province()->pluck('title','name');
         
-        $customer = Customer::find($id);
-        $customer->dob = date('d/m/Y', strtotime($customer->dob));
+        $customer = $repository->getPolicyHolder($policy_id);
+        
         return view('customers.edit')->with(['countries'=>$countries, 'cities'=>$cities, 'customer'=>$customer]);
     }
 
@@ -154,25 +149,10 @@ class CustomerController extends B2CPageController
         $mobile = Input::get('mobile');
         $address = Input::get('address');
         $email = Input::get('email');
-        $customer = Customer::find($id);
-        $customer->update(['name' => $name,
-                'tgram'=>$tgram,
-                'dob'=>$dob,
-                'natlty'=>$natlty,
-                'gender'=>$gender,
-                'city'=>$city,
-                'policy_id'=>$policy_id,
-                'mobile'=>$mobile,
-                'address'=>$address,
-                'email'=>$email
-                ]
-            );
-            $policy = Policy::find($policy_id);
-            if ($policy->status < 3) {
-                # code...
-                $policy->update(['status'=>3]);
-            }
-        return redirect()->route('customers.show',['policy_id'=>$policy_id,'id'=>$id]);
+        
+        $customer=$repository->createPolicyHolder($policy_id,$name,$tgram,$dob,$gender,$city,$natlty,$mobile,$address,$email);
+            
+        return redirect()->route('customers.show',['policy_id'=>$policy_id,'id'=>$customer->id]);
     }
 
     /**
