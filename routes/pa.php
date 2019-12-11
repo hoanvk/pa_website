@@ -10,7 +10,10 @@ Route::group(['prefix' => 'online','middleware' => 'web'], function () {
       'as'=>'ajax.period',
       'uses'=>'PAController@period'
       ]);
-
+    Route::get('ajax/member/self', [
+        'as'=>'ajax.insured',
+        'uses'=>'MemberController@self'
+        ]);
   //Choose PA product
   Route::get('pa', [
       'as'=>'pa.index',

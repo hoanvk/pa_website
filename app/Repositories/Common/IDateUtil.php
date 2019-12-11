@@ -11,10 +11,16 @@
 namespace App\Repositories\Common;
 
 interface IDateUtil {
+  public function formatDate($date);
   public function parseDate($date);
   public function compareNow($date);
   public function compareDate($date1, $date2);
-  public function dateDmyDiff($date1, $date2);
+  
   public function age($dob);
   public function dateDiff($date1, $date2);
+  public function addDays($date, $days);
+  public function addMonths($date, $months);
+  public function addYears($date, $years);
+  
+  
 }

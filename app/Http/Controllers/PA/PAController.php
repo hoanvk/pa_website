@@ -80,40 +80,25 @@ class PAController extends B2CPageController
     public function store(PAPolicyRequest $request, $product_id, IDateUtil $dateUtil, IPAPremium $repository)
     {
         # code...
-        // dd(Input::get('content'));
-           
-        $start_date = $dateUtil->parseDate(Input::get('start_date'));
-        if (!$start_date) {
-            $error = ValidationException::withMessages([
-                'start_date' => ['Start date is invalid date format (DD/MM/YYYY)!']
-             ]);
-             throw $error;
-            
-        }
         
-        //
+        $start_date = $dateUtil->parseDate(Input::get('start_date'));        
         $promo_code = Input::get('promo_code');
-
-        $period_id = Input::get('period_id');
+        
+        $period_id = Input::get('period_id');        
         $plan_id = Input::get('plan_id');
         
-        $period = Period::find($period_id);
-
-        $error_code = $repository->checkPolicy($start_date,
+        $end_date = $repository->coverage($dateUtil->parseDate(Input::get('start_date')), $period_id);
+        $errors = $repository->checkPolicy(0, $start_date,
             $product_id,        
             $period_id,
             $plan_id, 
             $promo_code);
-            
-        if ($error_code<0) {
-            $error = ValidationException::withMessages([
-                'start_date' => ['There are some error occured!']
-             ]);
-             throw $error;
-            
+          
+        if (count($errors)>0) {
+            throw ValidationException::withMessages($errors);
         }
 
-        $policy = $repository->createPolicy($start_date,
+        $policy = $repository->createPolicy(0, $start_date,$end_date,
             $product_id,        
             $period_id,
             $plan_id, 
@@ -122,13 +107,13 @@ class PAController extends B2CPageController
         return redirect()->route('customers.create',['policy_id'=>$policy->id]);
         
     }
-    public function show($product_id, $policy_id, ISelectList $selectList)
+    public function show($product_id, $policy_id, IPAPremium $repository)
     {
         # code... 
            
-        $model = PolicyHeader::find($policy_id);        
+        $model = $repository->getPolicyHeader($policy_id);        
         $risk = $model->parisk;
-        $status = $selectList->policyStatus();
+        
         
         return view('pa.show')->with(['model'=>$model,'status'=>$status,'risk'=>$risk]);
     }
@@ -149,59 +134,46 @@ class PAController extends B2CPageController
         return view('pa.edit')->with(['model'=>$model,'plans'=>$plans,
         'periods'=>$periods]);
     }
-    public function update(PAPolicyRequest $request, $product_id, $policy_id, IPAPolicy $repository)
+    public function update(PAPolicyRequest $request, $product_id, $policy_id, IDateUtil $dateUtil, IPAPremium $repository)
     {
         # code...
         // dd(Input::get('content'));
              
-        $start_date = $this->dateUtil->parseDate(Input::get('start_date'));
-        if (!$start_date) {
-            $error = ValidationException::withMessages([
-                'start_date' => ['Start date is invalid date format (DD/MM/YYYY)!']
-             ]);
-             throw $error;
-            
-        }
+        $start_date=Input::get('start_date');
+        $start_date = $dateUtil->parseDate($start_date);  
         
-        //
         $promo_code = Input::get('promo_code');
 
         $period_id = Input::get('period_id');
-        $plan_id = Input::get('plan_id');
-        $end_date = $repository->coverage($start_date, $period_id);
-        $period = Period::find($period_id);
+                
+        $end_date = $repository->coverage($dateUtil->parseDate(Input::get('start_date')), $period_id);
+        $plan_id = Input::get('plan_id');        
         
-        $policy = Policy::find($policy_id);
-        $policy->update([        
-        'start_date'=>$start_date,
-        'end_date'=>$end_date,
+        $errors = $repository->checkPolicy($policy_id, $start_date,
+            $product_id,        
+            $period_id,
+            $plan_id, 
+            $promo_code);
 
-        'premium'=>0,        
-        'period'=>$period->qty,
-
-        ]);
-
-        $risk = $policy->parisk;
-        $risk->update(['policy_id'=> $policy->id,                 
-        'premium'=>0,                
-        'plan_id' => $plan_id,
-        'period_id' => $period_id,
-        'promo_code' =>$promo_code]);  
+        if (count($errors)>0) {
+            throw ValidationException::withMessages($errors);
+        }
         
-        
-        $premium = $repository->premiumCalculate($risk); 
-        $policy->update(['premium'=>$premium]);
-        $risk->update(['premium'=>$premium]);        
+        $policy = $repository->createPolicy($policy_id, $start_date,$end_date,
+            $product_id,        
+            $period_id,
+            $plan_id, 
+            $promo_code);
 
         return redirect()->route('pa.show',['product_id'=>$product_id, 'policy_id'=>$policy_id ]);
         
     }
-    public function confirm($policy_id, ISelectList $selectList)
+    public function confirm($policy_id, IPAPremium $repository)
     {
         # code...
-        $model = PolicyHeader::find($policy_id);        
+        $model = $repository->getPolicyHeader($policy_id);       
         $risk = $model->parisk;
-        $status = $selectList->policyStatus();
+        // $status = $selectList->policyStatus();
         
         return view('pa.confirm')->with(['model'=>$model,'status'=>$status,'risk'=>$risk]);
     }

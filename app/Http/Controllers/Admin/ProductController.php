@@ -20,14 +20,14 @@ class ProductController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function index()
+    public function index(IDateUtil $dateUtil, IPAPremium $repository)
     {
         //
-        // $start_date = $dateUtil->parseDate('12/05/1981');
-        // $end_date = $repository->coverage($start_date, 1);
+        $start_date = $dateUtil->parseDate('12/05/1981');
+        $end_date = $repository->coverage($start_date, 1);
         $products = Product::latest()->paginate(10);
         return view('products.index')->with(['i'=> (request()->input('page', 1) - 1) * 10,'products'=>$products,
-            // 'start_date'=>$start_date, 'end_date'=>$end_date
+            'start_date'=>$start_date, 'end_date'=>$end_date
             ]);
     }
 

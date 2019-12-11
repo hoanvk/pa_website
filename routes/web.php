@@ -11,10 +11,9 @@
 |
 */
 
-Route::get('/', [
-    'as'=>'home',
-    'uses'=>'HomeController@index'
-]);
+Route::get('/', function () {
+    return redirect()->route('pa.index');
+})->name('home');
 Route::get('locale/{locale}', function ($locale) {
     session::put('locale',$locale);
     return redirect()->back();

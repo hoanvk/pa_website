@@ -14,6 +14,7 @@
 
 @section('content')
 @include('pa._status')
+@include('shared._message')
         <table class="table">
             <tbody>
             

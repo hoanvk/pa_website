@@ -7,16 +7,39 @@ use DateTime;
 use Carbon\Carbon;
 
 use Illuminate\Http\Request;
+use App\Repositories\PA\IPAPremium;
 use App\Http\Requests\MemberRequest;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Input;
+use App\Repositories\Common\IDateUtil;
 use App\Repositories\Common\ISelectList;
-use App\Repositories\PA\IPAPremium;
 use Illuminate\Support\Facades\Validator;
 use Illuminate\Validation\ValidationException;
 
 class MemberController extends B2CPageController
 {
+    public function self(Request $request, IPAPremium $repository)
+    {
+        # code...
+        // IDateUtil $dateUtil, IPAPolicy $repository
+        
+        
+        if($request->ajax()){
+            
+            $ownship=$request->get('ownship');            
+            $policy_id = $request->get('policy_id');            
+            if ($ownship == '1') {
+                # code...
+                $member = $repository->getSelfInsured($policy_id);
+                    $data = array('member' => $member);
+                    echo json_encode($member);
+                
+            }
+            
+        }
+        
+    }
+
     /**
      * Display a listing of the resource.
      *
@@ -42,7 +65,7 @@ class MemberController extends B2CPageController
         $relationship = $selectList->relationship()->pluck('long_desc','item_item');
         $country = $selectList->country()->pluck('name','ctry_code');
         $model = $repository->getInsuredList($policy_id);
-        $member = $repository->initInsuredPerson();
+        $member = $repository->initInsuredPerson($policy_id);
         return view('members.create')->with(['relationship'=>$relationship, 'country'=>$country, 
             'model'=>$model, 'member'=>$member]);
     }
@@ -53,33 +76,26 @@ class MemberController extends B2CPageController
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(MemberRequest $request, $policy_id, IPAPremium $repository)
+    public function store(MemberRequest $request, $policy_id, IPAPremium $repository, IDateUtil $dateUtil)
     {
         //
         
-        $dob = DateUtil::parseDate(Input::get('dob'));
-        if (DateUtil::compareNow($dob)) {
-            $error = ValidationException::withMessages([
-                'dob' => ['Date of birth require less than today!']
-             ]);
-             throw $error;
-            
-        }
+        $dob = $dateUtil->parseDate(Input::get('dob'));
+        
         
         $insured_name = Input::get('insured_name');
         $insured_id = Input::get('insured_id');
         $gender = Input::get('gender');
         $naty = Input::get('naty');
         $ownship = Input::get('ownship');
-        $error_code = $repository->checkInsuredPerson($policy_id,0,$ownship,$insured_name,$insured_id,$dob,$gender,$naty);
-        if ($error_code<0) {
-            $error = ValidationException::withMessages([
-                'insured_name' => ['Duplicated insured person identity no!']
-             ]);
-             throw $error;
+
+        $errors = $repository->checkInsuredPerson($policy_id,0,$ownship,$insured_name,$insured_id,$dob,$gender,$naty);
+        if (count($errors)>0) {
+            
+            throw ValidationException::withMessages($errors);
             
         }
-        $member = $repository->createInsuredPerson($policy_id,$ownship,$insured_name,$insured_id,$dob,$gender,$naty);
+        $member = $repository->createInsuredPerson($policy_id,0,$ownship,$insured_name,$insured_id,$dob,$gender,$naty);
         return redirect()->route('members.index',$policy_id);
     }
 
@@ -107,16 +123,16 @@ class MemberController extends B2CPageController
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function edit($policy_id, $id, IPAPremium $repository)
+    public function edit($policy_id, $id, ISelectList $selectList,IPAPremium $repository)
     {
         //
         $member = $repository->getInsuredPerson($id);
         
         
-        $relationship = SelectList::relationship()->pluck('long_desc','item_item');
-        $country = SelectList::country()->pluck('name','ctry_code');
+        $relationship = $selectList->relationship()->pluck('long_desc','item_item');
+        $country = $selectList->country()->pluck('name','ctry_code');
 
-        $model = Member::where('policy_id','=',$policy_id)->get();
+        $model = $repository->getInsuredPerson($id);  
         return view('members.edit')->with(['relationship'=>$relationship,'member'=>$member, 'country'=>$country, 'model'=>$model]);
     }
 
@@ -127,19 +143,12 @@ class MemberController extends B2CPageController
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(MemberRequest $request, $policy_id, $id)
+    public function update(MemberRequest $request, $policy_id, $id, IPAPremium $repository, IDateUtil $dateUtil)
     {
         //
         
-        $dob = DateUtil::parseDate(Input::get('dob'));
-        if (DateUtil::compareNow($dob)) {
-            $error = ValidationException::withMessages([
-                'dob' => ['Date of birth require less than today!']
-            ]);
-            throw $error;
-            
-        }
-        $age    = DateUtil::age($dob);
+        $dob = $dateUtil->parseDate(Input::get('dob'));
+        
         
         $insured_name = Input::get('insured_name');
         $insured_id = Input::get('insured_id');
@@ -147,21 +156,13 @@ class MemberController extends B2CPageController
         $naty = Input::get('naty');
         $ownship = Input::get('ownship');
 
-        $model = Member::find($id);
-        $model->update(['insured_name' => $insured_name,
-                'insured_id'=>$insured_id,
-                'dob'=>$dob,
-                'naty'=>$naty,
-                'gender'=>$gender,
-                'ownship'=>$ownship,
-                'age'=>$age
-                ]);
-        $policy = Policy::find($policy_id);
-        if ($policy->status < 4) {
-            # code...
-            $policy->update(['status' => 4]);
-
+        $errors = $repository->checkInsuredPerson($policy_id,0,$ownship,$insured_name,$insured_id,$dob,$gender,$naty);
+        if (count($errors)>0) {
+            
+            throw ValidationException::withMessages($errors);
+            
         }
+        $member = $repository->createInsuredPerson($policy_id,$id,$ownship,$insured_name,$insured_id,$dob,$gender,$naty);
         
         return redirect()->route('members.index',$policy_id);
     }
@@ -172,27 +173,14 @@ class MemberController extends B2CPageController
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function destroy($policy_id, $id)
+    public function destroy($policy_id, $id,IPAPremium $repository)
     {
         //
-        $model = Member::where('policy_id','=',$policy_id)->get();
-        $exists =$model->count();
-        echo $exists;
-        if ($exists<=1) {
-            # code...
-            $error = ValidationException::withMessages([
-                'id' => ['Could not delete because the policy need at least 1 insured person!']
-            ]);
-            throw $error;
+        $errors = $repository->checkRemoveInsured($policy_id);
+        if (count($errors)>0) {
+            throw ValidationException::withMessages($errors);
         }
-        $member = Member::find($id);
-        $member->delete();
-
-        $policy = Policy::find($policy_id);
-        $risk = $policy->parisk;
-        $premium = Premium::PACalculate($risk);
-        $risk->update(['premium'=>$premium]);
-        $policy->update(['premium'=>$premium]);
+        $repository->deleteInsuredPerson($id);
 
         return redirect()->route('members.index',$policy_id);
     }

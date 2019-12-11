@@ -10,9 +10,9 @@
             <div class="list-group-item list-group-item-action py-2 d-flex justify-content-between align-items-center">
                 @lang('pa.premium'): {{ $policy->premium}}</div>
             <div class="list-group-item list-group-item-action py-2 d-flex justify-content-between align-items-center">
-                @lang('pa.from_date'): {{ date('d/m/Y', strtotime($policy->start_date))}}</div>
+                @lang('pa.from_date'): {{ $policy->start_date}}</div>
             <div class="list-group-item list-group-item-action py-2 d-flex justify-content-between align-items-center">
-                @lang('pa.to_date'): {{ date('d/m/Y', strtotime($policy->end_date))}}</div>
+                @lang('pa.to_date'): {{ $policy->end_date}}</div>
                                                     
             <div class="list-group-item list-group-item-action py-2 d-flex justify-content-between align-items-center">
                 @lang('pa.product'): {{ $policy->product->title}}</div>

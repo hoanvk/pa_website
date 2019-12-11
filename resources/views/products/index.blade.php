@@ -8,7 +8,7 @@
         <span class="float-right"><a class="btn btn-primary" href="{{route('products.create')}} ">Create New</a></span>
       </div>
     
-    
+    {{$start_date}} {{$end_date}}
     <table class="table">
         <thead>
             <tr>

@@ -2,9 +2,6 @@
 
 namespace App\Http\Controllers\PA;
 
-
-
-
 use Illuminate\Http\Request;
 use App\Models\Common\Customer;
 use App\Repositories\PA\IPAPremium;
@@ -54,13 +51,6 @@ class CustomerController extends B2CPageController
     {
         //
         $dob = $dateUtil->parseDate(Input::get('dob'));
-        if ($dateUtil->compareNow($dob)) {
-            $error = ValidationException::withMessages([
-                'dob' => ['Date of birth require less than today!']
-             ]);
-             throw $error;
-            
-        }
         
         $name = Input::get('name');
         $tgram = Input::get('tgram');
@@ -71,14 +61,11 @@ class CustomerController extends B2CPageController
         $address = Input::get('address');
         $email = Input::get('email');
 
-        $error_code = $repository->checkPolicyHolder($name,$tgram,$dob,$gender,$city,$natlty,$mobile,$address,$email);
-        if ($error_code<0) {
-            $error = ValidationException::withMessages([
-                'name' => ['Policy holder could not create!']
-             ]);
-             throw $error;
-            
+        $errors = $repository->checkPolicyHolder($name,$tgram,$dob,$gender,$city,$natlty,$mobile,$address,$email);
+        if (count($errors)>0) {
+            throw ValidationException::withMessages($errors);
         }
+        
         $customer = $repository->createPolicyHolder($policy_id,$name,$tgram,$dob,$gender,$city,$natlty,$mobile,$address,$email);
         
         return redirect()->route('customers.show',['policy_id'=>$policy_id, 'id'=>$customer->id]);
@@ -133,13 +120,6 @@ class CustomerController extends B2CPageController
     {
         //
         $dob = DateUtil::parseDate(Input::get('dob'));
-        if (DateUtil::compareNow($dob)) {
-            $error = ValidationException::withMessages([
-                'dob' => ['Date of birth require less than today!']
-             ]);
-             throw $error;
-            
-        }
         
         $name = Input::get('name');
         $tgram = Input::get('tgram');
@@ -149,7 +129,11 @@ class CustomerController extends B2CPageController
         $mobile = Input::get('mobile');
         $address = Input::get('address');
         $email = Input::get('email');
-        
+
+        $errors = $repository->checkPolicyHolder($name,$tgram,$dob,$gender,$city,$natlty,$mobile,$address,$email);
+        if (count($errors)>0) {
+            throw ValidationException::withMessages($errors);
+        }
         $customer=$repository->createPolicyHolder($policy_id,$name,$tgram,$dob,$gender,$city,$natlty,$mobile,$address,$email);
             
         return redirect()->route('customers.show',['policy_id'=>$policy_id,'id'=>$customer->id]);

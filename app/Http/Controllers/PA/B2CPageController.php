@@ -3,12 +3,13 @@
 namespace App\Http\Controllers\PA;
 
 use Session;
-use App\Models\Master\Product;
-use App\Models\Master\Jumbotron;
+use IPAPremium;
 use App\Models\Master\Link;
-use App\Models\Common\PolicyHeader;
-
 use Illuminate\Http\Request;
+use App\Models\Master\Product;
+
+use App\Models\Master\Jumbotron;
+use App\Models\Common\PolicyHeader;
 use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\View;
 use Illuminate\Support\Facades\Route;
@@ -19,7 +20,7 @@ class B2CPageController extends Controller
 {
 
     
-    public function __construct(Request $request)
+    public function __construct(Request $request, IPAPremium $repository)
     {
       
         
@@ -32,7 +33,7 @@ class B2CPageController extends Controller
         
         if ($policy_id) {
           //           
-          $policy = PolicyHeader::find($policy_id);
+          $policy = $repository->getPolicyHeader($policy_id);  
           $array->put('policy', $policy);
           
           if (!$product_id) {

@@ -1,18 +1,6 @@
-@include('pa._status')
-<div class="row">
-    <div class="col-sm-12">
-        @if ($errors->any())
-        <div class="alert alert-danger">
-            <ul>
-                @foreach ($errors->all() as $error)
-                    <li>{{ $error }}</li>
-                @endforeach
-            </ul>
-        </div>
-        @endif
-    </div>
-</div>
 
+@include('pa._status')
+@include('shared._message')
 <div class="form-group row">
         <div class="col-sm-6">
                 <label for="plan_id">@lang('pa.plan')</label>

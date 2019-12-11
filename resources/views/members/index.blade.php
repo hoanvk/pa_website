@@ -12,9 +12,7 @@
 @endsection
 @section('content')
 @include('pa._status')
-    @if (session('success'))
-        <div class="alert alert-info">{{session('success')}}</div>
-    @endif
+@include('shared._message')    
     {{-- @include('pa._tabs') --}}
     
     

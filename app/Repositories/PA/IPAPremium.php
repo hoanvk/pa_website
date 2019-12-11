@@ -9,11 +9,11 @@
   public function coverage($start_date, $period_id);
   public function premiumCalculate($risk);
   public function policyNumber($product_id);
-  public function checkPolicy($start_date, $product_id, $period_id, $plan_id, $promo_code);
-  public function createPolicy($start_date, $product_id, $period_id, $plan_id, $promo_code);
-  public function updatePolicy($policy_id, $start_date, $product_id, $period_id, $plan_id, $promo_code);
-  public function getPolicyHeader($product_id);
-  public function getPolicyRisks($product_id);
+  public function checkPolicy($policy_id, $start_date, $product_id, $period_id, $plan_id, $promo_code);
+  public function createPolicy($policy_id, $start_date, $end_date, $product_id, $period_id, $plan_id, $promo_code);
+  
+  public function getPolicyHeader($policy_id);
+  public function getPolicyRisks($policy_id);
 
   /**
    * Policy Holder
@@ -27,7 +27,9 @@
    */
   public function getInsuredList($policy_id);
   public function getInsuredPerson($member_id);
-  public function initInsuredPerson();
-  public function checkInsuredPerson($policy_id,$ownship,$insured_name,$insured_id,$dob,$gender,$naty);
-  public function createInsuredPerson($policy_id,$ownship,$insured_name,$insured_id,$dob,$gender,$naty);
+  public function initInsuredPerson($policy_id);
+  public function getSelfInsured($policy_id);
+  public function checkInsuredPerson($policy_id,$member_id, $ownship,$insured_name,$insured_id,$dob,$gender,$naty);
+  public function checkRemoveInsured($member_id);
+  public function createInsuredPerson($policy_id,$member_id,$ownship,$insured_name,$insured_id,$dob,$gender,$naty);
  }

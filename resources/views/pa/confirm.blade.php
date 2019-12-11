@@ -8,7 +8,7 @@ Personal Accident
     @include('pa._help')
 @endsection
 @section('caption')
-    @lang('pa.payment')
+    @lang('pa.checkout')
 @endsection
 {{-- @section('card-tab')
 <ul class="nav nav-tabs card-header-tabs nav-justified">
@@ -27,17 +27,7 @@ Personal Accident
  
       
 @include('pa._status')
-@if ($message = Session::get('success'))
-    <div class="alert alert-success">
-        <p>{{ $message }}</p>
-    </div>
-@endif
-@if ($message = Session::get('error'))
-    <div class="alert alert-danger">
-        <p>{{ $message }}</p>
-    </div>
-@endif            
- 
+
     <table class="table">
         <tbody>
         
@@ -95,7 +85,7 @@ Personal Accident
     </table>  
    
     @if ($model->status == 4)
-    <a class="btn btn-primary" href="{{route('pa.confirm',['product_id'=>$product->id,'id'=>$model->id])}} ">@lang('pa.payment')</a>
+    <a class="btn btn-primary" href="{{route('pa.confirm',['product_id'=>$product->id,'id'=>$model->id])}} ">@lang('pa.checkout')</a>
         
     @endif
     @include('pa._button')

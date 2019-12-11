@@ -14,16 +14,7 @@ Personal Accident
  
       
 @include('pa._status')
-@if ($message = Session::get('success'))
-    <div class="alert alert-success">
-        <p>{{ $message }}</p>
-    </div>
-@endif
-@if ($message = Session::get('error'))
-    <div class="alert alert-danger">
-        <p>{{ $message }}</p>
-    </div>
-@endif            
+           
  
     <table class="table">
         <tbody>
@@ -36,11 +27,11 @@ Personal Accident
             
             <tr>
                 <td scope="row">@lang('pa.from_date')</td>                
-                <td>{{ date('d/m/Y', strtotime($model->start_date)) }}</td>
+                <td>{{ $model->start_date }}</td>
             </tr>
             <tr>
                 <td scope="row">@lang('pa.to_date')</td>                
-                <td>{{ date('d/m/Y', strtotime($model->end_date)) }}</td>
+                <td>{{ $model->end_date }}</td>
             </tr>
             
             <tr>
