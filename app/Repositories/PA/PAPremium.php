@@ -72,8 +72,8 @@ class PAPremium implements IPAPremium{
      */
     public function getPolicyHeader($policy_id){
         $model = PolicyHeader::find($policy_id);   
-        $model->start_date = $dateUtil->formatDate($model->start_date);
-        $model->end_date = $dateUtil->formatDate($model->end_date);
+        $model->start_date = $this->dateUtil->formatDate($model->start_date);
+        $model->end_date = $this->dateUtil->formatDate($model->end_date);
         
         return $model;
     }

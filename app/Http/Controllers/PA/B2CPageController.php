@@ -3,7 +3,7 @@
 namespace App\Http\Controllers\PA;
 
 use Session;
-use IPAPremium;
+use App\Repositories\PA\IPAPremium;
 use App\Models\Master\Link;
 use Illuminate\Http\Request;
 use App\Models\Master\Product;
