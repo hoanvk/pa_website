@@ -4,7 +4,10 @@ namespace App\Repositories\Common;
 use DateTime;
 use App\Models\Master\Item;
 use App\Models\Master\Link;
+use App\Models\Master\Plan;
 use App\Models\Master\Price;
+use App\Models\Master\Period;
+use App\Models\Master\Product;
 use App\Models\Master\Province;
 use App\Models\Master\Jumbotron;
 use App\Models\Master\Nationality;
@@ -66,5 +69,13 @@ class SelectList implements ISelectList{
     {
         return Item::where('item_tabl','=','TV410')->get();
     }
-    
+    public function productPlan($product_id){
+        return Plan::where('product_id','=',$product_id)->orderBy('title')->pluck('title', 'id');
+    }
+    public function productPeriod($product_id){
+        return Period::where('product_id','=',$product_id)->orderBy('title')->pluck('title', 'id');
+    }
+    public function productLine($line){
+        return Product::where('product_type','=',$line)->orderBy('name')->get();
+    }
 }

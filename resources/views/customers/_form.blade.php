@@ -84,13 +84,11 @@
                 {!! Form::text('mobile', null, ['class' => 'form-control']) !!}    
         </div>
     </div>
-
-<div class="row">
-    <div class="col-sm-12">
-            <button type="submit" class="btn btn-primary">@lang($button_name) </button>        
-            @include('pa._button')
+    <div class="mt-3">
+        <button type="submit" class="btn btn-primary">@lang($button_name) </button>        
+        @include('pa._button')
     </div>
-</div>
+
 @section('js')
     <script src="/js/jquery-ui.js"></script>    
     <script>

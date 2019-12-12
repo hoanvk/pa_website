@@ -44,9 +44,13 @@
                         <label for="promo_code">@lang('pa.promo_code') </label>
                         {!! Form::text('promo_code', null, ['class' => 'form-control']) !!}    
                 </div>
-      </div>    
-      <button type="submit" class="btn btn-primary mt-3"> @lang($button_name) </button>    
-          
+      </div>   
+      <div class="mt-3">
+        <button type="submit" class="btn btn-primary"> @lang($button_name) </button>    
+        @include('pa._button') 
+      </div>
+      
+
       @section('js')
       <script src="/js/jquery-ui.js"></script>    
       <script>

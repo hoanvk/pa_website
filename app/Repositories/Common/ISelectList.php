@@ -30,4 +30,8 @@ interface ISelectList {
     //Period unit
     public function periodUnit();
     public function languages();
+
+    public function productLine($line);
+    public function productPlan($product_id);
+    public function productPeriod($product_id);
 }

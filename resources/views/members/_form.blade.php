@@ -57,13 +57,11 @@
                   
         </div>
     </div>
-
-<div class="row">
-    <div class="col-sm-12">
-            <button type="submit" class="btn btn-primary"> @lang($button_name) </button>    
-            @include('pa._button')    
+    <div class="mt-3">
+        <button type="submit" class="btn btn-primary"> @lang($button_name) </button>    
+        @include('pa._button')    
     </div>
-</div>
+
 {{ Form::hidden('policy_id', $member->policy_id, array('id' => 'policy_id')) }}
 
 @section('js')
@@ -86,7 +84,9 @@
                 
             var ownship = $('#ownship').val();
                 var policy_id = $('#policy_id').val();
-                
+                $('#insured_name').val('');
+                $('#dob').val('');
+                $('#insured_id').val('');
                 $.ajax({
                     url:" {{ route('ajax.insured') }}",
                     method:'GET',

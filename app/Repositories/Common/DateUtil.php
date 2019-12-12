@@ -8,8 +8,11 @@ use Carbon\Carbon;
 
 class DateUtil implements IDateUtil{
     public function formatDate($date){
-        $date = Carbon::create($date);
+        
         return $date->isoFormat('DD/MM/YYYY');
+    }
+    public function convertDate($date){
+        return $this->formatDate($date = Carbon::create($date));
     }
     public function parseDate($date)
     {

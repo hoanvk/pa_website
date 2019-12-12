@@ -23,8 +23,10 @@ class ProductController extends Controller
     public function index(IDateUtil $dateUtil, IPAPremium $repository)
     {
         //
-        $start_date = $dateUtil->parseDate('12/05/1981');
-        $end_date = $repository->coverage($start_date, 1);
+        $start_date = $dateUtil->parseDate('25/12/1981');
+        $start_date = $dateUtil->formatDate($start_date);
+        $end_date = $repository->coverage($dateUtil->parseDate('15/12/1981'), 1);
+        $end_date = $dateUtil->formatDate($end_date);
         $products = Product::latest()->paginate(10);
         return view('products.index')->with(['i'=> (request()->input('page', 1) - 1) * 10,'products'=>$products,
             'start_date'=>$start_date, 'end_date'=>$end_date

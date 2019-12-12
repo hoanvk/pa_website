@@ -1,4 +1,4 @@
-@isset($tabs)
+@if(@isset($tabs) && @isset($policy))
     <div class="btn-group">
         @if ($tabs=='quotation')
             <a href="{{ route('pa.index')}} " class="btn btn-primary">@lang('pa.previous')</a>
@@ -24,5 +24,5 @@
         
         
     </div>
-@endisset
+@endif
 

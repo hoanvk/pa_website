@@ -2,19 +2,9 @@
 
 namespace App\Http\Controllers\PA;
 
-use DateTime;
 
-use Carbon\Carbon;
-use App\Models\PA\PARisk;
-
-use App\Models\PA\PASeqNo;
-
-use App\Models\Master\Plan;
-use App\Models\Master\Agent;
 use Illuminate\Http\Request;
-use App\Models\Master\Period;
-use App\Models\Master\Product;
-use App\Models\Common\PolicyHeader;
+
 use Illuminate\Support\Facades\Input;
 use App\Http\Requests\PAPolicyRequest;
 
@@ -48,7 +38,7 @@ class PAController extends B2CPageController
                
                 if ($end_date) {
                     # code...                    
-                    $end_date = date('d/m/Y', strtotime($end_date));
+                    $end_date = $dateUtil->formatDate($end_date);
                     
                     $data = array('end_date' => $end_date);
                     echo json_encode($data);
@@ -60,19 +50,19 @@ class PAController extends B2CPageController
         
     }
 
-    public function index()
+    public function index(ISelectList $selectList)
     {
         # code...
-        $model = Product::where('product_type','=','PA')->orderBy('name')->get();
+        $model = $selectList->productLine('PA');
         return view('pa.index')->with(['model'=>$model]);
     }
     
-    public function create($product_id)
+    public function create($product_id, ISelectList $selectList)
     {
         # code...
         
-        $plans = Plan::where('product_id','=',$product_id)->pluck('title', 'id');
-        $periods = Period::where('product_id','=',$product_id)->pluck('title', 'id');
+        $plans = $selectList->productPlan($product_id);
+        $periods = $selectList->productPeriod($product_id);
         
         return view('pa.create',['plans'=>$plans,
             'periods'=>$periods]);
@@ -115,19 +105,16 @@ class PAController extends B2CPageController
         $risk = $model->parisk;
         
         
-        return view('pa.show')->with(['model'=>$model,'status'=>$status,'risk'=>$risk]);
+        return view('pa.show')->with(['model'=>$model,'risk'=>$risk]);
     }
-    public function edit($product_id, $policy_id)
+    public function edit($product_id, $policy_id,ISelectList $selectList, IPAPremium $repository)
     {
         //
-        $model=PolicyHeader::find($policy_id);
-        
-        $plans = Plan::where('product_id','=',$product_id)->pluck('title', 'id');
-        $periods = Period::where('product_id','=',$product_id)->pluck('title', 'id');
+        $model=$repository->getPolicyHeader($policy_id);        
+        $plans = $selectList->productPlan($product_id);
+        $periods = $selectList->productPeriod($product_id);
         
         $risk = $model->parisk;
-        $model->start_date = date('d/m/Y', strtotime($model->start_date));
-        $model->end_date = date('d/m/Y', strtotime($model->end_date));
         
         $model->plan_id = $risk->plan_id;
         $model->period_id = $risk->period_id;
@@ -175,6 +162,6 @@ class PAController extends B2CPageController
         $risk = $model->parisk;
         // $status = $selectList->policyStatus();
         
-        return view('pa.confirm')->with(['model'=>$model,'status'=>$status,'risk'=>$risk]);
+        return view('pa.confirm')->with(['model'=>$model,'risk'=>$risk]);
     }
 }

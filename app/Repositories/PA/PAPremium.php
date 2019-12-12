@@ -72,8 +72,8 @@ class PAPremium implements IPAPremium{
      */
     public function getPolicyHeader($policy_id){
         $model = PolicyHeader::find($policy_id);   
-        $model->start_date = $this->dateUtil->formatDate($model->start_date);
-        $model->end_date = $this->dateUtil->formatDate($model->end_date);
+        $model->start_date = $this->dateUtil->convertDate($model->start_date);
+        $model->end_date = $this->dateUtil->convertDate($model->end_date);
         
         return $model;
     }
@@ -232,7 +232,7 @@ class PAPremium implements IPAPremium{
   public function getPolicyHolder($policy_id){
     $customer =Customer::where('policy_id', '=', $policy_id)->first();
     if ($customer) {
-        $customer->dob = $this->dateUtil->formatDate($customer->dob);
+        $customer->dob = $this->dateUtil->convertDate($customer->dob);
     }
     
     return $customer;
@@ -242,7 +242,11 @@ class PAPremium implements IPAPremium{
    * getInsuredList
    */
   public function getInsuredList($policy_id){
-    return Member::where('policy_id','=',$policy_id)->get();  
+    $members = Member::where('policy_id','=',$policy_id)->get();  
+    foreach ($members as $member) {
+        $member->dob = $this->dateUtil->convertDate($member->dob);
+    }
+    return $members;
   }
   /**
    * 13
@@ -250,7 +254,7 @@ class PAPremium implements IPAPremium{
    */
   public function getInsuredPerson($member_id){
       $member= Member::find($member_id);
-      $member->dob = $this->dateUtil->formatDate($member->dob);
+      $member->dob = $this->dateUtil->convertDate($member->dob);
       return $member;
   }
   /**

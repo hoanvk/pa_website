@@ -13,7 +13,7 @@
             @foreach($model as $item)
             <tr>
                 <td scope="row">{{ $item->insured_name }}</td>
-                <td>{{ date('d/m/Y', strtotime($item->dob)) }}</td>
+                <td>{{ $item->dob }}</td>
                 <td>{{ $item->insured_id }}</td>
                 <td>{{ $item->gender }}</td>
                 <td>{{ $item->age }}</td>
