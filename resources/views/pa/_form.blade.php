@@ -1,4 +1,6 @@
-
+@section('css')
+<link href="/css/app.css" rel="stylesheet">
+@endsection
 @include('pa._status')
 @include('shared._message')
 <div class="form-group row">
@@ -52,19 +54,29 @@
       
 
       @section('js')
-      <script src="/js/jquery-ui.js"></script>    
+      <script src="/js/app.js"></script>    
       <script>
           $(document).ready(function(){
-              $("#start_date").datepicker({
-                  dateFormat: "dd/mm/yy",
-                  firstDay: 1,
-                  isRTL: false,
-                  showMonthAfterYear: false,
-                  yearSuffix: ""
-              });
-              $('#start_picker').click(function(){
-                  $('#start_date').datepicker('show');
-              });
+            $("#start_date").datetimepicker({
+                timepicker:false,           
+                format:'d/m/Y',
+                mask:true, // '9999/19/39 29:59' - digit is the maximum possible for a cell
+                formatMask:'39/19/9999',
+                minDate:0
+            });
+            jQuery('#start_picker').click(function(){
+                jQuery('#start_date').datetimepicker('show'); //support hide,show and destroy command
+            });
+            //   $("#start_date").datepicker({
+            //       dateFormat: "dd/mm/yy",
+            //       firstDay: 1,
+            //       isRTL: false,
+            //       showMonthAfterYear: false,
+            //       yearSuffix: ""
+            //   });
+            //   $('#start_picker').click(function(){
+            //       $('#start_date').datepicker('show');
+            //   });
          
   
               

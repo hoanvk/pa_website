@@ -1,3 +1,6 @@
+@section('css')
+<link href="/css/app.css" rel="stylesheet">
+@endsection
 @include('pa._status')
 @include('shared._message')
 
@@ -90,18 +93,19 @@
     </div>
 
 @section('js')
-    <script src="/js/jquery-ui.js"></script>    
+    <script src="/js/app.js"></script>    
     <script>
-        $("#dob").datepicker({
-                dateFormat: "dd/mm/yy",
-                firstDay: 1,
-                isRTL: false,
-                showMonthAfterYear: false,
-                yearSuffix: ""
+        $("#dob").datetimepicker({
+                timepicker:false,           
+                format:'d/m/Y',
+                mask:true, // '9999/19/39 29:59' - digit is the maximum possible for a cell
+                formatMask:'39/19/9999',
+                maxDate:0
             });
-            $('#dob_picker').click(function(){
-            $('#dob').datepicker('show');
+            jQuery('#dob_picker').click(function(){
+                jQuery('#dob').datetimepicker('show'); //support hide,show and destroy command
             });
+        
        
         jQuery.validator.methods["date"] = function (value, element) { return true; }
     </script>
