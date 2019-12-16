@@ -1,5 +1,5 @@
 <?php
-Route::group(['prefix' => 'online','middleware' => 'web'], function () {
+Route::group(['middleware' => 'web'], function () {
   //
   Route::get('pa/{policy_id}/confirm', [
       'as'=>'pa.confirm',
@@ -15,7 +15,7 @@ Route::group(['prefix' => 'online','middleware' => 'web'], function () {
         'uses'=>'MemberController@self'
         ]);
   //Choose PA product
-  Route::get('pa', [
+  Route::get('{project}/pa', [
       'as'=>'pa.index',
       'uses'=>'PAController@index'
       ]);
@@ -111,4 +111,13 @@ Route::group(['prefix' => 'online','middleware' => 'web'], function () {
       'as'=>'members.destroy',
       'uses'=>'MemberController@destroy'
   ]);
+
+  /**
+   * Payment
+   */
+  Route::get('payment/{policy_id}',[
+    'as'=>'payment.index',
+    'uses'=>'PaymentController@index']
+); 
+
 });

@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Http\Controllers;
+namespace App\Http\Controllers\Travel;
 
 use App\Plan;
 use App\Risk;

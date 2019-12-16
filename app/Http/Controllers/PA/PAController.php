@@ -50,7 +50,7 @@ class PAController extends B2CPageController
         
     }
 
-    public function index(ISelectList $selectList)
+    public function index(ISelectList $selectList, $project)
     {
         # code...
         $model = $selectList->productLine('PA');

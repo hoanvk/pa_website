@@ -21,6 +21,7 @@ class AdminServiceProvider extends ServiceProvider
         $this->app->bind('App\Repositories\Common\ISelectList', 'App\Repositories\Common\SelectList');        
         $this->app->bind('App\Repositories\Travel\ITravelPremium', 'App\Repositories\Travel\TravelPremium');
         $this->app->bind('App\Repositories\PA\IPAPremium', 'App\Repositories\PA\PAPremium');
+        $this->app->bind('App\Repositories\Common\IPaymentRepo', 'App\Repositories\Common\PaymentRepo');
     }
 
     /**

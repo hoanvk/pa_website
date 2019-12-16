@@ -30,7 +30,13 @@ class B2CPageController extends Controller
         $product_id = $request->route('product_id');
         $policy = new PolicyHeader();
         $policy_id = $request->route('policy_id');
-        
+        $project = $request->route('project');
+        if ($project===null) {
+          # code...
+          $project = 1;
+          
+        }
+        $array->put('project', $project);
         if ($policy_id) {
           //           
           $policy = $repository->getPolicyHeader($policy_id);  

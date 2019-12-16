@@ -1,4 +1,6 @@
-
+.mark, mark{
+    padding: 0em;
+}
 .page {
 	position: relative;
 	min-height: 100%;

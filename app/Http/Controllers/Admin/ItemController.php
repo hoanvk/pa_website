@@ -20,7 +20,7 @@ class ItemController extends Controller
     public function index()
     {
         //
-        $items = Item::latest()->paginate(10);
+        $items = Item::orderBy('item_tabl')->paginate(10);
         return view('items.index', compact('items'))->with('i', (request()->input('page', 1) - 1) * 10);
     }
 

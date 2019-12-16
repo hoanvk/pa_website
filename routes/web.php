@@ -12,7 +12,7 @@
 */
 
 Route::get('/', function () {
-    return redirect()->route('pa.index');
+    return redirect()->route('pa.index',['project'=>'1']);
 })->name('home');
 Route::get('locale/{locale}', function ($locale) {
     session::put('locale',$locale);
@@ -20,57 +20,7 @@ Route::get('locale/{locale}', function ($locale) {
     
 });
 
-Route::group(['prefix' => 'agent','middleware' => 'auth'], function () {
-    //PA
-    
-
-    //Travel online
-    Route::get('travel', [
-        'as'=>'travel.index',
-        'uses'=>'TravelController@index'
-        ]);
-    Route::get('travel/create',[
-        'as'=>'travel.create',
-        'uses'=>'TravelController@create']
-     );
-    
-     Route::post('travel', [
-        'as' => 'travel.store',
-        'uses' => 'TravelController@store'
-    ]);
-    Route::get('travel/{id}', [
-        'as'=>'travel.show',
-        'uses'=>'TravelController@show'
-    ]);
-
-    Route::put('travel/{id}', [
-        'as' => 'travel.update',
-        'uses' => 'TravelController@update'
-    ]);
-    Route::get('travel/{id}/edit', [
-        'as'=>'travel.edit',
-        'uses'=>'TravelController@edit'
-    ]);  
-    Route::get('travel/confirm/{id}', [
-        'as'=>'travel.confirm',
-        'uses'=>'TravelController@confirm'
-    ]);
-
-    
-
-    Route::resource('reports','ReportController');
-});
- 
-
-//  Route::get('pa/{id}/quotation',[
-//     'as'=>'pa.quotation',
-//     'uses'=>'PAController@quotation']
-//  )->middleware('pa.quotation');
-
 //Admin
-Route::get('/admin', function () {
-    return redirect()->route('agent.travel.order_list_pending');
-});
 
 Route::get('change-password', 'ChangePasswordController@index');
 Route::get('user-profile', 'UserProfileController@index')->name('user.profile');
@@ -102,6 +52,11 @@ Route::get('/online', function ()
 {
     # code...
     return redirect()->route('pa.index');
+});
+Route::get('/agent', function ()
+{
+    # code...
+    return redirect()->route('travel.index');
 });
 Route::get('/admin', function ()
 {

@@ -6,21 +6,21 @@
         
         <div class="list-group list-group-flush">
                 <div class="list-group-item list-group-item-action py-2 d-flex justify-content-between align-items-center">
-                        @lang('pa.quotation_no'): {{ $policy->quotation_no}}</div>
+                        @lang('pa.quotation_no'): <mark>{{ $policy->quotation_no}}</mark></div>
             <div class="list-group-item list-group-item-action py-2 d-flex justify-content-between align-items-center">
-                @lang('pa.premium'): {{ $policy->premium}}</div>
+                @lang('pa.premium'): <mark>{{ $policy->premium}}</mark></div>
             <div class="list-group-item list-group-item-action py-2 d-flex justify-content-between align-items-center">
-                @lang('pa.from_date'): {{ $policy->start_date}}</div>
+                @lang('pa.from_date'): <mark>{{ $policy->start_date}}</mark></div>
             <div class="list-group-item list-group-item-action py-2 d-flex justify-content-between align-items-center">
-                @lang('pa.to_date'): {{ $policy->end_date}}</div>
+                @lang('pa.to_date'): <mark>{{ $policy->end_date}}</mark></div>
                                                     
             <div class="list-group-item list-group-item-action py-2 d-flex justify-content-between align-items-center">
-                @lang('pa.product'): {{ $policy->product->title}}</div>
+                @lang('pa.product'): <mark>{{ $policy->product->title}}</mark></div>
                 @isset($risk)
                 <div class="list-group-item list-group-item-action py-2 d-flex justify-content-between align-items-center">
-                        @lang('pa.plan'): {{ $risk->plan->title}}</div>    
+                        @lang('pa.plan'): <mark>{{ $risk->plan->title}}</mark></div>    
                 <div class="list-group-item list-group-item-action py-2 d-flex justify-content-between align-items-center">
-                        @lang('pa.period'): {{ $risk->period->title}}</div>  
+                        @lang('pa.period'): <mark>{{ $risk->period->title}}</mark></div>  
                 @endisset
                  
                                                     

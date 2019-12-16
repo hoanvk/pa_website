@@ -11,7 +11,7 @@
                       <a class="nav-link dropdown-toggle" href="#" data-toggle="dropdown">{{ $links->where('active','==','active')->first()->title}} </a>
                       <div class="dropdown-menu dropdown-menu-left" aria-labelledby="navbarDropdown">
                         @foreach ($links->where('active','!=','active') as $link)
-                          <a class="nav-link dropdown-item" href="{{ route($link->route)}}">{{$link->title }} </a>
+                          <a class="nav-link dropdown-item" href="{{ route($link->route,$project)}}">{{$link->title }} </a>
                         @endforeach
                         
                         
