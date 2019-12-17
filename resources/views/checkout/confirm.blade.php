@@ -10,12 +10,24 @@ Personal Accident
 @section('caption')
     @lang('pa.checkout')
 @endsection
-
+{{-- @section('card-tab')
+<ul class="nav nav-tabs card-header-tabs nav-justified">
+        <li class="nav-item">
+          <a class="nav-link active" href="#">Active</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" href="#">Link</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link disabled" href="#">Disabled</a>
+        </li>
+      </ul>
+@endsection --}}
 @section('content')
  
       
 @include('pa._status')
-@include('shared._message')
+
     <table class="table">
         <tbody>
         

@@ -35,12 +35,24 @@
                     <a class="nav-link" href="#">Contact Us</a>
                   </li>
                   @if (isset($languages))
-                  
+                  @php
+                    $curr_lang = '';
+                      foreach ($languages as $language) {
+                        # code...
+                        if ($language['item_item']===Config::get('app.locale')) {
+                          # code...
+                          $curr_lang =$language['short_desc'];
+                        }
+                      }
+                  @endphp
                   <li class="nav-item dropdown">  
-                      <a class="nav-link dropdown-toggle" href="#" data-toggle="dropdown">{{$languages->where('item_item','==',Config::get('app.locale'))->first()->short_desc}} </a>
+                      <a class="nav-link dropdown-toggle" href="#" data-toggle="dropdown">{{ $curr_lang }} </a>
                       <div class="dropdown-menu dropdown-menu-right" aria-labelledby="navbarDropdown">
-                          @foreach ($languages->where('item_item','!=',Config::get('app.locale')) as $language)
-                          <a class="nav-link dropdown-item" href="{{ '/locale/'.$language->item_item}}">{{$language->short_desc}}</a>
+                          @foreach ($languages as $language)
+                          @if ($language['item_item'] !=Config::get('app.locale'))
+                            <a class="nav-link dropdown-item" href="{{ '/locale/'.$language['item_item']}}">{{$language['short_desc']}}</a>
+                          @endif
+                          
                           
                       @endforeach
                        

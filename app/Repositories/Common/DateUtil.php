@@ -7,6 +7,11 @@ use Carbon\Carbon;
 
 
 class DateUtil implements IDateUtil{
+    public function today()
+    {
+        return Carbon::today();
+    }
+
     public function formatDate($date){
         
         return $date->isoFormat('DD/MM/YYYY');

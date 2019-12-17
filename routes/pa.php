@@ -113,11 +113,14 @@ Route::group(['middleware' => 'web'], function () {
   ]);
 
   /**
-   * Payment
+   * Checkout
    */
-  Route::get('payment/{policy_id}',[
-    'as'=>'payment.index',
-    'uses'=>'PaymentController@index']
-); 
+  Route::get('checkout/{policy_id}',[
+    'as'=>'checkout.index',
+    'uses'=>'CheckoutController@index']); 
+
+    Route::get('checkout/{policy_id}/confirm',[
+        'as'=>'checkout.confirm',
+        'uses'=>'CheckoutController@confirm']); 
 
 });

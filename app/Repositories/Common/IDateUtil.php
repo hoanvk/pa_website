@@ -11,6 +11,7 @@
 namespace App\Repositories\Common;
 
 interface IDateUtil {
+  public function today();
   public function formatDate($date);
   public function convertDate($date);
   public function parseDate($date);

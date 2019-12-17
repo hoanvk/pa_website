@@ -32,6 +32,10 @@ class AdminServiceProvider extends ServiceProvider
     public function boot()
     {
         //
-        View::share(['languages'=> Item::where('item_tabl','=','TV410')->get()]);
+        $languages =array(array('item_item' => 'vi', 'short_desc' => 'Vietnamese'),
+            array('item_item' => 'en', 'short_desc' => 'English'),
+            array('item_item' => 'jp', 'short_desc' => 'Japanese'));
+            
+        View::share(['languages'=> $languages]);
     }
 }

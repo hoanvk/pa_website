@@ -2,7 +2,7 @@
 
 namespace App\Models\Common;
 
-use App\Models\PA\Policy;
+use App\Models\PA\PolicyHeader;
 use Illuminate\Database\Eloquent\Model;
 
 class Customer extends Model
@@ -13,7 +13,7 @@ class Customer extends Model
      public function policy()
         {
             # code...
-            return $this->belongsTo(Policy::class);
+            return $this->belongsTo(PolicyHeader::class);
         }
 
 }
