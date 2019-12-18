@@ -111,7 +111,10 @@ class B2CPageController extends Controller
             # code...
             $tabs = 'confirm';
           }
-          
+          elseif ($request->is('checkout*')) {
+            # code...
+            $tabs = 'checkout';
+          }
           $array->put('tabs', $tabs);
           View::share($array->all());
           

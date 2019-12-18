@@ -118,9 +118,13 @@ Route::group(['middleware' => 'web'], function () {
   Route::get('checkout/{policy_id}',[
     'as'=>'checkout.index',
     'uses'=>'CheckoutController@index']); 
-
+    
     Route::get('checkout/{policy_id}/confirm',[
         'as'=>'checkout.confirm',
         'uses'=>'CheckoutController@confirm']); 
 
+    Route::post('checkout/{policy_id}', [
+        'as' => 'checkout.store',
+        'uses' => 'CheckoutController@store'
+    ]);
 });

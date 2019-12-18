@@ -14,6 +14,9 @@
     max-width: 320px;   
     min-height: 472px;    
 }
+.card-header {
+    padding: .4rem 1.25rem !important
+}
 @media only screen and (min-width:1403px) {
 	.page {
 		width: 1400px;
@@ -335,8 +338,8 @@ line-height: 24px;
 }
 .btn-primary:hover{
     color:#fff!important;
-    background-color: #dd252f;
-    border-color: #dd252f;
+    background-color: #3f3e61;
+    border-color: #3f3e61;
 }
 .list-group-status {
     padding: 0.25rem 0.75rem !important;

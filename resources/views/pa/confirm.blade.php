@@ -31,17 +31,17 @@ Personal Accident
             </tr>
             <tr>
                 <td scope="row">@lang('customers.name')</td>
-                <td>{{ optional($model->customer)->name }}</td>
+                <td>{{ $customer->name }}</td>
                 
             </tr>
             <tr>
                 <td scope="row">@lang('customers.address')</td>
-                <td>{{ optional($model->customer)->address }}</td>
+                <td>{{ $customer->address }}</td>
                 
             </tr>
             <tr>
                 <td scope="row">@lang('customers.identity')</td>                
-                <td>{{ optional($model->customer)->tgram }}</td>
+                <td>{{ $customer->tgram }}</td>
             </tr>
             <tr>
                 <td scope="row">@lang('pa.product')</td>                
@@ -49,11 +49,11 @@ Personal Accident
             </tr>
             <tr>
                 <td scope="row">@lang('pa.plan')</td>                
-                <td>{{ $model->parisk->plan->title }}</td>
+                <td>{{ $risk->plan->title }}</td>
                 </tr>
             <tr>
                 <td scope="row">@lang('pa.period')</td>                
-                <td>{{ $model->parisk->period->title }}</td>
+                <td>{{ $risk->period->title }}</td>
             </tr>
             <tr>
                 <td scope="row">@lang('pa.from_date')</td>                
@@ -72,10 +72,6 @@ Personal Accident
         </tbody>
     </table>  
    
-    @if ($model->status == 4)
-    <a class="btn btn-primary" href="{{route('checkout.index',$model->id)}} ">@lang('pa.checkout')</a>
-        
-    @endif
     @include('pa._button')
 
 

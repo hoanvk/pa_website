@@ -68,7 +68,7 @@ class CustomerController extends B2CPageController
         
         $customer = $repository->createPolicyHolder($policy_id,$name,$tgram,$dob,$gender,$city,$natlty,$mobile,$address,$email);
         
-        return redirect()->route('customers.show',['policy_id'=>$policy_id, 'id'=>$customer->id]);
+        return redirect()->route('members.index',['policy_id'=>$policy_id]);
     }
 
     /**

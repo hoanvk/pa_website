@@ -158,10 +158,11 @@ class PAController extends B2CPageController
     public function confirm($policy_id, IPAPremium $repository)
     {
         # code...
-        $model = $repository->getPolicyHeader($policy_id);       
+        $model = $repository->getPolicyHeader($policy_id);   
+        $customer = $repository->getPolicyHolder($policy_id);    
         $risk = $model->parisk;
         // $status = $selectList->policyStatus();
         
-        return view('pa.confirm')->with(['model'=>$model,'risk'=>$risk]);
+        return view('pa.confirm')->with(['model'=>$model,'risk'=>$risk,'customer'=>$customer]);
     }
 }

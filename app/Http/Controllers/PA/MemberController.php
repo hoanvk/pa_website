@@ -49,7 +49,11 @@ class MemberController extends B2CPageController
     {
         //
         
-        $model = $repository->getInsuredList($policy_id);        
+        $model = $repository->getInsuredList($policy_id);    
+        if ($model->count()==0) {
+            return redirect()->route('members.create',$policy_id);
+        }
+
         return view('members.index')->with(['model'=>$model]);
     }
 

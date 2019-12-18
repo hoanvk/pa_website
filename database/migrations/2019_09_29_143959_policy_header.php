@@ -26,13 +26,14 @@ class PolicyHeader extends Migration
             $table->dateTime('end_date');
             $table->unsignedInteger('agent_id')->nullable();
             // $table->foreign('agent_id')->references('id')->on('tb_agents')->onDelete('SET NULL');
-            $table->decimal('premium',18,0);                        
+            $table->decimal('premium',18);                        
             $table->integer('period')->nullable();
             $table->string('status',1);
             $table->string('ref_number',255)->nullable();
             $table->string('promo_code',30)->nullable();
             $table->text('remarks')->nullable();
             $table->unsignedBigInteger('customer_id')->nullable();
+            $table->string('pay_method',1)->nullable();
             // $table->foreign('customer_id')->references('id')->on('tb_customers')->onDelete('SET NULL');
             $table->timestamps();
         });

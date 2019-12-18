@@ -14,7 +14,8 @@ class PolicyHeader extends Model
 {
     //
     protected $table = 'tb_policy_header';
-    protected $fillable = ['id', 'product_id', 'quotation_no', 'policy_no', 'start_date','end_date','agent_id','premium','period','status','ref_number', 'remarks', 'promo_code', 'customer_id'];
+    protected $fillable = ['id', 'product_id', 'quotation_no', 'policy_no', 'start_date','end_date','agent_id',
+        'premium','period','status','ref_number', 'remarks', 'promo_code', 'customer_id', 'pay_method'];
 
         
         public function agent()
@@ -30,7 +31,7 @@ class PolicyHeader extends Model
         public function customer()
         {
             # code...
-            return $this->belongsTo(Customer::class);
+            return $this->belongsTo(Customer::class,'customer_id','id');
         }
         
         public function risks()
