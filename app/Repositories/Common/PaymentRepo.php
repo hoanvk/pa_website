@@ -31,14 +31,16 @@ class PaymentRepo implements IPaymentRepo{
   public function buildOnePayGateway($policy_id){
     
     $policy_header = PolicyHeader::find($policy_id);
-    $items = Item::where('item_tabl','=','TV411')->orderBy('item_item')->get();
+    
     /**
      * Check I: international D: domestic
      */
     if ($policy_header->pay_method == 'D') {
+      $items = Item::where('item_tabl','=','TV411')->orderBy('item_item')->get();
       return $this->gateway->buildLocalGw($policy_header, $items);
     }
     else{
+      $items = Item::where('item_tabl','=','TV412')->orderBy('item_item')->get();
       return $this->gateway->buildInterGw($policy_header, $items);
     } 
   }
@@ -46,15 +48,16 @@ class PaymentRepo implements IPaymentRepo{
   {
     $policy_header = PolicyHeader::find($policy_id);
     $vpc_response = $request->all();
+    // dd($vpc_response);
     /**
      * Check I: international D: domestic
      */
     $tranStatus = '0';
     if ($policy_header->pay_method == 'D') {
-      $tranStatus = $this->gateway->updateLocalGw($vpc_response);
+      $tranStatus = $this->gateway->updateLocalGw($policy_header, $vpc_response);
     }
     else{
-      $tranStatus = $this->gateway->updateInterGw($vpc_response);
+      $tranStatus = $this->gateway->updateInterGw($policy_header, $vpc_response);
     } 
 
     if ($tranStatus == '0') {
@@ -66,7 +69,7 @@ class PaymentRepo implements IPaymentRepo{
 
       $policy_header->update(['policy_no'=>$policy_no, 'status'=>'5']);
     }
-     
+    return $tranStatus; 
   }
   
   public function getOnePayError($responseCode) {
@@ -136,10 +139,11 @@ class PaymentRepo implements IPaymentRepo{
   }
   public function updateVATInvoice($policy_id, $inv_name, $inv_address, $inv_taxcode, $pay_method){
     $invoice = Invoice::where('policy_id','=',$policy_id)->first();
-    if ($invoice === null) {
-      $policyHeader = PolicyHeader::find($policy_id);
-      $policyHeader->update(['pay_method'=>$pay_method]);
+    $policyHeader = PolicyHeader::find($policy_id);
+    $policyHeader->update(['pay_method'=>$pay_method]);
 
+    if ($invoice === null) {
+    
       $customer = $policyHeader->customer();
       $invoice = Invoice::create(['policy_id'=>$policy_id,
       'inv_name'=>$inv_name, 'inv_address'=>$inv_address, 'inv_taxcode'=>$inv_taxcode,

@@ -28,14 +28,14 @@ class CheckoutController extends B2CPageController
     public function store(InvoiceRequest $request, $policy_id, IPaymentRepo $repository)
     {
         //
-        
+        $pay_method = Input::get('pay_method');
         $inv_name = Input::get('inv_name');
         $inv_taxcode = Input::get('inv_taxcode');
         $inv_address = Input::get('inv_address');
-        
-        $invoice = $repository->updateVATInvoice($policy_id,$inv_name, $inv_address, $inv_taxcode);
+         
+        $invoice = $repository->updateVATInvoice($policy_id,$inv_name, $inv_address, $inv_taxcode, $pay_method);
         $paymentUrl = $repository->buildOnePayGateway($policy_id);
-        // dd($paymentUrl);
+        //dd($paymentUrl);
         
         return Redirect::to($paymentUrl);        
     }

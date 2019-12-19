@@ -26,11 +26,11 @@ Payment
 <div class="form-group row">
   <div class="ml-3">
     <div class="custom-control custom-radio">
-            {!! Form::radio('payment_method', 'I',true, ['class' => 'custom-control-input','id'=>'customRadio1']) !!}                
+            {!! Form::radio('pay_method', 'I',true, ['class' => 'custom-control-input','id'=>'customRadio1']) !!}                
             <label class="custom-control-label" for="customRadio1">@lang('invoices.international') </label>
         </div>
         <div class="custom-control custom-radio">
-            {!! Form::radio('payment_method', 'D',false, ['class' => 'custom-control-input','id'=>'customRadio2']) !!}                
+            {!! Form::radio('pay_method', 'D',false, ['class' => 'custom-control-input','id'=>'customRadio2']) !!}                
             <label class="custom-control-label" for="customRadio2"> @lang('invoices.domestic')</label>
         </div>
 </div>
