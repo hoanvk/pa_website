@@ -145,12 +145,6 @@ class OnePayRepo implements IOnePayRepo{
     // do not want to include this field in the hash calculation
     
     
-    $vpc_Txn_Secure_Hash = $vpc_response['vpc_SecureHash'];
-    unset ( $vpc_response["vpc_SecureHash"] );
-
-    // set a flag to indicate if hash has been validated
-    $errorExists = false;
-
     ksort ($vpc_response);
 
     if (strlen ( $SECURE_SECRET ) > 0 && $vpc_response ["vpc_TxnResponseCode"] != "7" && $vpc_response ["vpc_TxnResponseCode"] != "No Value Returned") {
@@ -158,7 +152,8 @@ class OnePayRepo implements IOnePayRepo{
       //$stringHashData = $SECURE_SECRET;
       //*****************************khởi tạo chuỗi mã hóa rỗng*****************************
       $stringHashData = "";
-      
+      $vpc_Txn_Secure_Hash = $vpc_response['vpc_SecureHash'];
+      unset ( $vpc_response["vpc_SecureHash"] );
       // sort all the incoming vpc response fields and leave out any with no value
       foreach ( $vpc_response as $key => $value ) {
       //        if ($key != "vpc_SecureHash" or strlen($value) > 0) {
@@ -222,15 +217,10 @@ class OnePayRepo implements IOnePayRepo{
     $transStatus = "";
     if($policy_header->premium != $amount/100){
       $transStatus = "5";
-    }
-    elseif($policy_header->quotation_no != $merchTxnRef){
+    }elseif($policy_header->quotation_no != $merchTxnRef){
       $transStatus = "3";
-    }
-    elseif($hashValidated=="CORRECT" && $txnResponseCode=="0"){
-      $transStatus = $txnResponseCode;
-      
     }elseif ($hashValidated=="INVALID HASH" && $txnResponseCode=="0"){
-      $transStatus = "100";
+      $transStatus = "102";
     }else {
       $transStatus = $txnResponseCode;
     }
@@ -353,24 +343,18 @@ class OnePayRepo implements IOnePayRepo{
 
     // get and remove the vpc_TxnResponseCode code from the response fields as we
     // do not want to include this field in the hash calculation
-    
-    $vpc_Txn_Secure_Hash = $vpc_response['vpc_SecureHash'];
-    unset ( $vpc_response["vpc_SecureHash"] );
-
-    $vpc_MerchTxnRef = $vpc_response["vpc_MerchTxnRef"];
-    $vpc_AcqResponseCode = $vpc_response["vpc_AcqResponseCode"];
-    
-    // set a flag to indicate if hash has been validated
-    $errorExists = false;
-
-    if (strlen($SECURE_SECRET) > 0 && $vpc_response["vpc_TxnResponseCode"] != "7" && $vpc_response["vpc_TxnResponseCode"] != "No Value Returned") {
+    $txnResponseCode = $vpc_response["vpc_TxnResponseCode"];
+    if (strlen($SECURE_SECRET) > 0 && $txnResponseCode != "7" && $txnResponseCode != "No Value Returned") {
 
         
         //$md5HashData = $SECURE_SECRET;
         //khởi tạo chuỗi mã hóa rỗng
         $md5HashData = "";
+        $vpc_Txn_Secure_Hash = $vpc_response['vpc_SecureHash'];
+        unset ( $vpc_response["vpc_SecureHash"] );
+        ksort($vpc_response);
         // sort all the incoming vpc response fields and leave out any with no value
-        foreach ($_GET as $key => $value) {
+        foreach ($vpc_response as $key => $value) {
     //        if ($key != "vpc_SecureHash" or strlen($value) > 0) {
     //            $md5HashData .= $value;
     //        }
@@ -421,7 +405,7 @@ class OnePayRepo implements IOnePayRepo{
     $merchTxnRef = $this->null2unknown($vpc_response["vpc_MerchTxnRef"]);
     $transactionNo = $this->null2unknown($vpc_response["vpc_TransactionNo"]);
     $acqResponseCode = $this->null2unknown($vpc_response["vpc_AcqResponseCode"]);
-    $txnResponseCode = $this->null2unknown($vpc_response["vpc_TxnResponseCode"]);
+    
     // 3-D Secure Data
     $verType = array_key_exists("vpc_VerType", $vpc_response) ? $vpc_response["vpc_VerType"] : "No Value Returned";
     $verStatus = array_key_exists("vpc_VerStatus", $vpc_response) ? $vpc_response["vpc_VerStatus"] : "No Value Returned";
@@ -457,7 +441,7 @@ class OnePayRepo implements IOnePayRepo{
     elseif($policy_header->quotation_no != $merchTxnRef){
       $transStatus = "3";
     }elseif ($hashValidated=="INVALID HASH" && $txnResponseCode=="0"){
-      $transStatus = "101";
+      $transStatus = "102";
     }else {
       $transStatus = $txnResponseCode;
     }

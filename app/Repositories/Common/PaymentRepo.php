@@ -6,6 +6,7 @@ use Illuminate\Support\Str;
 use Illuminate\Http\Request;
 use App\Models\Common\Invoice;
 use App\Models\Common\Customer;
+use App\Models\Common\OnePayLog;
 use App\Models\Common\PolicyTrans;
 use App\Models\Common\PolicyHeader;
 use App\Repositories\PA\IPAPremium;
@@ -31,23 +32,35 @@ class PaymentRepo implements IPaymentRepo{
   public function buildOnePayGateway($policy_id){
     
     $policy_header = PolicyHeader::find($policy_id);
-    
+    $paymentUrl = '';
     /**
      * Check I: international D: domestic
      */
     if ($policy_header->pay_method == 'D') {
       $items = Item::where('item_tabl','=','TV411')->orderBy('item_item')->get();
-      return $this->gateway->buildLocalGw($policy_header, $items);
+      $paymentUrl = $this->gateway->buildLocalGw($policy_header, $items);
     }
     else{
       $items = Item::where('item_tabl','=','TV412')->orderBy('item_item')->get();
-      return $this->gateway->buildInterGw($policy_header, $items);
+      $paymentUrl = $this->gateway->buildInterGw($policy_header, $items);
     } 
+    OnePayLog::create(['policy_id'=>$policy_id, 'request_url'=>$paymentUrl]);
+    return $paymentUrl;
   }
   public function updateOnePayGateway($policy_id, Request $request)
   {
     $policy_header = PolicyHeader::find($policy_id);
     $vpc_response = $request->all();
+
+    /**
+     * Log payment response
+     */
+    
+    $onePayLog = OnePayLog::where('policy_id','=',$policy_id)
+      ->orderByDesc('id')->first();
+      if ($onePayLog) {
+        $onePayLog->update(['response_url'=> collect($vpc_response)->toJson()]);
+      }
     // dd($vpc_response);
     /**
      * Check I: international D: domestic
@@ -119,6 +132,12 @@ class PaymentRepo implements IPaymentRepo{
         break;
       case "99" :
         $result = "Người sủ dụng hủy giao dịch - User cancel";
+        break;
+      case "101" :
+          $result = "Secure Hash validation failed";
+          break;
+      case "102" :
+        $result = "Giao dịch Pending";
         break;
       default :
         $result = "Giao dịch thất bại - Failured";
