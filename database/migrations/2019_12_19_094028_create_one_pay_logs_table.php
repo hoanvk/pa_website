@@ -17,9 +17,11 @@ class CreateOnePayLogsTable extends Migration
         Schema::create('tb_payment_logs', function (Blueprint $table) {
             $table->bigIncrements('id');                     
             $table->unsignedInteger('policy_id');
-            $table->text('request_url');
+            $table->text('request_url')->nullable();
             $table->text('response_url')->nullable();
-            
+            $table->decimal('amount',18); 
+            $table->string('payment_no',40)->nullable();
+            $table->string('tran_status',3)->nullable();
             $table->timestamps();
         });
     }

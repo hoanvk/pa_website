@@ -17,7 +17,7 @@ Personal Accident
             
             {!! Form::model($model, array('route' => array('pa.update',$product->id, $model->id), 'method'=>'PUT')) !!}
             
-                @include('pa._form',[ 'button_name' => 'Update'])
+                @include('pa._form',[ 'button_name' => 'pa.save'])
                  
             {!! Form::close() !!}    
         

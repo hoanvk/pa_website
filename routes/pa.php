@@ -119,7 +119,7 @@ Route::group(['middleware' => 'web'], function () {
     'as'=>'checkout.index',
     'uses'=>'CheckoutController@index']); 
     
-    Route::get('checkout/{policy_id}/confirm',[
+    Route::get('checkout/{payment_id}/confirm',[
         'as'=>'checkout.confirm',
         'uses'=>'CheckoutController@confirm']); 
 

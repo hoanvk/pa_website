@@ -18,7 +18,7 @@ Insured Person
         
     {!! Form::model($member, array('route' => array('members.update',$policy->id, $member->id), 'method'=>'PUT')) !!}
     
-        @include('members._form',[ 'button_name' => 'members.edit'])
+        @include('members._form',[ 'button_name' => 'members.save'])
         
     {{-- </form> --}}
     {!! Form::close() !!}   

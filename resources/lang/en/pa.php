@@ -8,6 +8,7 @@ return [
     'period'=>'Period',
     'promo_code'=>'Promotion Code',
     'create'=>'Create',
+    'save'=>'Save',
     'edit'=>'Edit',
     'quotation'=>'Quotation',
     'policy_holder'=>'Policy Holder',

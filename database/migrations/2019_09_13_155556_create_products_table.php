@@ -22,7 +22,7 @@ class CreateProductsTable extends Migration
             $table->string('name', 50);
             $table->string('product_type',3)->nullable();
             $table->string('premium_formula', 3)->nullable();
-            
+            $table->unsignedInteger('tax_rate')->default(0);
             $table->timestamps();
         });
     }

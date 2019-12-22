@@ -15,6 +15,7 @@ return [
     'province'=>'Province/City',
     'mobile'=>'Mobile',
     'create'=>'Create',
+    'save'=>'Save',
     'edit'=>'Edit',
     'delete'=>'Delete',
     'policy_holder'=>'POLICY HOLDER',

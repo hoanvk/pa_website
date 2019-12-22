@@ -84,6 +84,13 @@ class PAPremium implements IPAPremium{
     public function getPolicyRisks($policy_id){
 
     }
+    private function quotation_no()
+    {
+        # code...  
+        $quotation_no = PASeqNo::create();    
+        return 'PA-QU-'.$quotation_no->id.'-'.substr(date("Y"),2,2);  
+        
+    }
     /**
      * 5
      * policyNumber
@@ -114,7 +121,7 @@ class PAPremium implements IPAPremium{
      * createPolicy
      */
     public function createPolicy($policy_id, $start_date, $end_date, $product_id, $period_id, $plan_id, $promo_code){
-        $quotation_no =PASeqNo::quotation_no();               
+        $quotation_no =$this->quotation_no();               
         
         $period = Period::find($period_id);
 

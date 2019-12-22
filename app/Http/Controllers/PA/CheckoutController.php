@@ -39,12 +39,12 @@ class CheckoutController extends B2CPageController
         
         return Redirect::to($paymentUrl);        
     }
-    public function confirm($policy_id, Request $request, IPaymentRepo $repository)
+    public function confirm($payment_id, Request $request, IPaymentRepo $repository)
     {
         # code...
         
-        $tranStatus=$repository->updateOnePayGateway($policy_id, $request);
-        
+        $payment_log=$repository->updateOnePayGateway($payment_id, $request);
+        $tranStatus = $payment_log->tran_status;
         $msgType = 'error';
         if ($tranStatus=='0') {
             # code...
@@ -52,6 +52,6 @@ class CheckoutController extends B2CPageController
         }
         $message = $repository->getOnePayError($tranStatus);
         
-        return redirect()->route('pa.confirm',['policy_id'=>$policy_id ])->with($msgType,$message);
+        return redirect()->route('pa.confirm',['policy_id'=>$payment_log->policy_id ])->with($msgType,$message);
     }
 }

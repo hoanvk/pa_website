@@ -10,7 +10,7 @@ class Product extends Model
     protected $connection = 'admin';
     use HasTranslations;
     protected $table = 'tb_products';
-    protected $fillable = ['id', 'title','name','product_type','agent_id'];
+    protected $fillable = ['id', 'title','name','product_type','agent_id','tax_rate'];
     public function benefits()
     {
         # code...

@@ -8,6 +8,6 @@ class OnePayLog extends Model
 {
     //
     protected $table = 'tb_payment_logs';
-    protected $fillable = ['id','policy_id','request_url','response_url'
+    protected $fillable = ['id','policy_id','request_url','response_url','payment_no','amount','tran_status'
     ];
 }

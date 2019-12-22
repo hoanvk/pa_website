@@ -3,10 +3,10 @@ namespace App\Repositories\Common;
 
 
 interface IOnePayRepo{
-  public function buildInterGw($policy_header,$items);
-  public function updateInterGw($policy_header, $vpc_response);
+  public function buildInterGw($payment_log,$items);
+  public function updateInterGw($payment_log, $vpc_response);
   public function buildLocalGw($policy_header,$items);
-  public function updateLocalGw($policy_header, $vpc_response);
+  public function updateLocalGw($payment_log, $vpc_response);
   
   
 }

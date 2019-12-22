@@ -27,6 +27,9 @@ class CreateInvoicesTable extends Migration
             $table->decimal('premium',18)->nullable();
             $table->decimal('vat_amt',18)->nullable();
             $table->decimal('total_amt',18)->nullable();
+            $table->string('policy_type',10)->nullable();
+            $table->string('currency',3)->default('VND');
+            $table->decimal('crate',18)->default(1);
             $table->timestamps();
         });
     }

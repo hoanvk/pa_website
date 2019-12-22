@@ -8,6 +8,7 @@ return [
     'period'=>'Thời gian',
     'promo_code'=>'Mã giảm giá',
     'create'=>'Tạo mới',
+    'save'=>'Lưu lại',
     'edit'=>'Chỉnh sửa',
     'quotation'=>'Báo giá',
     'policy_holder'=>'Chủ hợp đồng',

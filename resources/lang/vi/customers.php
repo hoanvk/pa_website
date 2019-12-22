@@ -15,6 +15,7 @@ return [
     'province'=>'Vùng miền',
     'mobile'=>'Điện thoại',
     'create'=>'Tạo mới',
+    'save'=>'Lưu lại',
     'edit'=>'Chỉnh sửa',
     'policy_holder'=>'CHỦ HỢP ĐỒNG',
     'previous'=>'Quay lại',

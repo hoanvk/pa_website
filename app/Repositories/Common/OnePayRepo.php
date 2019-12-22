@@ -5,7 +5,7 @@ use Illuminate\Support\Str;
 
 class OnePayRepo implements IOnePayRepo{
   
-  public function buildLocalGw($policy_header, $items){
+  public function buildLocalGw($payment_log, $items){
     
     
     
@@ -38,8 +38,6 @@ class OnePayRepo implements IOnePayRepo{
     //$stringHashData = $SECURE_SECRET; *****************************Khởi tạo chuỗi dữ liệu mã hóa trống*****************************
     $stringHashData = "";
     
-    
-    
     foreach($items as $item) {
       $key = $item->short_desc;
       $value = $item->long_desc;
@@ -56,13 +54,13 @@ class OnePayRepo implements IOnePayRepo{
           }
 
           if ($key=='vpc_MerchTxnRef'){
-            $value = $policy_header->quotation_no;
+            $value = $payment_log->payment_no;
             
           }else if ($key=='vpc_Amount'){
-            $value = $policy_header->premium*100;
+            $value = $payment_log->amount*100;
            
           }else if ($key=='vpc_ReturnURL'){
-            $value = Str::replaceFirst('{policy_id}',$policy_header->id, $value);        
+            $value = Str::replaceFirst('{payment_id}',$payment_log->id, $value);        
           }
           $vpcQuery .= urlencode($key) . "=" . urlencode($value);
           // create the md5 input and URL leaving out any fields that have no value
@@ -104,7 +102,7 @@ class OnePayRepo implements IOnePayRepo{
     // *******************
 
   }
-  public function updateLocalGw($policy_header, $vpc_response)
+  public function updateLocalGw($payment_log, $vpc_response)
   {
     # code...
     /* -----------------------------------------------------------------------------
@@ -215,9 +213,9 @@ class OnePayRepo implements IOnePayRepo{
 
 
     $transStatus = "";
-    if($policy_header->premium != $amount/100){
+    if($payment_log->amount != $amount/100){
       $transStatus = "5";
-    }elseif($policy_header->quotation_no != $merchTxnRef){
+    }elseif($payment_log->payment_no != $merchTxnRef){
       $transStatus = "3";
     }elseif ($hashValidated=="INVALID HASH" && $txnResponseCode=="0"){
       $transStatus = "102";
@@ -227,14 +225,15 @@ class OnePayRepo implements IOnePayRepo{
 
     return $transStatus;
   }
-  function null2unknown($data) {
+  private function null2unknown($data) {
     if ($data == "") {
       return "No Value Returned";
     } else {
       return $data;
     }
   }
-  public function buildInterGw($policy_header,$items){
+  
+  public function buildInterGw($payment_log,$items){
     //Version 2.0
 
     // *********************
@@ -266,7 +265,7 @@ class OnePayRepo implements IOnePayRepo{
     // merchant secret has been provided.
     //$md5HashData = $SECURE_SECRET; Khởi tạo chuỗi dữ liệu mã hóa trống
     $md5HashData = "";
-
+    
     foreach($items as $item) {
       $key = $item->short_desc;
       $value = $item->long_desc;
@@ -283,13 +282,14 @@ class OnePayRepo implements IOnePayRepo{
           }
 
           if ($key=='vpc_MerchTxnRef'){
-            $value = $policy_header->quotation_no;
+            
+            $value = $payment_log->payment_no;
             
           }else if ($key=='vpc_Amount'){
-            $value = $policy_header->premium*100;
+            $value = $payment_log->amount*100;
           
           }else if ($key=='vpc_ReturnURL' || $key=='AgainLink'){
-            $value = Str::replaceFirst('{policy_id}',$policy_header->id, $value);        
+            $value = Str::replaceFirst('{payment_id}',$payment_log->id, $value);        
           }
           $vpcQuery .= urlencode($key) . "=" . urlencode($value);
           // create the md5 input and URL leaving out any fields that have no value
@@ -328,7 +328,7 @@ class OnePayRepo implements IOnePayRepo{
     // *******************
 
   }
-  public function updateInterGw($policy_header, $vpc_response){
+  public function updateInterGw($payment_log, $vpc_response){
     // *********************
     // START OF MAIN PROGRAM
     // *********************
@@ -435,10 +435,10 @@ class OnePayRepo implements IOnePayRepo{
 
 
     $transStatus = "";
-    if($policy_header->premium != $amount/100){
+    if($payment_log->amount != $amount/100){
       $transStatus = "5";
     }
-    elseif($policy_header->quotation_no != $merchTxnRef){
+    elseif($payment_log->payment_no != $merchTxnRef){
       $transStatus = "3";
     }elseif ($hashValidated=="INVALID HASH" && $txnResponseCode=="0"){
       $transStatus = "102";
