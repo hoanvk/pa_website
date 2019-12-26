@@ -27,7 +27,7 @@ class MemberRequest extends FormRequest
             //
             'insured_name' => 'required',
             'insured_id' => 'required',
-            'dob' => 'required',
+            'dob' => 'required|date_format:d/m/Y',
             'naty' => 'required',
             'gender' => 'required',
             'ownship' => 'required'

@@ -17,7 +17,9 @@
     
     
     @include('members._insured')
+    @if ($policy->status < 5)
     <a class="btn btn-primary" href="{{route('members.create',$policy->id)}} ">@lang('members.create')</a>
+    @endif
     @include('pa._button')
                                     </div>
                         </div>

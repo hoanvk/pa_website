@@ -43604,7 +43604,8 @@ var formatComponentName = (noop);
     if (config.warnHandler) {
       config.warnHandler.call(null, msg, vm, trace);
     } else if (hasConsole && (!config.silent)) {
-      console.error(("[Vue warn]: " + msg + trace));
+      /**Removed by Hoan */
+      // console.error(("[Vue warn]: " + msg + trace));
     }
   };
 
@@ -55073,13 +55074,16 @@ window.axios.defaults.headers.common['X-Requested-With'] = 'XMLHttpRequest';
  * a simple convenience so we don't have to attach every token manually.
  */
 
-var token = document.head.querySelector('meta[name="csrf-token"]');
+/**
+ * Temporary removed by Hoan 
+ * */ 
+// var token = document.head.querySelector('meta[name="csrf-token"]');
 
-if (token) {
-  window.axios.defaults.headers.common['X-CSRF-TOKEN'] = token.content;
-} else {
-  console.error('CSRF token not found: https://laravel.com/docs/csrf#csrf-x-csrf-token');
-}
+// if (token) {
+//   window.axios.defaults.headers.common['X-CSRF-TOKEN'] = token.content;
+// } else {
+//   console.error('CSRF token not found: https://laravel.com/docs/csrf#csrf-x-csrf-token');
+// }
 /**
  * Echo exposes an expressive API for subscribing to channels and listening
  * for events that are broadcast by Laravel. Echo and event broadcasting

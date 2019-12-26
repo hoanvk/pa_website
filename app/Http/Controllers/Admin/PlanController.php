@@ -7,6 +7,7 @@ use App\Models\Master\Plan;
 use Illuminate\Http\Request;
 use App\Models\Master\Product;
 use App\Http\Requests\PlanRequest;
+use Illuminate\Support\Facades\App;
 use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Input;
 
@@ -49,10 +50,12 @@ class PlanController extends Controller
         $name = Input::get('name');
         $title = Input::get('title');
         $product_id = Input::get('product_id');
-        Plan::create(['name'=>$name,
+        $model=Plan::create(['name'=>$name,
         'title'=>$title,
         'product_id'=>$product_id]);
-   
+        $locale = App::getLocale();
+        $model->setTranslation('title', $locale, $title)                
+                ->save();
         return redirect()->route('plans.index')
                         ->with('success','Plan created successfully.');
     }
@@ -101,7 +104,9 @@ class PlanController extends Controller
         $model->update(['name'=>$name,
             'title'=>$title,
             'product_id'=>$product_id]);
-  
+        $locale = App::getLocale();
+        $model->setTranslation('title', $locale, $title)                
+                ->save();
         return redirect()->route('plans.index')
                         ->with('success','Plan updated successfully');
     }

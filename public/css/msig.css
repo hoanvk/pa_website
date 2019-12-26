@@ -348,3 +348,9 @@ line-height: 24px;
     background-color: #26245f;
     border-color: #26245f;
 }
+
+.list-group-item.current {
+    background-color: #dd252f!important;
+    border-color: #dd252f!important;
+    color:#fff!important;
+}

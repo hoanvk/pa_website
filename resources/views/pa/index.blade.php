@@ -14,7 +14,7 @@ Personal Accident
                 <h4 class="card-title">@lang('pa.benefit')</h4>
                 <p class="card-text">
                         <ul class="list-group list-group-flush">
-                            @foreach ($product->benefits as $benefit)
+                            @foreach ($product->benefits()->orderBy('name')->get() as $benefit)
                             <li class="list-group-item">{{ $benefit->title}} </li>
                             @endforeach
                                 

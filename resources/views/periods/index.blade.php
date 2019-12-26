@@ -27,7 +27,7 @@ Period
                 <td>{{ $item->product->title}} </td>
                 <td>{{ $item->qty}} </td>
                 <td>{{ $item->unit}} </td>
-                <td><a href="{{  route('periods.show', ['product_id'=> $product->id, 'id'=> $item->id]) }} "><i class="fa fa-pencil-square-o" aria-hidden="true"></i></a></td>
+                <td><a href="{{  route('periods.show', ['product_id'=> $product->id, 'id'=> $item->id]) }} "><i class="fas fa-edit" aria-hidden="true"></i></a></td>
             </tr>
             @endforeach
         </tbody>

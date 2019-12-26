@@ -24,9 +24,8 @@ class B2CPageController extends Controller
     {
       
         
-          $array = collect([            
-                       
-          ]);
+        $array = collect([                                  
+        ]);
         $product_id = $request->route('product_id');
         $policy = new PolicyHeader();
         $policy_id = $request->route('policy_id');
@@ -38,7 +37,8 @@ class B2CPageController extends Controller
         }
         $array->put('project', $project);
         if ($policy_id) {
-          //           
+          //Check session with policy_id       
+              
           $policy = $repository->getPolicyHeader($policy_id);  
           $array->put('policy', $policy);
           
@@ -72,12 +72,12 @@ class B2CPageController extends Controller
         }
         else{
           
-          if ($request->is('online/pa*') || $request->is('agent/pa*')) {
+          if ($request->is('*/pa*')) {
             //
             $action ='PA';
             
           }
-          elseif ($request->is('online/motor*') || $request->is('agent/motor*')) {
+          elseif ($request->is('*/motor*')) {
             # code...
             $action ='MTT';
             

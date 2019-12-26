@@ -45,16 +45,16 @@ class MemberController extends B2CPageController
      *
      * @return \Illuminate\Http\Response
      */
-    public function index($policy_id, IPAPremium $repository)
+    public function index($policy_id, ISelectList $selectList, IPAPremium $repository)
     {
         //
-        
+        $gender = $selectList->gender();
         $model = $repository->getInsuredList($policy_id);    
         if ($model->count()==0) {
             return redirect()->route('members.create',$policy_id);
         }
 
-        return view('members.index')->with(['model'=>$model]);
+        return view('members.index')->with(['model'=>$model,'gender'=>$gender]);
     }
 
     /**

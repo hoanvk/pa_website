@@ -11,7 +11,7 @@
                 <th>Last Number</th>
                 <th>Start Number</th>
                 <th>End Number</th>
-                <th>Id</th>
+                <th></th>
             </tr>
         </thead>
         <tbody>
@@ -21,7 +21,7 @@
                 <td>{{ $item->last_number}} </td>
                 <td>{{ $item->start_number}} </td>
                 <td>{{ $item->end_number}} </td>
-                <td>{{ $item->id}} </td>
+               
                 <td><a href="{{  route('autonumbers.show', $item->id) }} "><i class="fas fa-edit" aria-hidden="true"></i></a></td>
             </tr>
             @endforeach

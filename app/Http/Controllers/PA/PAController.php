@@ -93,7 +93,8 @@ class PAController extends B2CPageController
             $period_id,
             $plan_id, 
             $promo_code);
-
+        session(['policy_id' => $policy->id]);
+        // dd(session('policy_id'));
         return redirect()->route('customers.create',['policy_id'=>$policy->id]);
         
     }

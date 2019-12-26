@@ -27,7 +27,7 @@ class CustomerRequest extends FormRequest
             //
             'name'=>'required|max:50',
             'tgram'=>'required|min:5',
-            'dob'=>'required',
+            'dob'=>'required|date_format:d/m/Y',
             'natlty' =>'required',
             // 'email'=>'required|email:rfc,dns',
             // 'confirm_email'=>'required|email:rfc,dns',

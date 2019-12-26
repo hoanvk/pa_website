@@ -1,5 +1,5 @@
 <?php
-Route::group(['middleware' => 'web'], function () {
+Route::group(['middleware' => ['web','useronline']], function () {
   //
   Route::get('pa/{policy_id}/confirm', [
       'as'=>'pa.confirm',

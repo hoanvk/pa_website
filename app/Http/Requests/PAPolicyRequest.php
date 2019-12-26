@@ -27,7 +27,7 @@ class PAPolicyRequest extends FormRequest
             //
             'plan_id' => 'required',           
             'period_id' => 'required',       
-            'start_date' => 'required',
+            'start_date' => 'required|date_format:d/m/Y',
             
         ];
     }

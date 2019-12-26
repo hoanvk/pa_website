@@ -1,9 +1,9 @@
 <?php
 return [
-    'index'=>'Index',
-    'export'=>'Export',
-    'create'=>'Create',
-    'edit'=>'Edit',
+    'index'         =>'Index',
+    'export'        =>'Export',
+    'create'        =>'Create',
+    'edit'          =>'Edit',
     'import'=>'Import',
     'back'=>'Back',
     'delete'=>'Delete',
@@ -16,4 +16,9 @@ return [
 
     'products'=>'Products',
     'agents'=>'Agents',
+    'contact'=>'Contact Us',
+    'need_help'=>'Need help?',
+    'copy_right'=>'All Rights Reserved. Copyright © '.date("Y").' MSIG Insurance',
+    'terms_of_use'      =>'Terms of Use',
+    'privacy_policy'    =>'Privacy Policy',
 ];

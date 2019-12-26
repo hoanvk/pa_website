@@ -88,12 +88,15 @@
         </div>
     </div>
     <div class="mt-3">
-        <button type="submit" class="btn btn-primary">@lang($button_name) </button>        
+        @if ($policy->status < 5)
+        <button type="submit" class="btn btn-primary">@lang($button_name) </button>
+        @endif
+                
         @include('pa._button')
     </div>
 
 @section('js')
-    <script src="/js/app.js"></script>    
+    {{-- <script src="/js/app.js"></script>     --}}
     <script>
         $("#dob").datetimepicker({
                 timepicker:false,           
@@ -107,6 +110,6 @@
             });
         
        
-        jQuery.validator.methods["date"] = function (value, element) { return true; }
+        // jQuery.validator.methods["date"] = function (value, element) { return true; }
     </script>
 @endsection  

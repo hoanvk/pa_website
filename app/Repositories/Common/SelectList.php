@@ -70,10 +70,10 @@ class SelectList implements ISelectList{
         return Item::where('item_tabl','=','TV410')->get();
     }
     public function productPlan($product_id){
-        return Plan::where('product_id','=',$product_id)->orderBy('title')->pluck('title', 'id');
+        return Plan::where('product_id','=',$product_id)->orderBy('name')->pluck('title', 'id');
     }
     public function productPeriod($product_id){
-        return Period::where('product_id','=',$product_id)->orderBy('title')->pluck('title', 'id');
+        return Period::where('product_id','=',$product_id)->orderBy('name')->pluck('title', 'id');
     }
     public function productLine($line){
         return Product::where('product_type','=',$line)->orderBy('name')->get();

@@ -30,6 +30,7 @@ class CreateInvoicesTable extends Migration
             $table->string('policy_type',10)->nullable();
             $table->string('currency',3)->default('VND');
             $table->decimal('crate',18)->default(1);
+            $table->string('in_words',1000)->nullable();
             $table->timestamps();
         });
     }

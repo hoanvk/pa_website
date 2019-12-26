@@ -6,6 +6,7 @@ use Illuminate\Http\Request;
 
 use App\Models\Master\Period;
 use App\Models\Master\Product;
+use Illuminate\Support\Facades\App;
 use App\Http\Requests\PeriodRequest;
 use Illuminate\Support\Facades\Input;
 use App\Repositories\Common\ISelectList;
@@ -53,12 +54,15 @@ class PeriodController extends ProductPageController
         
         $qty = Input::get('qty');
         $unit = Input::get('unit');
-        Period::create(['title'=>$title,
+        
+        $model= Period::create(['title'=>$title,
             'name'=>$name,
             'product_id'=>$product_id,
             'qty'=>$qty,
             'unit'=>$unit]);
-   
+        $locale = App::getLocale();
+        $model->setTranslation('title', $locale, $title)                
+                ->save();
         return redirect()->route('periods.index',$product_id)
                         ->with('success','Benefit created successfully.');
     }
@@ -115,7 +119,9 @@ class PeriodController extends ProductPageController
         'product_id'=>$product_id,
         'qty'=>$qty,
         'unit'=>$unit]);
-  
+        $locale = App::getLocale();
+        $model->setTranslation('title', $locale, $title)                
+                ->save();
         return redirect()->route('periods.index',$product_id)
                         ->with('success','Benefit updated successfully');
     }

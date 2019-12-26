@@ -1,5 +1,6 @@
 @section('css')
 <link href="/css/app.css" rel="stylesheet">
+
 @endsection
 @include('pa._status')
 @include('shared._message')
@@ -48,13 +49,17 @@
                 </div>
       </div>   
       <div class="mt-3">
-        <button type="submit" class="btn btn-primary"> @lang($button_name) </button>    
+        
+        @if ((!isset($policy)) || $policy->status < 5)
+        <button type="submit" class="btn btn-primary"> @lang($button_name) </button>
+        @endif
+            
         @include('pa._button') 
       </div>
       
 
       @section('js')
-      <script src="/js/app.js"></script>    
+       
       <script>
           $(document).ready(function(){
             $("#start_date").datetimepicker({
@@ -107,7 +112,7 @@
                   fetch_item_data();
               });
           });
-          jQuery.validator.methods["date"] = function (value, element) { return true; }
+        //   jQuery.validator.methods["date"] = function (value, element) { return true; }
       </script>
       
   @endsection    

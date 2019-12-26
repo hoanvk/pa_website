@@ -42,7 +42,7 @@ Personal Accident
         </tbody>
     </table>  
     
-    @if ($model->status < 6)
+    @if ($model->status < 5)
     
         <a class="btn btn-outline-primary" href="{{route('pa.edit',['product_id'=>$product->id,'id'=>$model->id])}} ">@lang('pa.edit')</a>
         

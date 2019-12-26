@@ -7,7 +7,7 @@ use App\Models\Travel\PolicyHeader;
 use App\Models\Master\DayRange;
 use Carbon\Carbon;
 
-class Premium implements IPremium{
+class TravelRepo implements ITravelRepo{
     
     public function calculate(Policy $policy)
     {

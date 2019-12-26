@@ -15,7 +15,7 @@
                 <td scope="row">{{ $item->insured_name }}</td>
                 <td>{{ $item->dob }}</td>
                 <td>{{ $item->insured_id }}</td>
-                <td>{{ $item->gender }}</td>
+                <td>{{ optional($gender->firstWhere('item_item','=',$item->gender))->long_desc }}</td>
                 <td>{{ $item->age }}</td>
                 <td><a href="{{  route('members.show', ['policy_id'=>$policy->id, 'id'=>$item->id]) }} "><i class="fa fa-pencil-square-o" aria-hidden="true"></i></a></td>
             </tr>

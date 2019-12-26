@@ -3,8 +3,8 @@
                 <img src="{{ asset('images/banner/footer_bg.png') }}" alt="MSIG Vietnam" class="img-fluid">
         <div class="clearfix">
                 <span class="float-left"><div class="l-footer">
-                        <h2 class="title">Cần sự trợ giúp?</h2>
-                        <a class="btn btn btn-outline-secondary" href="#">Liên hệ</a>
+                        <h2 class="title">@lang('shared.need_help')</h2>
+                        <a class="btn btn btn-outline-secondary" href="https://www.msig.com.vn/vi/contact-us">@lang('shared.contact')</a>
                         <div class="social-media-block">
                                 <a href="https://www.facebook.com/msigvietnam" target="_blank">
                                     <img alt="facebook" data-entity-type="file" class="mr-3"
@@ -14,8 +14,8 @@
                                             src="{{ asset('images/YT_ico_0.png') }}"></a>
                                 
                         </div>
-                        <a href="#" class="mr-2">Điều khoản sử dụng</a>|<a href="#" class="ml-2">Chính sách bảo mật</a>
-                        <div class="copyright-block clearfix"><span>Bản quyền được bảo hộ. Bản quyền © 2019&nbsp;MSIG Insurance (Việt Nam)</span>
+                        <a href="https://www.msig.com.vn/vi/dieu-khoan-su-dung" class="mr-2">@lang('shared.terms_of_use')</a>|<a href="https://www.msig.com.vn/vi/chinh-sach-bao-mat" class="ml-2">@lang('shared.privacy_policy')</a>
+                        <div class="copyright-block clearfix"><span>@lang('shared.copy_right')</span>
                         </div>
 
                 </div></span>

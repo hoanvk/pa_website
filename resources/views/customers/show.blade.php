@@ -59,8 +59,10 @@
                 </tr>
             </tbody>
         </table>   
+        @if ($policy->status < 5)
         <a class="btn btn-outline-primary" href="{{route('customers.edit',
                     ['policy_id'=>$customer->policy_id, 'id'=>$customer->id])}} ">@lang('customers.edit')</a>
+        @endif
         @include('pa._button')
 
 @endsection

@@ -60,14 +60,17 @@
         </div>
     </div>
     <div class="mt-3">
+        @if ($policy->status < 5)
         <button type="submit" class="btn btn-primary"> @lang($button_name) </button>    
+        @endif
+        
         @include('pa._button')    
     </div>
 
 {{ Form::hidden('policy_id', $member->policy_id, array('id' => 'policy_id')) }}
 
 @section('js')
-    <script src="/js/app.js"></script>    
+    {{-- <script src="/js/app.js"></script>     --}}
     <script>
         $(document).ready(function(){
             $("#dob").datetimepicker({
@@ -107,6 +110,6 @@
                 });
             });
         });        
-        jQuery.validator.methods["date"] = function (value, element) { return true; }
+        // jQuery.validator.methods["date"] = function (value, element) { return true; }
     </script>
 @endsection   

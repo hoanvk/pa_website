@@ -50,17 +50,22 @@
                     </tr>
             </tbody>
         </table>   
-        <p>
+        
+        <div class="mt-3">
+            @if ($policy->status < 5)
+            <a class="btn btn-outline-primary" href="{{route('members.edit',
+                    ['policy_id'=>$policy->id, 'id'=>$member->id])}} ">@lang('members.edit')</a>
                 {!! Form::model($member, array('route' => array('members.destroy', 
                     $policy->id, $member->id), 'method'=>'DELETE')) !!}
-            
-                <a class="btn btn-outline-primary" href="{{route('members.edit',
-                    ['policy_id'=>$policy->id, 'id'=>$member->id])}} ">@lang('members.edit')</a>
-                <button type="submit" class="btn btn-danger">@lang('members.delete')</button>
+           
                 
+                <button type="submit" class="btn btn-danger">@lang('members.delete')</button>
+               
                 {!! Form::close() !!} 
-            
-        </p>
+                @endif
+                @include('pa._button')
+        </div>
+       
         @include('members._insured')
-        @include('pa._button')
+        
 @endsection
