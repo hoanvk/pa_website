@@ -2,6 +2,7 @@
 
 namespace App\Models\Master;
 
+use App\Models\Master\Product;
 use Illuminate\Database\Eloquent\Model;
 
 class Promotion extends Model

@@ -3,16 +3,17 @@
 namespace App\Http\Controllers\PA;
 
 use Session;
-use App\Repositories\PA\IPAPremium;
 use App\Models\Master\Link;
 use Illuminate\Http\Request;
 use App\Models\Master\Product;
-
 use App\Models\Master\Jumbotron;
+
 use App\Models\Common\PolicyHeader;
+use App\Repositories\PA\IPAPremium;
 use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\View;
 use Illuminate\Support\Facades\Route;
+use Illuminate\Support\Facades\Redirect;
 
 
 
@@ -40,6 +41,9 @@ class B2CPageController extends Controller
           //Check session with policy_id       
               
           $policy = $repository->getPolicyHeader($policy_id);  
+          if ($policy === null) {
+            return redirect()->route('pa.index',['project'=>1]);
+          }
           $array->put('policy', $policy);
           
           if (!$product_id) {
@@ -57,15 +61,17 @@ class B2CPageController extends Controller
 
           if ($product->product_type=='TVL') {
             # code...
-            $product->action='travel.show';
-            $risk = $policy->risks->first();
-            $array->put('risk', $risk);
+            
           }
           else if ($product->product_type=='PA') {
             # code...
             $product->action='pa.show';
             $risk = $policy->parisk;
             $array->put('risk', $risk);
+          }
+          else if ($product->product_type=='MTT') {
+            # code...
+            
           }
           $array->put('product', $product);
           

@@ -2,24 +2,11 @@
 
 namespace App\Http\Controllers\Travel;
 
-use App\Plan;
-use App\Risk;
-use App\User;
-use DateTime;
-use App\Agent;
-use App\Policy;
-use App\Premium;
-use App\Product;
-use App\DateUtil;
-use App\AgentPlan;
-use Carbon\Carbon;
-use App\SelectList;
-use App\Destination;
-use App\TravelSeqNo;
+
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Input;
-use App\Http\Requests\PolicyFormRequest;
+use Illuminate\Support\Facades\Redirect;
 use Illuminate\Support\Facades\Validator;
 use Illuminate\Validation\ValidationException;
 
@@ -32,14 +19,15 @@ class TravelController extends PageController
      */
     public function index()
     {
-        //        
-
+        //    
+        return Redirect::to('https://travel.msig.com');    
         
-        $status = SelectList::policyStatus();
-        $policy_type = SelectList::policyType();
-        $model = Policy::where('agent_id', "=", $this->agent->id)->latest()->paginate(10);
-        return view('travel.index')->with(['model'=>$model, 'status'=>$status,'policy_type'=>$policy_type,
-        'i' => (request()->input('page', 1) - 1) * 10]);
+        
+        // $status = SelectList::policyStatus();
+        // $policy_type = SelectList::policyType();
+        // $model = Policy::where('agent_id', "=", $this->agent->id)->latest()->paginate(10);
+        // return view('travel.index')->with(['model'=>$model, 'status'=>$status,'policy_type'=>$policy_type,
+        // 'i' => (request()->input('page', 1) - 1) * 10]);
     }
 
     /**

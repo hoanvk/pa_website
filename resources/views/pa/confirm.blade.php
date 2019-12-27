@@ -63,10 +63,13 @@ Personal Accident
                 <td scope="row">@lang('pa.to_date')</td>                
                 <td>{{ $model->end_date }}</td>
             </tr>
-            
+            <tr>
+                <td scope="row">@lang('pa.promo_code')</td>                
+                <td>{{ $model->promo_code }}</td>
+            </tr>
             <tr>
                 <td scope="row">@lang('pa.premium')</td>                
-                <td>{{ $model->premium }}</td>
+                <td>{{ $model->premium }} </td>
             </tr>
             
         </tbody>

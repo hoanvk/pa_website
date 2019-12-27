@@ -145,6 +145,25 @@ return [
     |
     */
 
-    'attributes' => [],
+    'attributes' => [
+        'name'                     => 'Full name',
+        'insured_name'                     => 'Full name',
+    'email'                        => 'Email',
+    'dob'                          => 'Date of birth',
+    'gender'                       => 'Gender',
+    'naty'                  => 'Nationality',
+    'tgram'                           => 'Identity no',
+    'insured_id'                           => 'Identity no',
+    'address'                      => 'Address',
+    'city'                     => 'Province',
+    'mobile'                       => 'Mobile',
+    
+    'natlty'                => 'Nationality',
+    
+    'ownship'               => 'Relationship',    
+    'confirm_email'                              => 'Confirm email',
+    'start_date' => 'From date',
+    'end_date' => 'To date',
+    ],
 
 ];

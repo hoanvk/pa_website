@@ -1,22 +1,11 @@
 @extends('dashboard.master')
 @section('title')
-    Table Setup
+    Promotion
 @endsection
 @section('content')
-<div class="container">
-    @if ($message = Session::get('success'))
-        <div class="alert alert-success">
-            <p>{{ $message }}</p>
-        </div>
-    @endif
-    <div class="pull-left">
-    <h2>@lang('shared.index')</h2>
-    </div>
-    <div class="pull-right">
-        <a class="btn btn-primary" href="{{route('promotions.create')}} ">@lang('shared.create')</a>
-    </div>
-    
-    
+<div class="clearfix mb-2">    
+    <span class="float-right"><a class="btn btn-primary" href="{{route('promotions.create')}} ">Create New</a></span>
+</div>
     <table class="table">
         <thead>
             <tr>
@@ -36,7 +25,7 @@
                 <td>{{ $item->discount }}</td>
                 <td>{{ $item->start_date}} </td>
                 <td>{{ $item->end_date}} </td>
-                <td><a href="{{  route('promotions.show', $item->id) }} "><i class="fa fa-pencil-square-o" aria-hidden="true"></i></a></td>
+                <td><a href="{{  route('promotions.show', $item->id) }} "><i class="fas fa-edit" aria-hidden="true"></i></a></td>
             </tr>
             @endforeach
         </tbody>

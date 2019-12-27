@@ -21,5 +21,5 @@ return [
     'product'=>'Product',
     'quotation_no'=>'Quotation No',
     'policy_no'=>'Policy No',
-    
+    'cart'=>'Your Order',
 ];

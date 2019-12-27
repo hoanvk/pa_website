@@ -1,5 +1,5 @@
 <?php
-Route::group(['prefix' => 'agent','middleware' => 'auth'], function () {
+Route::group(['middleware' => ['web','useronline']], function () {
   //PA
   
 

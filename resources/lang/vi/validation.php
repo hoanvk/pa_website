@@ -145,6 +145,28 @@ return [
     |
     */
 
-    'attributes' => [],
+    'attributes' => [
+        'name'                     => 'Họ và tên',
+        'insured_name'                     => 'Họ và tên',
+    'email'                        => 'Địa chỉ thư điện tử',
+    'dob'                          => 'Ngày tháng năm sinh',
+    'gender'                       => 'Giới tính',
+    'naty'                  => 'Quốc tịch',
+    'tgram'                           => 'Số CMT/Hộ chiếu',
+    'insured_id'                           => 'Số CMT/Hộ chiếu',
+    'address'                      => 'Địa chỉ',
+    'city'                     => 'Tỉnh thành',
+    'mobile'                       => 'Số điện thoại',
+    
+    'natlty'                => 'Quốc tịch',
+    
+    'ownship'               => 'Quan hệ với chủ hợp đồng',    
+    'confirm_email'                              => 'Xác nhận thư điện tử',
+    'start_date' => 'Từ ngày',
+    'end_date' => 'Đến ngày',
+    
+    ],
+
+    
 
 ];

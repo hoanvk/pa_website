@@ -9,6 +9,7 @@ use App\Models\Common\Member;
 use App\Models\Master\Period;
 use App\Models\Master\Product;
 use App\Models\Common\Customer;
+use App\Models\Master\Promotion;
 use App\Models\Master\AutoNumber;
 use App\Models\Common\PolicyHeader;
 use App\Repositories\Common\IDateUtil;
@@ -55,15 +56,33 @@ class PAPremium implements IPAPremium{
         // $plan = Plan::find($risk->plan_id);
         $price = PAPrice::where([['period_id','=',$risk->period_id],['plan_id','=', $risk->plan_id]])->first();
         $member_qty = Member::where('policy_id','=',$risk->policy_id)->get()->count();
+        $promo_code = PolicyHeader::find($risk->policy_id)->promo_code;
+        $discount = 0;
         if ($member_qty==0) {
             # code...
             $member_qty = 1;
         }
         if (!$price) {
-            # code...
-            $price->amount = 250000;
+            //Premium minumum 100K
+            $price->amount = 100000;
         }
-        return $price->amount*$member_qty;
+        if ($promo_code) {
+            $product_id = PolicyHeader::find($risk->policy_id)->product_id;
+            $promo = Promotion::where('promo_code','=',$promo_code)
+                ->where('start_date','<=',date("Y-m-d"))
+                ->where('end_date','>=',date("Y-m-d"))
+                ->where('product_id','=',$product_id)->first();
+            if ($promo) {
+                $discount = $promo->discount;
+            }
+        }
+        $premium = $price->amount*$member_qty;
+
+        //Discount maximum 50%
+        if ($discount > $premium*0.5) {
+            $discount = $premium*0.5;
+        }
+        return $premium-$discount;
     }
 
     /**
@@ -72,8 +91,10 @@ class PAPremium implements IPAPremium{
      */
     public function getPolicyHeader($policy_id){
         $model = PolicyHeader::find($policy_id);   
-        $model->start_date = $this->dateUtil->convertDate($model->start_date);
-        $model->end_date = $this->dateUtil->convertDate($model->end_date);
+        if ($model) {
+            $model->start_date = $this->dateUtil->convertDate($model->start_date);
+            $model->end_date = $this->dateUtil->convertDate($model->end_date);
+        }
         
         return $model;
     }
@@ -114,6 +135,14 @@ class PAPremium implements IPAPremium{
             $errors->put('start_date', ['Start date require greater than today!']);
             
         }
+        if ($promo_code) {
+            # code...
+            if(Promotion::where('promo_code','=',$promo_code)
+                ->where('start_date','<=',date("Y-m-d"))
+                ->where('end_date','>=',date("Y-m-d"))
+                ->where('product_id','=',$product_id)->count() == 0)
+            $errors->put('promo_code', ['Promo Code was expired or invalid!']);
+        }
         return $errors->all();
     }
     /**
@@ -135,15 +164,15 @@ class PAPremium implements IPAPremium{
                 'start_date'=>$start_date,
                 'end_date'=>$end_date,              
                 'period'=>$period->qty,  
-                'product_id'=>$product_id,       
+                'product_id'=>$product_id,      
+                'promo_code'=>$promo_code, 
                 ]);
         
             $risk = $policy->parisk;
             $risk->update(['policy_id'=> $policy->id,                 
             'premium'=>0,                
             'plan_id' => $plan_id,
-            'period_id' => $period_id,
-            'promo_code' =>$promo_code]);  
+            'period_id' => $period_id]);  
         }
         else{
             $policy = PolicyHeader::create(['quotation_no'=> $quotation_no,
@@ -155,6 +184,7 @@ class PAPremium implements IPAPremium{
             'agent_id'=>$agent->id,
             'premium'=>0,        
             'period'=>$period->qty,
+            'promo_code'=>$promo_code, 
             // 'customer_id'=>0,
             'status'=>2,        
             ]);
@@ -162,8 +192,7 @@ class PAPremium implements IPAPremium{
             $risk = PARisk::create(['policy_id'=> $policy->id,                 
             'premium'=>0,                
             'plan_id' => $plan_id,
-            'period_id' => $period_id,
-            'promo_code' =>$promo_code]);  
+            'period_id' => $period_id]);  
         }
 
         
@@ -312,7 +341,7 @@ class PAPremium implements IPAPremium{
         ->where('id', '!=', $member_id)
         ->first();
         if ($member) {
-            $errors->put('insured_name', ['Duplicated insured person identity no!']);
+            $errors->put('insured_id', ['Duplicated insured person identity no!']);
         }
     return $errors->all();    
   }
@@ -348,7 +377,7 @@ class PAPremium implements IPAPremium{
         
     }
     else{
-        $member = Member::find($id);
+        $member = Member::find($member_id);
         $member->update(['insured_name' => $insured_name,
             'insured_id'=>$insured_id,
             'dob'=>$dob,

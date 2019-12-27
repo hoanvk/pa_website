@@ -127,4 +127,10 @@ Route::group(['prefix' => 'admin','middleware' => 'auth'], function () {
         'uses'=>'PeriodController@destroy'
     ]);
     //End Period  
+
+    //Begin Period
+    Route::get('patrans', [
+        'as'=>'patrans.index',
+        'uses'=>'PATranController@index'
+    ]);
 });

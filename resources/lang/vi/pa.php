@@ -21,5 +21,5 @@ return [
     'product'=>'Sản phẩm',
     'quotation_no'=>'Số báo giá',
     'policy_no'=>'Số hợp đồng',
-    
+    'cart'=>'Đơn của bạn',
 ];

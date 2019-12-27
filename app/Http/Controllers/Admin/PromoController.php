@@ -1,8 +1,8 @@
 <?php
 
 namespace App\Http\Controllers\Admin;
-use App\Product;
-use App\Promotion;
+use App\Models\Master\Product;
+use App\Models\Master\Promotion;
 use Illuminate\Http\Request;
 
 

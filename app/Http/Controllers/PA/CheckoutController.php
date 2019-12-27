@@ -51,7 +51,9 @@ class CheckoutController extends B2CPageController
             $msgType = 'success';
         }
         $message = $repository->getOnePayError($tranStatus);
-        
+
+        //Add session back to check useronline    
+        session(['policy_id' => $payment_log->policy_id]);
         return redirect()->route('pa.confirm',['policy_id'=>$payment_log->policy_id ])->with($msgType,$message);
     }
 }

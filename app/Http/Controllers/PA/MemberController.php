@@ -160,7 +160,7 @@ class MemberController extends B2CPageController
         $naty = Input::get('naty');
         $ownship = Input::get('ownship');
 
-        $errors = $repository->checkInsuredPerson($policy_id,0,$ownship,$insured_name,$insured_id,$dob,$gender,$naty);
+        $errors = $repository->checkInsuredPerson($policy_id,$id,$ownship,$insured_name,$insured_id,$dob,$gender,$naty);
         if (count($errors)>0) {
             
             throw ValidationException::withMessages($errors);

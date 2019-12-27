@@ -62,9 +62,9 @@
             </a>
             
         </li>
-        <li class="nav-item {{ request()->is('admin/agentplans*') ? 'active' : '' }}">
-            <a href="{{ route('agentplans.index')}}" class="nav-link">
-                <i class="fas fa-fw fa-table"></i>Agent Plan</a>
+        <li class="nav-item {{ request()->is('admin/patrans*') ? 'active' : '' }}">
+            <a href="{{ route('patrans.index')}}" class="nav-link">
+                <i class="fas fa-fw fa-table"></i>PA Transactions</a>
         
         </li>
       </ul>

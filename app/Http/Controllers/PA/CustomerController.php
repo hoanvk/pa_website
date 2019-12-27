@@ -116,10 +116,10 @@ class CustomerController extends B2CPageController
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(CustomerRequest $request, $policy_id, $id)
+    public function update(CustomerRequest $request, $policy_id, $id, IDateUtil $dateUtil, IPAPremium $repository)
     {
         //
-        $dob = DateUtil::parseDate(Input::get('dob'));
+        $dob = $dateUtil->parseDate(Input::get('dob'));
         
         $name = Input::get('name');
         $tgram = Input::get('tgram');
